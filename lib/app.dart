@@ -1,0 +1,126 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
+import 'package:traknav_app/ui/router/android.dart';
+
+//TODO: REMOVE
+class CounterCubit extends Cubit<int> {
+  CounterCubit() : super(0);
+
+  void increment() => emit(state + 1);
+  void decrement() => emit(state - 1);
+}
+
+class TrakNavApp extends StatefulWidget {
+  const TrakNavApp({Key? key}) : super(key: key);
+
+  @override
+  State<StatefulWidget> createState() => _TrakNavApp();
+}
+
+class _TrakNavApp extends State<TrakNavApp> {
+  final androidRouter = AndroidRouter();
+  //TODO: if it doesn't work move to widget variable
+  void configLoading(Color color) {
+    EasyLoading.instance
+      // ..indicatorWidget = const CupertinoActivityIndicator(
+      //   radius: 20,
+      // )
+      ..indicatorType = EasyLoadingIndicatorType.fadingCircle
+      ..displayDuration = const Duration(milliseconds: 2000)
+      ..loadingStyle = EasyLoadingStyle.custom
+      ..animationStyle = EasyLoadingAnimationStyle.opacity
+      ..maskType = EasyLoadingMaskType.black
+      ..indicatorSize = 20.0
+      ..radius = 700.0
+      ..boxShadow = <BoxShadow>[]
+      ..backgroundColor = Colors.transparent
+      ..indicatorColor = color
+      // ..maskColor = color.withOpacity(0.2)
+      ..userInteractions = false
+      ..textColor = Colors.black
+      ..dismissOnTap = false;
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    var brightness = SchedulerBinding.instance.window.platformBrightness;
+    if (brightness == Brightness.dark) {
+      configLoading(Colors.blueAccent);
+      // configLoading(primaryColorDark);
+    } else {
+      configLoading(Colors.blueAccent);
+      // configLoading(primaryColorLight);
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    //TODO: LINK USER INSTANCE???? check login and sign up myevents
+    // FirebaseAuth.instance.userChanges().listen((User? user) async {
+    //   if (user == null) {
+    //     androidRouter.pushAndPopUntil(const SignInRoute(),
+    //         predicate: (Route<dynamic> route) => false);
+    //   }
+    // });
+    //TODO: CHANGE FOR MULTIBLOC PROVIDER AND ADD BLOCS
+    return BlocProvider(
+      create: (_) => HomeCubit(),
+      child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+        return MaterialApp.router(
+          //TODO: Read state and change based on state change?
+          // state.lang == en ? en : spa
+          // locale: const Locale("mx"),
+          builder: EasyLoading.init(),
+          themeMode: state.isLightTheme ? ThemeMode.light : ThemeMode.dark,
+          routerConfig: androidRouter.config(),
+          //TODO: Move to separated files
+          theme: ThemeData(
+              textTheme: const TextTheme(
+                  headlineMedium: TextStyle(color: Colors.white)),
+              drawerTheme: const DrawerThemeData(
+                  backgroundColor: Colors.white,
+                  shape: ContinuousRectangleBorder(
+                      side: BorderSide(
+                          color: Color.fromRGBO(13, 71, 161, 1), width: 12))
+                  // endShape: LinearBorder(end: LinearBorderEdge(size: 0.8))
+                  )),
+          // theme: ThemeData.light(),
+          darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              canvasColor: Colors.black,
+              scaffoldBackgroundColor: Colors.black,
+              appBarTheme: const AppBarTheme(
+                  backgroundColor: Color.fromRGBO(13, 71, 161, 1)),
+              iconTheme: const IconThemeData(color: Colors.white),
+              textTheme: const TextTheme(
+                  bodyLarge: TextStyle(color: Colors.white),
+                  headlineMedium: TextStyle(color: Colors.white)),
+              drawerTheme: const DrawerThemeData(
+                  backgroundColor: Colors.black,
+                  shape: ContinuousRectangleBorder(
+                      side: BorderSide(
+                          color: Color.fromRGBO(13, 71, 161, 1), width: 10))
+                  // endShape: LinearBorder(end: LinearBorderEdge(size: 0.8))
+                  )),
+          // darkTheme: ThemeData.dark(),
+        );
+      }),
+    );
+    // final app = MaterialApp.router(routerConfig: androidRouter.config());
+    // return GestureDetector(
+    //   onTap: () {
+    //     FocusScopeNode currentFocus = FocusScope.of(context);
+    //     if (!currentFocus.hasPrimaryFocus &&
+    //         currentFocus.focusedChild != null) {
+    //       FocusManager.instance.primaryFocus?.unfocus();
+    //     }
+    //   },
+    //   child: app,
+    // );
+  }
+}

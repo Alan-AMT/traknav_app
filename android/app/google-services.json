@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1054784350912",
+    "project_id": "traknav-app",
+    "storage_bucket": "traknav-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1054784350912:android:e73fbe3bf4b31a65085b25",
+        "android_client_info": {
+          "package_name": "com.traknav.traknav_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDBFdBiMu2HT430ZbFyOsPPBMPsbG7mQM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

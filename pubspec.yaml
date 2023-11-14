@@ -75,6 +75,7 @@ flutter:
   assets:
       - assets/
       - assets/signin/
+      - assets/home/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

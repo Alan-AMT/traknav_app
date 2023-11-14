@@ -1,0 +1,22 @@
+{
+    "language": "English",
+"hOMETEXTS": "HOMETEXTS",
+    "homeSidemenuTitle": "Menu",
+    "homeScaffold": "TrakNav",
+    "homeSidemenuHome": "Home",
+    "homeSidemenuProfile": "My account",
+    "homeSidemenuFavs": "Favourites",
+    "homeSidemenuPlan": "Trip plan",
+    "homeSidemenuWeather": "Weather",
+    "homeSidemenuCustom": "Customization",
+    "homeSidemenuRecommendations": "Change recommendations",
+    "homeSidemenuLang": "Change language",
+    "homeSidemenuLangEs": "Spanish",
+    "homeSidemenuLangEn": "English",
+    "homeSidemenuTheme": "{theme_value} theme",
+    "homeSidemenuSupport": "Help and support",
+    "homeSidemenuQuestions": "FAQ",
+    "homeSidemenuGuide": "User guide",
+    "homeSidemenuAboutUs": "About us",
+    "homeSidemenuSignOut": "Sign out"
+}

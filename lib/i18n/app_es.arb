@@ -1,0 +1,84 @@
+{
+    "language": "Español",
+    "@language": {
+        "description": "Lenguaje por default"
+    },
+"hOMETEXTS": "HOMETEXTS",
+    "homeSidemenuTitle": "Menú",
+    "@homeSidemenuTitle": {
+        "description": "El titulo del menú de hamburguesa"
+    },
+    "homeScaffold": "TrakNav",
+    "@homeScaffold": {
+        "description": "El titulo del scaffold del home"
+    },
+    "homeSidemenuHome": "Inicio",
+    "@homeSidemenuHome": {
+        "description": "La opción de ir a pantalla inicial en el menú de hamburguesa"
+    },
+    "homeSidemenuProfile": "Mi cuenta",
+    "@homeSidemenuProfile": {
+        "description": "La opción de ir a mi cuenta en el menú de hamburguesa"
+    },
+    "homeSidemenuFavs": "Mis Favoritos",
+    "@homeSidemenuFavs": {
+        "description": "La opción de ir a mis favoritos en el menú de hamburguesa"
+    },
+    "homeSidemenuPlan": "Plan de viaje",
+    "@homeSidemenuPlan": {
+        "description": "La opción de ir a Plan de viaje en el menú de hamburguesa"
+    },
+    "homeSidemenuWeather": "Clima",
+    "@homeSidemenuWeather": {
+        "description": "La opción de ir a Clima en el menú de hamburguesa"
+    },
+    "homeSidemenuCustom": "Personalización",
+    "@homeSidemenuCustom": {
+        "description": "El subtitulo de la sección personalización el menú de hamburguesa"
+    },
+    "homeSidemenuRecommendations": "Modificar recomendaciones",
+    "@homeSidemenuRecommendations": {
+        "description": "La opción de modificar recomendaciones en el menú de hamburguesa"
+    },
+    "homeSidemenuLang": "Modificar idioma",
+    "@homeSidemenuLang": {
+        "description": "La opción de modificar idioma en el menú de hamburguesa"
+    },
+    "homeSidemenuLangEs": "Español",
+    "@homeSidemenuLangEs": {
+        "description": "La opción de modificar idioma a español en el menú de hamburguesa"
+    },
+    "homeSidemenuLangEn": "Inglés",
+    "@homeSidemenuLangEn": {
+        "description": "La opción de modificar idioma a inglés en el menú de hamburguesa"
+    },
+    "homeSidemenuTheme": "Modo {theme_value}",
+    "@homeSidemenuTheme": {
+        "description": "La opción de modificar el tema el menú de hamburguesa",
+        "placeholders": {
+            "theme_value": {
+              "type": "String"
+            }
+        }
+    },
+    "homeSidemenuSupport": "Ayuda y soporte",
+    "@homeSidemenuSupport": {
+        "description": "El subtitulo de soporte técnico en el menú de hamburguesa"
+    },
+    "homeSidemenuQuestions": "Preguntas frecuentes",
+    "@homeSidemenuQuestions": {
+        "description": "La opción de preguntas frecuentes en el menú de hamburguesa"
+    },
+    "homeSidemenuGuide": "Manual de usuario",
+    "@homeSidemenuGuide": {
+        "description": "La opción de manual de usuario en el menú de hamburguesa"
+    },
+    "homeSidemenuAboutUs": "Acerca de",
+    "@homeSidemenuAboutUs": {
+        "description": "La opción de acerca de en el menú de hamburguesa"
+    },
+    "homeSidemenuSignOut": "Cerrar sesión",
+    "@homeSidemenuSignOut": {
+        "description": "La opción de cerrar sesión en el menú de hamburguesa"
+    }
+}

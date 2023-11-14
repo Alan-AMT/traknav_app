@@ -5,14 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.dart';
-
-//TODO: REMOVE
-class CounterCubit extends Cubit<int> {
-  CounterCubit() : super(0);
-
-  void increment() => emit(state + 1);
-  void decrement() => emit(state - 1);
-}
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class TrakNavApp extends StatefulWidget {
   const TrakNavApp({Key? key}) : super(key: key);
@@ -23,7 +17,6 @@ class TrakNavApp extends StatefulWidget {
 
 class _TrakNavApp extends State<TrakNavApp> {
   final androidRouter = AndroidRouter();
-  //TODO: if it doesn't work move to widget variable
   void configLoading(Color color) {
     EasyLoading.instance
       // ..indicatorWidget = const CupertinoActivityIndicator(
@@ -67,14 +60,21 @@ class _TrakNavApp extends State<TrakNavApp> {
     //         predicate: (Route<dynamic> route) => false);
     //   }
     // });
-    //TODO: CHANGE FOR MULTIBLOC PROVIDER AND ADD BLOCS
     return BlocProvider(
       create: (_) => HomeCubit(),
       child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
         return MaterialApp.router(
-          //TODO: Read state and change based on state change?
-          // state.lang == en ? en : spa
-          // locale: const Locale("mx"),
+          supportedLocales: const [
+            Locale("en", "US"),
+            Locale("es", "ES"),
+          ],
+          locale: state.locale,
+          localizationsDelegates: const [
+            AppLocalizations.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
           builder: EasyLoading.init(),
           themeMode: state.isLightTheme ? ThemeMode.light : ThemeMode.dark,
           routerConfig: androidRouter.config(),
@@ -86,10 +86,7 @@ class _TrakNavApp extends State<TrakNavApp> {
                   backgroundColor: Colors.white,
                   shape: ContinuousRectangleBorder(
                       side: BorderSide(
-                          color: Color.fromRGBO(13, 71, 161, 1), width: 12))
-                  // endShape: LinearBorder(end: LinearBorderEdge(size: 0.8))
-                  )),
-          // theme: ThemeData.light(),
+                          color: Color.fromRGBO(13, 71, 161, 1), width: 12)))),
           darkTheme: ThemeData(
               brightness: Brightness.dark,
               canvasColor: Colors.black,
@@ -104,23 +101,9 @@ class _TrakNavApp extends State<TrakNavApp> {
                   backgroundColor: Colors.black,
                   shape: ContinuousRectangleBorder(
                       side: BorderSide(
-                          color: Color.fromRGBO(13, 71, 161, 1), width: 10))
-                  // endShape: LinearBorder(end: LinearBorderEdge(size: 0.8))
-                  )),
-          // darkTheme: ThemeData.dark(),
+                          color: Color.fromRGBO(13, 71, 161, 1), width: 10)))),
         );
       }),
     );
-    // final app = MaterialApp.router(routerConfig: androidRouter.config());
-    // return GestureDetector(
-    //   onTap: () {
-    //     FocusScopeNode currentFocus = FocusScope.of(context);
-    //     if (!currentFocus.hasPrimaryFocus &&
-    //         currentFocus.focusedChild != null) {
-    //       FocusManager.instance.primaryFocus?.unfocus();
-    //     }
-    //   },
-    //   child: app,
-    // );
   }
 }

@@ -80,5 +80,87 @@
     "homeSidemenuSignOut": "Cerrar sesión",
     "@homeSidemenuSignOut": {
         "description": "La opción de cerrar sesión en el menú de hamburguesa"
+    },
+"sIGNINTEXTS": "sIGNINTEXTS",
+    "signinWelcome": "Bienvenido a ",
+    "@signinWelcome": {
+        "description": "El titulo de formulario de registro e inicio"
+    },
+    "signinAppTitle": "TRAKNAV",
+    "@signinAppTitle": {
+        "description": "Titulo de la app en el formulario de registro e inicio"
+    },
+    "signinTapTitle": "Iniciar Sesión",
+    "@signinAppTitle": {
+        "description": "Titulo de la opción iniciar sesión en el formulario de registro e inicio"
+    },
+    "signupTapTitle": "Registrarse",
+    "@signupTapTitle": {
+        "description": "Titulo de la opción registrarse en el formulario de registro e inicio"
+    },
+    "signinForgotPass": "¿Olvidaste tu contraseña?",
+    "@signinForgotPass": {
+        "description": "Titulo botón olvidar contraseña en el formulario de registro e inicio"
+    },
+    "formEmail": "Correo Electrónico",
+    "@formEmail": {
+        "description": "Pista de introducir correo en el formulario de inicio sesión y registro"
+    },
+    "formPassword": "Contraseña",
+    "@formPassword": {
+        "description": "Pista de introducir contraseña en el formulario de inicio sesión y registro"
+    },
+    "formName": "Nombre",
+    "@formName": {
+        "description": "Pista de introducir nombre en el formulario de inicio sesión y registro"
+    },
+    "formPhone": "Teléfono",
+    "@formPhone": {
+        "description": "Pista de introducir teléfono en el formulario de inicio sesión y registro"
+    },
+    "formSecureQuestion1": "¿A que primario fuiste?",
+    "@formSecureQuestion1": {
+        "description": "Pista de introducir pregunta seguridad 1 en el formulario de inicio sesión y registro"
+    },
+    "formSecureQuestion2": "¿En qué ciudad vives?",
+    "@formSecureQuestion2": {
+        "description": "Pista de introducir pregunta seguridad 2 en el formulario de inicio sesión y registro"
+    },
+"rECOMMENDATIONSTEXTS": "rECOMMENDATIONSTEXTS",
+    "recPopular": "Sitios populares",
+    "@recPopular": {
+        "description": "Opción de sitios populares en recomendaciones"
+    },
+    "recMuseum": "Museos",
+    "@recMuseum": {
+        "description": "Opción de museos en recomendaciones"
+    },
+    "recRestaurants": "Restaurantes",
+    "@recRestaurants": {
+        "description": "Opción de restaurantes en recomendaciones"
+    },
+    "recLocalCommerce": "Comercio local",
+    "@recLocalCommerce": {
+        "description": "Opción de comercio local en recomendaciones"
+    },
+    "recHistorical": "Patrimonio histórico",
+    "@recHistorical": {
+        "description": "Opción de Patrimonio histórico en recomendaciones"
+    },
+    "recLodgment": "Hospedaje",
+    "@recLodgment": {
+        "description": "Opción de hospedaje en recomendaciones"
+    },
+    "recParks": "Parques",
+    "@recParks": {
+        "description": "Opción de parques en recomendaciones"
+    },
+    "recGuided": "Visitas guiadas",
+    "@recGuided": {
+        "description": "Opción de visitas guiadas en recomendaciones"
+    },
+    "buttonSave": "Guardar",
+    "@buttonSave": {
+        "description": "Texto del botón guardar recomendaciones"
     }
 }

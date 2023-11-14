@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 class SidebarMenu extends StatefulWidget {
   const SidebarMenu({Key? key}) : super(key: key);
@@ -166,12 +168,16 @@ class _SidebarMenu extends State<SidebarMenu> {
                     overflow: TextOverflow.fade,
                   )),
               ListTile(
-                  leading: const Icon(Icons.login_outlined),
-                  title: Text(
-                    AppLocalizations.of(context)!.homeSidemenuSignOut,
-                    maxLines: 3,
-                    overflow: TextOverflow.fade,
-                  )),
+                leading: const Icon(Icons.login_outlined),
+                title: Text(
+                  AppLocalizations.of(context)!.homeSidemenuSignOut,
+                  maxLines: 3,
+                  overflow: TextOverflow.fade,
+                ),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const SignInRoute());
+                },
+              ),
             ]),
           )
         ]),

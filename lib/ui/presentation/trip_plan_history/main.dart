@@ -74,21 +74,30 @@ class HistoryListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Card(
-      margin: EdgeInsets.all(8.0),
+      margin: const EdgeInsets.all(8.0),
       elevation: 4.0,
       child: Padding(
-        padding: EdgeInsets.all(16.0),
+        padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(title, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            SizedBox(height: 8),
-            Text(date, style: TextStyle(fontSize: 16, color: Colors.grey)),
-            SizedBox(height: 8),
-            Text(route, style: TextStyle(fontSize: 16)),
+            // Asumiendo que la imagen del mapa es un activo local, la incluimos aquí.
+            // Reemplaza 'assets/path_to_map_image.png' con la ruta correcta de tu imagen.
+            Image.asset(
+              'assets/TravelPlan/rutaejem.png',
+              width: double.infinity, // Ajusta la imagen a la anchura del contenedor.
+              height: 150, // Altura fija para la imagen.
+              fit: BoxFit.cover, // Ajusta la imagen al espacio disponible.
+            ),
+            const SizedBox(height: 8),
+            Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            const SizedBox(height: 8),
+            Text(date, style: const TextStyle(fontSize: 16, color: Colors.grey)),
+            const SizedBox(height: 8),
+            Text(route, style: const TextStyle(fontSize: 16)),
             if (completed) ...[
-              SizedBox(height: 8),
-              Icon(Icons.check_circle, color: Colors.green),
+              const SizedBox(height: 8),
+              const Icon(Icons.check_circle, color: Colors.green),
             ],
           ],
         ),

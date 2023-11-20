@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 
-
 import 'android.gr.dart';
 
 @AutoRouterConfig()
@@ -12,6 +11,8 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: RecommendationsRoute.page),
         AutoRoute(page: TripPlanRoute.page),
         AutoRoute(page: CreateTripPlanRoute.page),
+        AutoRoute(page: MyProfileRoute.page),
+        AutoRoute(page: SearchPlacesRoute.page),
         // AutoRoute(page: SignUpRoute.page),
       ];
 }

@@ -1,4 +1,6 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 class ToolsWidget extends StatelessWidget {
   const ToolsWidget({super.key});
@@ -15,13 +17,20 @@ class ToolsWidget extends StatelessWidget {
             left: 25.0,
             right: 25.0,
           ),
-          itemBuilder: (BuildContext contextm, int index) {
-            return Padding(
-              padding: EdgeInsets.only(
-                left: 10.0,
-                right: 10.0,
-                top: 13.0,
-              ),
+          itemBuilder: (BuildContext context, int index) {
+            return GestureDetector(
+                onTap: () {
+              if (listTools[index].text == 'Plan Viaje') {
+                // Navega a la pantalla de Plan de Viaje
+                context.router.push(TripPlanRoute());
+              }
+            },
+            child: Padding(
+            padding: EdgeInsets.only(
+            left: 10.0,
+            right: 10.0,
+            top: 13.0,
+            ),
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
@@ -49,6 +58,7 @@ class ToolsWidget extends StatelessWidget {
                   ),
                 ],
               ),
+            ),
             );
           },
         ));

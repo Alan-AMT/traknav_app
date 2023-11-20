@@ -45,6 +45,7 @@ dependencies:
   intl: any
   flutter_localizations:
     sdk: flutter
+  google_maps_webservice: ^0.0.19
 
 dev_dependencies:
   flutter_test:
@@ -76,6 +77,7 @@ flutter:
       - assets/
       - assets/signin/
       - assets/home/
+      - assets/TravelPlan/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

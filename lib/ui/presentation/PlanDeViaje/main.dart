@@ -112,7 +112,10 @@ class TripPlanPage extends StatelessWidget {
             color: Colors.white,
             child: Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: (
+                    ) {
+                  AutoRouter.of(context).navigate(const TripPlanHistoryRoute());
+                },
                 style: TextButton.styleFrom(
                     backgroundColor: const Color(0xff0098FA),
                     shape: const StadiumBorder()),

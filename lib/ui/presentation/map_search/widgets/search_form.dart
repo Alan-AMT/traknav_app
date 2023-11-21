@@ -24,12 +24,10 @@ class _SearchForm extends State<SearchForm> {
             inputDecoration: const InputDecoration(
               suffixIcon: Icon(
                 Icons.search,
-                color: Colors.white,
                 size: 35,
               ),
               border: InputBorder.none,
               hintStyle: TextStyle(
-                color: Colors.white,
                 fontSize: 18.0,
               ),
               hintText: 'Hola, ¿A dónde vamos?',

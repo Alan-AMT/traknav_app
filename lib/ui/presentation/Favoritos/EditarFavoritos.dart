@@ -6,9 +6,9 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 // Se define la clase Favoritos que hereda de StatelessWidget
 @RoutePage()
-class FavoritosPage extends StatelessWidget {
+class EditarFavoritosPage extends StatelessWidget {
   //const FavoritosPage({super.key});
-  const FavoritosPage({Key? key}) : super(key: key);
+  const EditarFavoritosPage({Key? key}) : super(key: key);
   // Se sobreescribe el método build que retorna un widget
   @override
   Widget build(BuildContext context) {
@@ -24,7 +24,7 @@ class FavoritosPage extends StatelessWidget {
           color: Colors.black,
           // Se define la acción que se ejecuta al presionar el botón
           onPressed: () {
-            AutoRouter.of(context).navigate(const HomeRoute());
+            AutoRouter.of(context).navigate(const FavoritosRoute());
             // Aquí se puede usar el método Navigator.pop para volver a la pantalla anterior
           },
         ),
@@ -97,7 +97,23 @@ class FavoritosPage extends StatelessWidget {
                                 ),
                               ),
                           ),
-                          MyButton(),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                            // Lógica para compartir algo
+                            },
+                            icon: const Icon(
+                              Icons.check_box_outline_blank, // Icono de compartir
+                              size: 24.0,
+                            ),
+                            label: const Text(' '), // Texto al lado del icono
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue, // Color de fondo del botón
+                              foregroundColor: Colors.white, // Color de texto del botón
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0), // Forma redondeada del botón
+                              ),
+                            ),
+                          ),
                         
                           ], 
                         ),
@@ -110,7 +126,7 @@ class FavoritosPage extends StatelessWidget {
             height: 20,
             //width: 100,
           ),
-
+          
           Container(
             // Se usa el widget BoxDecoration para darle estilo al rectángulo
             decoration: BoxDecoration(
@@ -159,8 +175,24 @@ class FavoritosPage extends StatelessWidget {
                                 ),
                               ),
                           ),
-                          
-                          MyButton(),
+                          ElevatedButton.icon(
+                            onPressed: () {
+                            // Lógica para compartir algo
+                            },
+                            icon: const Icon(
+                              Icons.check_box_outline_blank, // Icono de compartir
+                              size: 24.0,
+                            ),
+                            label: const Text(' '), // Texto al lado del icono
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.blue, // Color de fondo del botón
+                              foregroundColor: Colors.white, // Color de texto del botón
+                              shape: RoundedRectangleBorder(
+                                borderRadius: BorderRadius.circular(20.0), // Forma redondeada del botón
+                              ),
+                            ),
+                          ),
+                        
                           ], 
                         ),
                     
@@ -189,11 +221,10 @@ class FavoritosPage extends StatelessWidget {
               ),
               // Se define la acción que se ejecuta al presionar el botón
               onPressed: () {
-                AutoRouter.of(context).navigate(const EditarFavoritosRoute());
                 // Aquí se puede usar el método Navigator.push para ir a otra pantalla
               },
               child: const Text(
-                'Editar sitios',
+                'Eliminar Sitios',
                 // Se usa el estilo TextStyle para darle formato al texto
                 style: TextStyle(
                   // Se usa el color negro para el texto
@@ -207,67 +238,6 @@ class FavoritosPage extends StatelessWidget {
           ),
         ],
       ),
-    );
-  }
-}
-
-class MyButton extends StatefulWidget {
-  @override
-  _MyButtonState createState() => _MyButtonState();
-  
-}
-
-class _MyButtonState extends State<MyButton> {
-  
-  bool _showMenu = false;
-
-  void _toggleMenu() {
-    setState(() {
-      _showMenu = !_showMenu;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton.icon(
-          onPressed: _toggleMenu,
-          label: const Text('Compartir'), 
-          icon: const Icon(
-                              Icons.share, // Icono de compartir
-                              size: 24.0,
-                            ),
-          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue, // Color de fondo del botón
-                              foregroundColor: Colors.white, // Color de texto del botón
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0), // Forma redondeada del botón
-                              ),
-                            ),
-          //child: const Text('Compartir'),
-        ),
-        
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          height: _showMenu ? MediaQuery.of(context).size.height / 6 : 0,
-          child: _showMenu
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(Icons.link),
-                    Image.asset('assets/favoritos/facebook.jpg', 
-                      width: MediaQuery.of(context).size.width * 0.1,),
-                    Image.asset('assets/favoritos/whatsapp.png', 
-                      width: MediaQuery.of(context).size.width * 0.1,),
-                    Image.asset('assets/favoritos/instagram.png', 
-                      width: MediaQuery.of(context).size.width * 0.1,),
-                  ],
-                )
-              : null,
-        ),
-      ],
     );
   }
 }

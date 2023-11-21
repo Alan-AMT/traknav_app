@@ -76,6 +76,7 @@ flutter:
       - assets/
       - assets/signin/
       - assets/home/
+      - assets/TravelPlan/
       - assets/FAQs/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg

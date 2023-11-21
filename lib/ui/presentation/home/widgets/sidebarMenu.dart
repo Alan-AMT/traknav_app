@@ -149,12 +149,16 @@ class _SidebarMenu extends State<SidebarMenu> {
                   child:
                       Text(AppLocalizations.of(context)!.homeSidemenuSupport)),
               ListTile(
-                  leading: const Icon(Icons.help),
-                  title: Text(
-                    AppLocalizations.of(context)!.homeSidemenuQuestions,
-                    maxLines: 3,
-                    overflow: TextOverflow.fade,
-                  )),
+                leading: const Icon(Icons.help),
+                title: Text(
+                  AppLocalizations.of(context)!.homeSidemenuQuestions,
+                  maxLines: 3,
+                  overflow: TextOverflow.fade,
+                ),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const FAQsRoute());
+                },
+              ),
               const Divider(height: 25, thickness: 3),
               ListTile(
                   leading: const Icon(Icons.book),

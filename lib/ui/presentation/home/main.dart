@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 @RoutePage()
 class HomePage extends StatefulWidget {
@@ -28,7 +29,9 @@ class _HomePage extends State<HomePage> {
                     icon: const Icon(
                       Icons.account_circle_sharp,
                     ),
-                    onPressed: () {},
+                    onPressed: () {
+                      AutoRouter.of(context).navigate(const MyProfileRoute());
+                    },
                   )),
             ],
           ),

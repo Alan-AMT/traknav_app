@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:traknav_app/ui/presentation/Favoritos/main.dart';
 
 import 'android.gr.dart';
 
@@ -11,9 +12,11 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: RecommendationsRoute.page),
         AutoRoute(page: TripPlanRoute.page),
         AutoRoute(page: CreateTripPlanRoute.page),
+        AutoRoute(page: FavoritosRoute.page),
         AutoRoute(page: MyProfileRoute.page),
         AutoRoute(page: SearchPlacesRoute.page),
         AutoRoute(page: AcercaDe.page),
         // AutoRoute(page: SignUpRoute.page),
       ];
 }
+

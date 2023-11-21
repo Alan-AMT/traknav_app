@@ -17,6 +17,8 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: TripPlanListRoute.page),
 
         AutoRoute(page: FavoritosRoute.page),
+
+        AutoRoute(page: EditarFavoritosRoute.page),
         AutoRoute(page: MyProfileRoute.page),
         AutoRoute(page: SearchPlacesRoute.page),
         AutoRoute(page: AcercaDe.page),

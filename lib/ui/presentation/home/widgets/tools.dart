@@ -8,9 +8,8 @@ class ToolsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Expanded(
-      flex: 6,
-      child: Stack(
-        children: [
+        flex: 6,
+        child: Stack(children: [
           Positioned(
             top: 5,
             left: 0,
@@ -28,65 +27,81 @@ class ToolsWidget extends StatelessWidget {
               ),
             ),
           ),
-          itemBuilder: (BuildContext context, int index) {
-            return GestureDetector(
-                onTap: () {
-              if (listTools[index].text == 'Plan Viaje') {
-                // Navega a la ruta deseada
-                context.router.push(TripPlanRoute());
-              }
-            },
-            child: Padding(
-            padding: const EdgeInsets.only(left: 10.0, right: 10.0, top: 13.0),
-              child: Column(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Container(
-                    padding: EdgeInsets.all(10.0),
-                    height: 65.0,
-                    width: 65.0,
-                    child: Image.asset('assets/home/Tool_${index + 1}.png'),
-                    decoration: BoxDecoration(
-                      color: listTools[index].color,
-                      borderRadius: BorderRadius.circular(18.0),
-                      boxShadow: listTools[index].boxShadow,
+          Positioned.fill(
+              //lo ponemos hasta
+              top: 25.0,
+              left: 50,
+              child: ListView.builder(
+                shrinkWrap: true,
+                scrollDirection: Axis.horizontal,
+                itemCount: listTools.length,
+                padding: EdgeInsets.only(
+                  left: 25.0,
+                  right: 25.0,
+                ),
+                itemBuilder: (BuildContext context, int index) {
+                  return GestureDetector(
+                    onTap: () {
+                      if (listTools[index].text == 'Plan Viaje') {
+                        // Navega a la ruta deseada
+                        context.router.push(TripPlanRoute());
+                      }
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                          left: 10.0, right: 10.0, top: 13.0),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Container(
+                            padding: EdgeInsets.all(10.0),
+                            height: 65.0,
+                            width: 65.0,
+                            child: Image.asset(
+                                'assets/home/Tool_${index + 1}.png'),
+                            decoration: BoxDecoration(
+                              color: listTools[index].color,
+                              borderRadius: BorderRadius.circular(18.0),
+                              boxShadow: listTools[index].boxShadow,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 15.0,
+                            child: Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Container(
+                                  padding: EdgeInsets.all(10.0),
+                                  height: 65.0,
+                                  width: 65.0,
+                                  child: Image.asset(
+                                      'assets/home/Tool_${index + 1}.png'),
+                                  decoration: BoxDecoration(
+                                    color: listTools[index].color,
+                                    borderRadius: BorderRadius.circular(18.0),
+                                    boxShadow: listTools[index].boxShadow,
+                                  ),
+                                ),
+                                SizedBox(
+                                  height: 15.0,
+                                ),
+                                Text(
+                                  listTools[index].text,
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 15.0,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          )
+                        ],
+                      ),
                     ),
-                  ),
-                  SizedBox(
-                    height: 15.0,
-                  ),
-                  child: Column(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Container(
-                        padding: EdgeInsets.all(10.0),
-                        height: 65.0,
-                        width: 65.0,
-                        child: Image.asset('assets/home/Tool_${index + 1}.png'),
-                        decoration: BoxDecoration(
-                          color: listTools[index].color,
-                          borderRadius: BorderRadius.circular(18.0),
-                          boxShadow: listTools[index].boxShadow,
-                        ),
-                      ),
-                      SizedBox(
-                        height: 15.0,
-                      ),
-                      Text(
-                        listTools[index].text,
-                        style: TextStyle(
-                          color: Colors.black,
-                          fontSize: 15.0,
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-            );
-          },
-        ));
+                  );
+                },
+              ))
+        ]));
   }
 }
 

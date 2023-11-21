@@ -48,6 +48,9 @@ class _SidebarMenu extends State<SidebarMenu> {
               ListTile(
                 leading: const Icon(Icons.flight),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuPlan),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const TripPlanRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.cloud),
@@ -166,7 +169,10 @@ class _SidebarMenu extends State<SidebarMenu> {
                     AppLocalizations.of(context)!.homeSidemenuAboutUs,
                     maxLines: 3,
                     overflow: TextOverflow.fade,
-                  )),
+                  ),
+                  onTap: () {
+                    AutoRouter.of(context).navigate(const AcercaDe());
+                  }),
               ListTile(
                 leading: const Icon(Icons.login_outlined),
                 title: Text(

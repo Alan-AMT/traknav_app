@@ -35,7 +35,7 @@ class AdviceWidget extends StatelessWidget {
           right: 95,
           top: 50,
           child: Image(
-            image: AssetImage('assets/images/R_5-modified.png'),
+            image: AssetImage('assets/home/R_5-modified.png'),
             //hacemos circular la imagen
             width: 25.0,
             height: 45.0,
@@ -45,7 +45,7 @@ class AdviceWidget extends StatelessWidget {
           right: 35,
           top: 15,
           child: Image(
-            image: AssetImage('assets/images/R_3-modified.png'),
+            image: AssetImage('assets/home/R_3-modified.png'),
             //hacemos circular la imagen
             width: 35.0,
             height: 45.0,
@@ -55,7 +55,7 @@ class AdviceWidget extends StatelessWidget {
           right: 60,
           top: 90,
           child: Image(
-            image: AssetImage('assets/images/R_4-modified.png'),
+            image: AssetImage('assets/home/R_4-modified.png'),
             //hacemos circular la imagen
             width: 19.0,
             height: 29.0,
@@ -65,7 +65,7 @@ class AdviceWidget extends StatelessWidget {
           right: 35,
           top: 67,
           child: Image(
-            image: AssetImage('assets/images/Cwhite.png'),
+            image: AssetImage('assets/home/Cwhite.png'),
             //hacemos circular la imagen
             width: 15.0,
             height: 35.0,
@@ -75,7 +75,7 @@ class AdviceWidget extends StatelessWidget {
           right: 90,
           top: 85,
           child: Image(
-            image: AssetImage('assets/images/Cwhite.png'),
+            image: AssetImage('assets/home/Cwhite.png'),
             //hacemos circular la imagen
             width: 20.0,
             height: 35.0,
@@ -85,7 +85,7 @@ class AdviceWidget extends StatelessWidget {
           right: 90,
           top: 15,
           child: Image(
-            image: AssetImage('assets/images/Cwhite.png'),
+            image: AssetImage('assets/home/Cwhite.png'),
             //hacemos circular la imagen
             width: 20.0,
             height: 35.0,

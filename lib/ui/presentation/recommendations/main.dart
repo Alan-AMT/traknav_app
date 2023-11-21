@@ -120,7 +120,10 @@ class RecommendationsPage extends StatelessWidget {
                         }, 
                         child: Image.asset('assets/${opciones[index].foto}', 
                                 width: 100), ), 
-                        Text( opciones[index].nombre, style: TextStyle(color: Colors.black,), ) ], )
+                        Text( opciones[index].nombre, style: TextStyle(color: Colors.black,), 
+                        ) 
+                        ], 
+                        )
                         );
                   }))),
           Row(

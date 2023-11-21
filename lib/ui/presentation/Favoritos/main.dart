@@ -66,7 +66,7 @@ class FavoritosPage extends StatelessWidget {
               children: [
                 Image.asset(
                   // Se usa el nombre del archivo de la imagen que se quiere mostrar
-                  'assets/imagen.jpg',
+                  'assets/Hospedaje.jpg',
                   // Se usa el widget BoxFit.cover para que la imagen cubra todo el espacio disponible
                   fit: BoxFit.cover,
                 ),

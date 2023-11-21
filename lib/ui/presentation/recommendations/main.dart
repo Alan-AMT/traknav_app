@@ -34,8 +34,62 @@ class RecommendationsPage extends StatelessWidget {
     ];
     return Scaffold(
         backgroundColor:
-            const Color.fromARGB(255, 58, 172, 255), //rgb(58, 172, 255).
-        body: Column(children: [
+            const Color.fromARGB(255, 255, 255, 255), //rgb(58, 172, 255).
+        appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+        
+            title: 
+            //const Padding(
+              //padding: EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),child: 
+              Text('¡Hola!', style: TextStyle(
+                  color: Colors.black, // Establece el color de texto deseado
+                ),
+              ),
+            
+          bottom: const PreferredSize(
+            preferredSize: Size.fromHeight(30.0),
+            child: Center(
+             child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Padding(
+                    //padding: EdgeInsets.only(all: 8.0),
+                    padding: EdgeInsets.fromLTRB(38.0, 0.0, 38.0, 4.0),
+                    child: Text(
+                      'Para personalizar tus recomendaciones de manera óptima, ¡cuéntanos un poco sobre tus gustos e intereses en viajes!',
+                      style: TextStyle(fontSize: 15.0, fontWeight: FontWeight.bold, color: Colors.black,
+                      
+                    ),
+                  ),
+                  ),
+                /*TextButton(
+                  onPressed: () {
+                  // Aquí se define la acción que se ejecuta al presionar el botón de omitir
+                },
+                child: Text('Omitir', style: TextStyle(fontWeight: FontWeight.bold, decoration: TextDecoration.underline)),
+                style: TextButton.styleFrom(
+                  backgroundColor: Colors.white,
+                ),
+              ),*/
+                ],
+              ),
+          ),
+        ),
+        ),
+        body: 
+        Center(
+        child:
+        Container(
+          width: MediaQuery.of(context).size.width * 0.8,
+        height: MediaQuery.of(context).size.height * 0.83,
+        decoration: BoxDecoration(
+          color: const Color.fromARGB(255, 58, 172, 255),
+            
+          borderRadius: BorderRadius.circular(20),
+        ),
+        child:
+         Column(children: [
           Expanded(
               child: GridView.builder(
                   itemCount: opciones.length,
@@ -45,35 +99,73 @@ class RecommendationsPage extends StatelessWidget {
                     return Container(
                         margin: const EdgeInsets.all(10),
                         decoration: BoxDecoration(
-                            color: const Color.fromARGB(
-                                255, 0, 187, 164), //rgb(0, 187, 164).
+                            color: const Color.fromARGB(180, 230, 230, 230), //rgb(0, 187, 164).
                             borderRadius: BorderRadius.circular(10)),
-                        child: Column(
+                        child: /*Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Image.asset("assets/${opciones[index].foto}",
                                 width: 100),
-                            Text(opciones[index].nombre)
+                            Text(
+                              opciones[index].nombre,
+                              style: TextStyle(color: Colors.black,),
+                            )
                           ],
-                        ));
+                        )*/
+                        Column( 
+                        mainAxisAlignment: MainAxisAlignment.center, 
+                        children: [ 
+                        InkWell( onTap: () { 
+                          // Aquí se define la acción que se ejecuta al presionar el botón 
+                        }, 
+                        child: Image.asset('assets/${opciones[index].foto}', 
+                                width: 100), ), 
+                        Text( opciones[index].nombre, style: TextStyle(color: Colors.black,), 
+                        ) 
+                        ], 
+                        )
+                        );
                   }))),
           Row(
             children: [
-              Expanded(
-                  child: ElevatedButton(
+              Expanded(flex : 5, child:
+              
+              
+              Text('0/3 seleccionados',
+                    style: TextStyle(
+                        color: Colors.black,
+                        fontSize:
+                            Theme.of(context).textTheme.titleLarge!.fontSize)),
+              //Expanded(child: 
+              ),
+              Expanded(flex : 4, child:
+              ElevatedButton(
+                
                 onPressed: () {
                   AutoRouter.of(context).navigate(const HomeRoute());
                 },
-                style: const ButtonStyle(
-                    backgroundColor: MaterialStatePropertyAll(Colors.white)),
-                child: Text(AppLocalizations.of(context)!.buttonSave,
+                style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.all(Colors.blue),
+                shape: MaterialStateProperty.all(RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
+                ))),
+                child: Text('Siguiente',
                     style: TextStyle(
-                        color: const Color.fromARGB(255, 58, 172, 255),
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold,
                         fontSize:
                             Theme.of(context).textTheme.titleLarge!.fontSize)),
-              ))
+              )
+              ),
+
+             //)
             ],
           )
-        ]));
+        ]
+        )
+        ),
+        ),
+        
+      );
   }
 }

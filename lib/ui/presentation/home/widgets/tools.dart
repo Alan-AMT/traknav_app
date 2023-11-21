@@ -3,19 +3,30 @@ import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 
 class ToolsWidget extends StatelessWidget {
-  const ToolsWidget({super.key});
+  const ToolsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Expanded(
-        flex: 4,
-        child: ListView.builder(
-          shrinkWrap: true,
-          scrollDirection: Axis.horizontal,
-          itemCount: listTools.length,
-          padding: EdgeInsets.only(
-            left: 25.0,
-            right: 25.0,
+      flex: 6,
+      child: Stack(
+        children: [
+          Positioned(
+            top: 5,
+            left: 0,
+            right: 0,
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 16.0),
+              color: const Color.fromARGB(
+                  255, 255, 255, 255), // Puedes ajustar el color del fondo
+              child: Text(
+                'Herramientas',
+                style: TextStyle(
+                  color: const Color.fromARGB(255, 0, 0, 0),
+                  fontSize: 20.0,
+                ),
+              ),
+            ),
           ),
           itemBuilder: (BuildContext context, int index) {
             return GestureDetector(
@@ -44,13 +55,31 @@ class ToolsWidget extends StatelessWidget {
                   SizedBox(
                     height: 15.0,
                   ),
-                  Text(
-                    listTools[index].text,
-                    style: TextStyle(
-                      color: Colors.black,
-                      fontSize: 18.0,
-                      fontWeight: FontWeight.w600,
-                    ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Container(
+                        padding: EdgeInsets.all(10.0),
+                        height: 65.0,
+                        width: 65.0,
+                        child: Image.asset('assets/home/Tool_${index + 1}.png'),
+                        decoration: BoxDecoration(
+                          color: listTools[index].color,
+                          borderRadius: BorderRadius.circular(18.0),
+                          boxShadow: listTools[index].boxShadow,
+                        ),
+                      ),
+                      SizedBox(
+                        height: 15.0,
+                      ),
+                      Text(
+                        listTools[index].text,
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontSize: 15.0,
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),

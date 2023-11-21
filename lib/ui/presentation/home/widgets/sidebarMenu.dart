@@ -48,6 +48,9 @@ class _SidebarMenu extends State<SidebarMenu> {
               ListTile(
                 leading: const Icon(Icons.flight),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuPlan),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const TripPlanRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.cloud),
@@ -146,12 +149,16 @@ class _SidebarMenu extends State<SidebarMenu> {
                   child:
                       Text(AppLocalizations.of(context)!.homeSidemenuSupport)),
               ListTile(
-                  leading: const Icon(Icons.help),
-                  title: Text(
-                    AppLocalizations.of(context)!.homeSidemenuQuestions,
-                    maxLines: 3,
-                    overflow: TextOverflow.fade,
-                  )),
+                leading: const Icon(Icons.help),
+                title: Text(
+                  AppLocalizations.of(context)!.homeSidemenuQuestions,
+                  maxLines: 3,
+                  overflow: TextOverflow.fade,
+                ),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const FAQsRoute());
+                },
+              ),
               const Divider(height: 25, thickness: 3),
               ListTile(
                   leading: const Icon(Icons.book),
@@ -166,7 +173,10 @@ class _SidebarMenu extends State<SidebarMenu> {
                     AppLocalizations.of(context)!.homeSidemenuAboutUs,
                     maxLines: 3,
                     overflow: TextOverflow.fade,
-                  )),
+                  ),
+                  onTap: () {
+                    AutoRouter.of(context).navigate(const AcercaDe());
+                  }),
               ListTile(
                 leading: const Icon(Icons.login_outlined),
                 title: Text(

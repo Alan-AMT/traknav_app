@@ -1,11 +1,6 @@
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:google_places_flutter/model/prediction.dart';
-import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:traknav_app/ui/presentation/home/widgets/searchBar.dart';
-import 'package:traknav_app/ui/core/data/map_search.dart' as locations;
 
 class SearchForm extends StatefulWidget {
   const SearchForm({super.key});
@@ -42,22 +37,19 @@ class _SearchForm extends State<SearchForm> {
             debounceTime: 600,
             isLatLngRequired: true,
             getPlaceDetailWithLatLng: (Prediction prediction) {
-              print("*****************************");
-              // print("placeDetails" + prediction.lat.toString());
-              print("*****************************");
+              print("______________________");
+              print("placeDetails" + prediction.lng.toString());
+            },
+            itemClick: (Prediction prediction) {
+              print("______________________");
+              print("placeDetails" + prediction.lng.toString());
               controller.text = prediction.description ?? "";
               controller.selection = TextSelection.fromPosition(
                   TextPosition(offset: prediction.description?.length ?? 0));
             },
-            itemClick: (Prediction prediction) {
-              // controller.text = prediction.description ?? "";
-              // controller.selection = TextSelection.fromPosition(
-              //     TextPosition(offset: prediction.description?.length ?? 0));
-            },
             seperatedBuilder: const Divider(thickness: 2),
             itemBuilder: (context, index, Prediction prediction) {
               final info = prediction.structuredFormatting;
-              // print("${prediction.toJson()}");
               return ListTile(
                   title: Text("${info?.mainText}"),
                   subtitle: Text("${info?.secondaryText}"),

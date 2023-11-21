@@ -9,6 +9,12 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: HomeRoute.page, initial: true),
         AutoRoute(page: SignInRoute.page),
         AutoRoute(page: RecommendationsRoute.page),
+        AutoRoute(page: FAQsRoute.page),
+        AutoRoute(page: CuerpoRoute.page),
+        AutoRoute(page: PerfilUsuarioRoute.page),
+        AutoRoute(page: InformacionGeneralRoute.page),
+        AutoRoute(page: ProblemasTecnicosRoute.page),
+        AutoRoute(page: PoliticasRoute.page),
         // AutoRoute(page: SignUpRoute.page),
       ];
 }

@@ -85,6 +85,7 @@ flutter:
       - assets/
       - assets/signin/
       - assets/home/
+      - assets/TravelPlan/
       - assets/FAQs/
       - assets/TravelPlan/
   #   - images/a_dot_burr.jpeg

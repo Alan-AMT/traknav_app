@@ -35,11 +35,9 @@ class _SearchForm extends State<SearchForm> {
             debounceTime: 600,
             isLatLngRequired: true,
             getPlaceDetailWithLatLng: (Prediction prediction) {
-              print("______________________");
               print("placeDetails" + prediction.lng.toString());
             },
             itemClick: (Prediction prediction) {
-              print("______________________");
               print("placeDetails" + prediction.lng.toString());
               controller.text = prediction.description ?? "";
               controller.selection = TextSelection.fromPosition(
@@ -53,7 +51,11 @@ class _SearchForm extends State<SearchForm> {
                   subtitle: Text("${info?.secondaryText}"),
                   isThreeLine: true,
                   onTap: () {
-                    Navigator.pop(context, prediction.placeId);
+                    Navigator.pop(context, [
+                      prediction.placeId,
+                      prediction.structuredFormatting?.mainText,
+                      prediction.structuredFormatting?.secondaryText
+                    ]);
                   },
                   leading: const CircleAvatar(
                       backgroundColor: Colors.grey,

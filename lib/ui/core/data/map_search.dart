@@ -8,15 +8,15 @@ part 'map_search.g.dart';
 @JsonSerializable()
 class LatLng {
   LatLng({
-    required this.lat,
-    required this.lng,
+    required this.latitude,
+    required this.longitude,
   });
 
   factory LatLng.fromJson(Map<String, dynamic> json) => _$LatLngFromJson(json);
   Map<String, dynamic> toJson() => _$LatLngToJson(this);
 
-  final double lat;
-  final double lng;
+  final double latitude;
+  final double longitude;
 }
 
 @JsonSerializable()
@@ -96,4 +96,36 @@ Future<Locations> getGoogleOffices() async {
       //   await rootBundle.loadString('assets/locations.json'),
       // ),
       );
+}
+
+@JsonSerializable()
+class PlaceDetails {
+  PlaceDetails({
+    required this.location,
+  });
+
+  factory PlaceDetails.fromJson(Map<String, dynamic> json) =>
+      _$PlaceDetailsFromJson(json);
+  Map<String, dynamic> toJson() => _$PlaceDetailsToJson(this);
+
+  final LatLng location;
+  // final List<Region> regions;
+}
+
+Future<PlaceDetails> getPlaceDetails({required String placeId}) async {
+  final getPlaceDetailsURL =
+      'https://places.googleapis.com/v1/places/$placeId?fields=location&key=AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s';
+
+  try {
+    final response = await http.get(Uri.parse(getPlaceDetailsURL));
+    if (response.statusCode == 200) {
+      return PlaceDetails.fromJson(json.decode(response.body));
+    }
+  } catch (e) {
+    print(e);
+  }
+
+  // Fallback for when the above HTTP request fails.
+  return PlaceDetails.fromJson(
+      json.decode("{'location': {'latitude': 0, 'longitude': 0}}"));
 }

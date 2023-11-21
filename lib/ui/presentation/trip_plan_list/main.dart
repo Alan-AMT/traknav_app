@@ -61,7 +61,14 @@ class _TripPlanListState extends State<TripPlanListPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Lista de planes'),
+        centerTitle: true,
+        title: const Text('Lista de planes',
+          style: TextStyle(
+          fontFamily: 'Nunito',
+          fontStyle: FontStyle.italic,
+          fontSize: 30,
+          color: Colors.white,
+        ),),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),

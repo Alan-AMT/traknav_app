@@ -65,6 +65,9 @@ class _SidebarMenu extends State<SidebarMenu> {
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const RecommendationsRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.language),

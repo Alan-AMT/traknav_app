@@ -142,7 +142,8 @@ class RecommendationsPage extends StatelessWidget {
               ElevatedButton(
                 
                 onPressed: () {
-                  AutoRouter.of(context).navigate(const HomeRoute());
+                  AutoRouter.of(context).navigate(const FavoritosRoute());
+                  //AutoRouter.of(context).navigate(const HomeRoute());
                 },
                 style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.blue),

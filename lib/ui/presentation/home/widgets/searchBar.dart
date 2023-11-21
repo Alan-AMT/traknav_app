@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:traknav_app/ui/presentation/map_search/widgets/search_form.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
@@ -21,9 +23,16 @@ class SearchBarWidget extends StatelessWidget {
           ),
         ),
       ),
-      child: const TextField(
+      child: TextField(
+        onTap: () async {
+          final String? placeId = await showMaterialModalBottomSheet(
+              context: context, builder: (context) => const SearchForm());
+          print("******************");
+          print(placeId);
+          if (placeId == null) return;
+        },
         cursorColor: Colors.white,
-        decoration: InputDecoration(
+        decoration: const InputDecoration(
           suffixIcon: Icon(
             Icons.search,
             color: Colors.black,

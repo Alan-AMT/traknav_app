@@ -10,7 +10,9 @@ class InformacionGeneralPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(),
       body: Column(
         children: [
           const TopScreenBar(),
@@ -19,6 +21,6 @@ class InformacionGeneralPage extends StatelessWidget {
               text: "INFORMACIÓN GENERAL", content: InformationQuestions())
         ],
       ),
-    );
+    ));
   }
 }

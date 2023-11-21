@@ -11,27 +11,23 @@ class CreateTripPlanPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: AppBar(
-            centerTitle: true,
-            title: const Text(
-              'Plan de viaje',
-              style: TextStyle(
-                fontFamily: 'Nunito',
-                fontStyle: FontStyle.italic,
-                fontSize: 30,
-                color: Colors.black,
-              ),
-            ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                AutoRouter.of(context).navigate(const HomeRoute());
-              },
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Plan de viaje',
+            style: TextStyle(
+              fontFamily: 'Nunito',
+              fontStyle: FontStyle.italic,
+              fontSize: 30,
               color: Colors.black,
             ),
-            backgroundColor: Colors.white,
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              AutoRouter.of(context).navigate(const HomeRoute());
+            },
+            color: Colors.black,
           ),
         ),
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),

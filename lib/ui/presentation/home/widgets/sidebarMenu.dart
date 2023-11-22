@@ -61,6 +61,7 @@ class _SidebarMenu extends State<SidebarMenu> {
                 leading: const Icon(Icons.home),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuHome),
                 onTap: () {
+                  //al presionar Home manda a la pantalla de incio
                   AutoRouter.of(context).navigate(const HomeRoute());
                 },
               ),

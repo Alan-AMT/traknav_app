@@ -85,6 +85,7 @@ class RecommendationsPage extends StatelessWidget {
         Container(
           width: MediaQuery.of(context).size.width * 0.8,
         height: MediaQuery.of(context).size.height * 0.79,
+        //se cambió el alto del widget
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 58, 172, 255),
             
@@ -181,7 +182,7 @@ class RecommendationsPage extends StatelessWidget {
 class ButtonOmitir extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    
+    //comentario prueba
     return TextButton(
       onPressed: () {
         // Aquí va la lógica del botón

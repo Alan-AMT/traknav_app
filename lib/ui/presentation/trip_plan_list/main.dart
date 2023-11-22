@@ -62,7 +62,7 @@ class _TripPlanListState extends State<TripPlanListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Lista de planes',
+        title: const Text('Mis planes de viaje',
           style: TextStyle(
           fontFamily: 'Nunito',
           fontStyle: FontStyle.italic,

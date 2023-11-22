@@ -17,14 +17,16 @@ class ToolsWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
+
               color: const Color.fromARGB(255, 255, 255, 255),
+              //color: const Color.fromARGB(255, 255, 255, 255),
               child: Text(
               color: const Color.fromARGB(
                   255, 255, 255, 255), // Puedes ajustar el color del fondo
               child: const Text(
                 'Herramientas',
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                  // color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 20.0,
                 ),
               ),
@@ -50,6 +52,7 @@ class ToolsWidget extends StatelessWidget {
                         context.router.push(TripPlanRoute());
                         break;
                       case 'Tiempo':
+
                       //context.router.push(TimeRoute());
                         break;
                       case 'Favoritos':
@@ -58,6 +61,15 @@ class ToolsWidget extends StatelessWidget {
                     // Agrega más casos según sea necesario
                       default:
                       // Manejar el caso por defecto o no hacer nada
+                        //context.router.push(TimeRoute());
+                        break;
+                      case 'Favoritos':
+                        // context.router.push(FavoritesRoute());
+                        break;
+                      // Agrega más casos según sea necesario
+                      default:
+                        // Manejar el caso por defecto o no hacer nada
+
                         break;
                     }
                   },
@@ -85,7 +97,9 @@ class ToolsWidget extends StatelessWidget {
                           Text(
                             listTools[index].text,
                             style: TextStyle(
+
                               color: Colors.black,
+                              // color: Colors.black,
                               fontSize: 15.0,
                             ),
                           ),
@@ -155,4 +169,8 @@ List<StyleModelTools> listTools = [
     ],
     text: 'Favoritos',
   ),
+
 ];
+
+];
+

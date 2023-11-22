@@ -15,12 +15,11 @@ class CategoryWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              color: const Color.fromARGB(
-                  255, 255, 255, 255), // Puedes ajustar el color del fondo
+              //color: const Color.fromARGB(255, 255, 255, 255), // Puedes ajustar el color del fondo
               child: Text(
                 'Categorias',
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                  //color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 20.0,
                 ),
               ),
@@ -67,7 +66,7 @@ class CategoryWidget extends StatelessWidget {
                       Text(
                         categorieslist[index].text,
                         style: TextStyle(
-                          color: Colors.black,
+                          //color: Colors.black,
                           fontSize: 15.0,
                         ),
                       ),

@@ -16,11 +16,11 @@ class SearchBarCustom extends StatelessWidget {
             Container(
               height: 760.0,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  //color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(borderValue),
-                    topRight: Radius.circular(borderValue),
-                  )),
+                topLeft: Radius.circular(borderValue),
+                topRight: Radius.circular(borderValue),
+              )),
               child: const Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

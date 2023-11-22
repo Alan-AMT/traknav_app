@@ -8,7 +8,7 @@ class AdviceWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.only(top: 0, left: 10.0, right: 10.0, bottom: 10.0),
-      color: Color.fromARGB(255, 255, 255, 255),
+      //color: Color.fromARGB(255, 255, 255, 255),
       width: double.infinity,
       height: 153.0,
       child: Stack(children: <Widget>[

@@ -13,24 +13,19 @@ class CreateTripPlanPage extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Plan de viaje',
+          title: Text('Plan de viaje',
             style: TextStyle(
               fontFamily: 'Nunito',
               fontStyle: FontStyle.italic,
               fontSize: 30,
-              color: Colors.black,
-            ),
-          ),
+              color: Colors.white,
+            ),),
           leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              AutoRouter.of(context).navigate(const HomeRoute());
-            },
-            color: Colors.black,
+            icon: Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Center(
           child: Container(
             width: 800,
@@ -125,7 +120,9 @@ class CreateTripPlanPage extends StatelessWidget {
                           BorderRadius.circular(40), // Bordes redondos
                     ),
                     child: TextButton(
-                      onPressed: () {},
+                      onPressed: () {
+                        AutoRouter.of(context).navigate(const TripPlanCreatedRoute());
+                      },
                       child: const Text(
                         'Siguiente',
                         style: TextStyle(

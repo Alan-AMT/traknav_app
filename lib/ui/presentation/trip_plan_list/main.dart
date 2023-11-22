@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:traknav_app/ui/router/android.gr.dart';
+
 
 @RoutePage()
 class TripPlanListPage extends StatefulWidget {
@@ -61,7 +61,7 @@ class _TripPlanListState extends State<TripPlanListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Lista de planes',
+        title: const Text('Mis planes de viaje',
           style: TextStyle(
           fontFamily: 'Nunito',
           fontStyle: FontStyle.italic,

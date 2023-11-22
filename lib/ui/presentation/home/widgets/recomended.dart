@@ -15,12 +15,11 @@ class RecomendedWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              color: const Color.fromARGB(
-                  255, 255, 255, 255), // Puedes ajustar el color del fondo
+              //color: const Color.fromARGB(255, 255, 255, 255), // Puedes ajustar el color del fondo
               child: Text(
                 'Recomendados',
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                  //color: Colors.black,
                   fontSize: 20.0,
                 ),
               ),
@@ -35,8 +34,7 @@ class RecomendedWidget extends StatelessWidget {
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
-                color: const Color.fromARGB(
-                    255, 255, 255, 255), // Puedes ajustar el color del fondo
+                // color: const Color.fromARGB( 255, 255, 255, 255), // Puedes ajustar el color del fondo
                 child: Text(
                   'Ver más',
                   style: TextStyle(

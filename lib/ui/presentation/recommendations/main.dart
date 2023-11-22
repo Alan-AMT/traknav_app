@@ -63,6 +63,7 @@ class RecommendationsPage extends StatelessWidget {
                     ),
                   ),
                   ),
+                  //ButtonOmitir(),
                 /*TextButton(
                   onPressed: () {
                   // Aquí se define la acción que se ejecuta al presionar el botón de omitir
@@ -78,11 +79,13 @@ class RecommendationsPage extends StatelessWidget {
         ),
         ),
         body: 
+        Column( children:[
         Center(
         child:
         Container(
           width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.83,
+        height: MediaQuery.of(context).size.height * 0.79,
+        //se cambió el alto del widget
         decoration: BoxDecoration(
           color: const Color.fromARGB(255, 58, 172, 255),
             
@@ -161,12 +164,38 @@ class RecommendationsPage extends StatelessWidget {
 
              //)
             ],
-          )
+          ),
+          
         ]
         )
         ),
         ),
+        ButtonOmitir(),
+        ]
+        ),
         
       );
+  }
+}
+
+
+class ButtonOmitir extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    //comentario prueba
+    return TextButton(
+      onPressed: () {
+        // Aquí va la lógica del botón
+      },
+      child: const Text(
+        'Omitir',
+        style: TextStyle(
+          color: Colors.black,
+          fontWeight: FontWeight.bold,
+          decoration: TextDecoration.underline,
+          fontSize:18,
+        ),
+      ),
+    );
   }
 }

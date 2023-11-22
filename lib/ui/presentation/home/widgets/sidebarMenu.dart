@@ -60,6 +60,10 @@ class _SidebarMenu extends State<SidebarMenu> {
               ListTile(
                 leading: const Icon(Icons.home),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuHome),
+                onTap: () {
+                  //al presionar Home manda a la pantalla de incio
+                  AutoRouter.of(context).navigate(const HomeRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.person),

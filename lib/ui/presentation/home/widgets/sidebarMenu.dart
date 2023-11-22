@@ -78,6 +78,9 @@ class _SidebarMenu extends State<SidebarMenu> {
               ListTile(
                 leading: const Icon(Icons.star),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuFavs),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const FavoritosRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.flight),

@@ -42,7 +42,7 @@ class RecommendationsPage extends StatelessWidget {
             title: 
             //const Padding(
               //padding: EdgeInsets.fromLTRB(0, 10.0, 0, 0.0),child: 
-              Text('¡Hola!', style: TextStyle(
+              const Text('¡Hola!', style: TextStyle(
                   color: Colors.black, // Establece el color de texto deseado
                 ),
               ),
@@ -120,7 +120,7 @@ class RecommendationsPage extends StatelessWidget {
                         }, 
                         child: Image.asset('assets/${opciones[index].foto}', 
                                 width: 100), ), 
-                        Text( opciones[index].nombre, style: TextStyle(color: Colors.black,), 
+                        Text( opciones[index].nombre, style: const TextStyle(color: Colors.black,), 
                         ) 
                         ], 
                         )
@@ -142,8 +142,8 @@ class RecommendationsPage extends StatelessWidget {
               ElevatedButton(
                 
                 onPressed: () {
-                  AutoRouter.of(context).navigate(const FavoritosRoute());
-                  //AutoRouter.of(context).navigate(const HomeRoute());
+                  //AutoRouter.of(context).navigate(const FavoritosRoute());
+                  AutoRouter.of(context).navigate(const HomeRoute());
                 },
                 style: ButtonStyle(
                 backgroundColor: MaterialStateProperty.all(Colors.blue),

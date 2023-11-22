@@ -18,9 +18,7 @@ class ToolsWidget extends StatelessWidget {
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               //color: const Color.fromARGB(255, 255, 255, 255),
-              child: Text(
-              color: const Color.fromARGB(
-                  255, 255, 255, 255), // Puedes ajustar el color del fondo
+              //color: const Color.fromARGB(255, 255, 255, 255), // Puedes ajustar el color del fondo
               child: const Text(
                 'Herramientas',
                 style: TextStyle(

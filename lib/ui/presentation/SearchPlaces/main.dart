@@ -37,14 +37,15 @@ class SearchPlacesPage extends StatelessWidget {
         backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Center(
           child: Container(
-            width: 800,
-            height: 800,
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: 900,
             child: Stack(
               children: [
                 // Rectángulo azul
                 Positioned(
-                  top: 20, // Ajusta la posición vertical
-                  left: 35, // Ajusta la posición horizontal
+                  top: MediaQuery.of(context).size.height *
+                      0.02, // Ajusta la posición vertical
+                  left: MediaQuery.of(context).size.width * 0.11,
                   child: Container(
                     width: 290,
                     height: 550,
@@ -58,8 +59,8 @@ class SearchPlacesPage extends StatelessWidget {
 
                 // Espacio blanco rectangular con iconos y texto
                 Positioned(
-                  top: 40, // Ajusta la posición vertical
-                  left: 55,
+                  top: MediaQuery.of(context).size.height * 0.04,
+                  left: MediaQuery.of(context).size.width * 0.15,
                   //left: MediaQuery.of(context).size.width / 2 - 100,
                   child: Container(
                     width: 250,
@@ -95,8 +96,8 @@ class SearchPlacesPage extends StatelessWidget {
                 ),
 
                 Positioned(
-                  top: 100,
-                  left: 55,
+                  top: MediaQuery.of(context).size.height * 0.15,
+                  left: MediaQuery.of(context).size.width * 0.17,
                   child: Container(
                     width: 250,
                     height: 350,
@@ -112,8 +113,8 @@ class SearchPlacesPage extends StatelessWidget {
                 ),
 
                 Positioned(
-                  top: 470,
-                  left: MediaQuery.of(context).size.width / 2,
+                  top: MediaQuery.of(context).size.height * 0.58,
+                  left: MediaQuery.of(context).size.width * 0.3,
                   child: Container(
                     padding: const EdgeInsets.all(5),
                     decoration: BoxDecoration(

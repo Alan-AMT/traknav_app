@@ -45,9 +45,6 @@ dependencies:
   intl: any
   flutter_localizations:
     sdk: flutter
-<<<<<<< HEAD
-  dio: ^5.3.3
-=======
   modal_bottom_sheet: ^3.0.0-pre
   google_maps_flutter: ^2.5.0
   permission_handler: ^11.0.1
@@ -57,7 +54,6 @@ dependencies:
   json_annotation: ^4.8.1
   google_places_flutter: ^2.0.6
   location: ^5.0.3
->>>>>>> 07e003478711dcadf5c8f461d18967a3329d1374
 
 dev_dependencies:
   flutter_test:

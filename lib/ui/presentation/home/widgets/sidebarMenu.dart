@@ -4,6 +4,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:device_info_plus/device_info_plus.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class SidebarMenu extends StatefulWidget {
   const SidebarMenu({Key? key}) : super(key: key);
@@ -13,6 +15,28 @@ class SidebarMenu extends StatefulWidget {
 
 class _SidebarMenu extends State<SidebarMenu> {
   bool isDisplayLanguages = false;
+  void _close() {
+    Navigator.pop(context);
+  }
+
+  Future<void> _allowLocation() async {
+    try {
+      final androidInfo = await DeviceInfoPlugin().androidInfo;
+      Permission permission;
+      permission = Permission.location;
+      await permission.request();
+      final status = await permission.status;
+      if (status.isDenied || status.isPermanentlyDenied) {
+        await openAppSettings();
+      } else if (status.isRestricted) {
+        print("mamo");
+        return null;
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
@@ -36,14 +60,31 @@ class _SidebarMenu extends State<SidebarMenu> {
               ListTile(
                 leading: const Icon(Icons.home),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuHome),
+                onTap: () {
+                  //al presionar Home manda a la pantalla de incio
+                  AutoRouter.of(context).navigate(const HomeRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.person),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuProfile),
               ),
               ListTile(
+                leading: const Icon(Icons.map),
+                title: const Text("Mapa"),
+                // title: Text(AppLocalizations.of(context)!.homeSidemenuProfile),
+                onTap: () async {
+                  await _allowLocation();
+                  _close();
+                  AutoRouter.of(context).navigate(const MapSearchRoute());
+                },
+              ),
+              ListTile(
                 leading: const Icon(Icons.star),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuFavs),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const FavoritosRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.flight),
@@ -68,6 +109,9 @@ class _SidebarMenu extends State<SidebarMenu> {
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const RecommendationsRoute());
+                },
               ),
               ListTile(
                 leading: const Icon(Icons.language),
@@ -185,6 +229,7 @@ class _SidebarMenu extends State<SidebarMenu> {
                   overflow: TextOverflow.fade,
                 ),
                 onTap: () {
+                  _close();
                   AutoRouter.of(context).navigate(const SignInRoute());
                 },
               ),

@@ -11,14 +11,18 @@ class CuerpoPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return SafeArea(
+        child: Scaffold(
+      appBar: AppBar(
+          // title: Text("Preguntas frecuentes"),
+          ),
       body: Column(
         children: [
-          const TopScreenBar(),
+          // const TopScreenBar(),
           Image.asset('assets/FAQs/FAQs.png'),
-          const ActionArea(text: "PREGUNTAS ACERCA DE:", content: Btns()),
+          // const ActionArea(text: "PREGUNTAS ACERCA DE:", content: Btns()),
         ],
       ),
-    );
+    ));
   }
 }

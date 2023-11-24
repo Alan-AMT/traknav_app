@@ -45,7 +45,19 @@ dependencies:
   intl: any
   flutter_localizations:
     sdk: flutter
+<<<<<<< HEAD
   dio: ^5.3.3
+=======
+  modal_bottom_sheet: ^3.0.0-pre
+  google_maps_flutter: ^2.5.0
+  permission_handler: ^11.0.1
+  device_info_plus: ^9.1.0
+  http: ^1.1.0
+  json_serializable: ^6.7.1
+  json_annotation: ^4.8.1
+  google_places_flutter: ^2.0.6
+  location: ^5.0.3
+>>>>>>> 07e003478711dcadf5c8f461d18967a3329d1374
 
 dev_dependencies:
   flutter_test:
@@ -77,7 +89,10 @@ flutter:
       - assets/
       - assets/signin/
       - assets/home/
+      - assets/favoritos/
+      - assets/TravelPlan/
       - assets/FAQs/
+      - assets/TravelPlan/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+
 
 @RoutePage()
 class TripPlanPage extends StatelessWidget {
@@ -92,7 +92,9 @@ class TripPlanPage extends StatelessWidget {
             color: Colors.white,
             child: Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  AutoRouter.of(context).navigate(const TripPlanListRoute());
+                },
                 style: TextButton.styleFrom(
                     backgroundColor: const Color(0xff0098FA),
                     shape: const StadiumBorder()),
@@ -112,7 +114,9 @@ class TripPlanPage extends StatelessWidget {
             color: Colors.white,
             child: Center(
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  AutoRouter.of(context).navigate(const TripPlanHistoryRoute());
+                },
                 style: TextButton.styleFrom(
                     backgroundColor: const Color(0xff0098FA),
                     shape: const StadiumBorder()),

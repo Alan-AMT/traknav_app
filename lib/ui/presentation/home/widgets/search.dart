@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/main.dart';
 
 class SearchBarCustom extends StatelessWidget {
@@ -17,11 +16,11 @@ class SearchBarCustom extends StatelessWidget {
             Container(
               height: 760.0,
               decoration: BoxDecoration(
-                  color: Colors.white,
+                  //color: Colors.white,
                   borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(borderValue),
-                    topRight: Radius.circular(borderValue),
-                  )),
+                topLeft: Radius.circular(borderValue),
+                topRight: Radius.circular(borderValue),
+              )),
               child: const Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [

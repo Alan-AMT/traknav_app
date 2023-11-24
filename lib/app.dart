@@ -4,6 +4,7 @@ import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
+import 'package:traknav_app/ui/presentation/map_search/cubit/map_search_cubit.dart';
 import 'package:traknav_app/ui/router/android.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -60,8 +61,15 @@ class _TrakNavApp extends State<TrakNavApp> {
     //         predicate: (Route<dynamic> route) => false);
     //   }
     // });
-    return BlocProvider(
-      create: (_) => HomeCubit(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (_) => HomeCubit(),
+        ),
+        BlocProvider(
+          create: (_) => MapSearchCubit(),
+        ),
+      ],
       child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
         return MaterialApp.router(
           supportedLocales: const [
@@ -80,7 +88,15 @@ class _TrakNavApp extends State<TrakNavApp> {
           routerConfig: androidRouter.config(),
           //TODO: Move to separated files
           theme: ThemeData(
+              appBarTheme: const AppBarTheme(
+                backgroundColor: Color.fromRGBO(13, 71, 161, 1),
+                iconTheme: IconThemeData(color: Colors.white),
+              ),
               textTheme: const TextTheme(
+                  bodyLarge: TextStyle(color: Colors.black),
+                  bodyMedium: TextStyle(color: Colors.black),
+                  bodySmall: TextStyle(color: Colors.black),
+                  headlineLarge: TextStyle(color: Colors.black),
                   headlineMedium: TextStyle(color: Colors.white)),
               drawerTheme: const DrawerThemeData(
                   backgroundColor: Colors.white,
@@ -92,6 +108,8 @@ class _TrakNavApp extends State<TrakNavApp> {
               canvasColor: Colors.black,
               scaffoldBackgroundColor: Colors.black,
               appBarTheme: const AppBarTheme(
+                  iconTheme: IconThemeData(color: Colors.white),
+                  // color: Colors.black,
                   backgroundColor: Color.fromRGBO(13, 71, 161, 1)),
               iconTheme: const IconThemeData(color: Colors.white),
               textTheme: const TextTheme(

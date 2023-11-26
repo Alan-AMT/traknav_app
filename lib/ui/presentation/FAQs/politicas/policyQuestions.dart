@@ -12,14 +12,17 @@ class PolicyQuestions extends StatefulWidget {
 class _PolicyQuestionsState extends State<PolicyQuestions> {
   final List<Item> _data = [
     Item(
-        expandedValue: "bla bla bla bla",
-        headerValue: "¿Qupe es lo que puedo compartir?"),
+        expandedValue:
+            "A través del control de acceso mediante cuentas privadas pertenecientes al usuario en cuestión. Es responsabilidad del usuario el compartir su contraseña para acceder a la aplicación",
+        headerValue:
+            "¿Cómo protege nuestra aplicación la privacidad de los usuarios?"),
     Item(
-        expandedValue: "bla bla bla bla",
-        headerValue: "¿Puedo ser baneado de la aplicación?"),
+        expandedValue:
+            "Solamente recopilamos la información proporcionada a la hora de crear la cuenta, y es para adaptar una experiencia de usuario más personalizada. Como parte de una funcionalidad del sistema, también se guardan los planes de viaje",
+        headerValue: "¿Qué tipo de información se recopila?"),
     Item(
-        expandedValue: "bla bla bla bla",
-        headerValue: "¿Puedo mostrar mis planes de viaje a terceros?"),
+        expandedValue: "No",
+        headerValue: "¿Se comparte la información recopilada a terceros?"),
   ];
 
   @override

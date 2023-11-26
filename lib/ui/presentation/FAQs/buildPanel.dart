@@ -23,7 +23,7 @@ class _BuildPanelState extends State<BuildPanel> {
       },
       children: widget.data.map<ExpansionPanel>((Item item) {
         return ExpansionPanel(
-          backgroundColor: Colors.blue,
+          backgroundColor: const Color(0XFF237BBB),
           headerBuilder: (BuildContext context, bool isExpanded) {
             return ListTile(
               textColor: Colors.white,
@@ -32,7 +32,11 @@ class _BuildPanelState extends State<BuildPanel> {
           },
           body: ListTile(
             textColor: Colors.white,
-            title: Text(item.expandedValue),
+            title: Text(
+              item.expandedValue,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.bold),
+            ),
           ),
           isExpanded: item.isExpanded,
         );

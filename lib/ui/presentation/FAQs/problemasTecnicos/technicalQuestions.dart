@@ -12,11 +12,16 @@ class TechnicalQuestions extends StatefulWidget {
 class _TechnicalQuestionsState extends State<TechnicalQuestions> {
   final List<Item> _data = [
     Item(
-        expandedValue: "bla bla bla bla",
-        headerValue: "¿Por qué no puedo acceder a mi cuenta?"),
-    Item(expandedValue: "bla bla bla bla", headerValue: "El mapa no carga"),
+        expandedValue:
+            "Asegurate de tener conexión a internet. Si no puedes visualizar el clima en la ubicación deseada, prueba moviendo la ubicación a una zona cercana",
+        headerValue: "No puedo visualizar el clima"),
     Item(
-        expandedValue: "bla bla bla bla",
+        expandedValue:
+            "Verifica tu conexión a internet. Si aún así no puede cargar el mapa, intenta esperar y después vuélvelo a intentar, seguramente haya problemas con la conexión al servicio de Google",
+        headerValue: "El mapa no carga"),
+    Item(
+        expandedValue:
+            "Asegurate de tener conexión a internet a la hora de gardar el plan de viaje",
         headerValue: "Mi plan de viaje no se guarda"),
   ];
 

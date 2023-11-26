@@ -13,29 +13,31 @@ class CreateTripPlanPage extends StatelessWidget {
       home: Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text('Plan de viaje',
+          title: const Text(
+            'Plan de viaje',
             style: TextStyle(
               fontFamily: 'Nunito',
               fontStyle: FontStyle.italic,
               fontSize: 30,
               color: Colors.white,
-            ),),
+            ),
+          ),
           leading: IconButton(
-            icon: Icon(Icons.arrow_back),
+            icon: const Icon(Icons.arrow_back),
             onPressed: () => Navigator.of(context).pop(),
           ),
         ),
         //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Center(
           child: Container(
-            width: 800,
-            height: 800,
+            width: MediaQuery.of(context).size.width * 0.9,
+            height: 900,
             child: Stack(
               children: [
                 // Rectángulo azul
                 Positioned(
-                  top: 20, // Ajusta la posición vertical
-                  left: 35, // Ajusta la posición horizontal
+                  top: MediaQuery.of(context).size.width * 0.08,
+                  left: MediaQuery.of(context).size.width * 0.09,
                   child: Container(
                     width: 290,
                     height: 180,
@@ -47,11 +49,10 @@ class CreateTripPlanPage extends StatelessWidget {
                   ),
                 ),
 
-                // Espacio blanco rectangular con iconos y texto
+                // Espacio blanco rectangular con iconos
                 Positioned(
-                  top: 40, // Ajusta la posición vertical
-                  left: 55,
-                  //left: MediaQuery.of(context).size.width / 2 - 100,
+                  top: MediaQuery.of(context).size.height * 0.07,
+                  left: MediaQuery.of(context).size.width * 0.15,
                   child: Container(
                     width: 250,
                     height: 40,
@@ -86,8 +87,9 @@ class CreateTripPlanPage extends StatelessWidget {
 
                 // Espacio blanco rectangular para números con borde circular
                 Positioned(
-                  top: 120, // Ajusta la posición vertical
-                  left: 55, // Ajusta la posición horizontal
+                  top: MediaQuery.of(context).size.height *
+                      0.155, // Ajusta la posición vertical
+                  left: MediaQuery.of(context).size.width * 0.15,
                   child: Container(
                     width: 250,
                     height: 40,
@@ -121,7 +123,8 @@ class CreateTripPlanPage extends StatelessWidget {
                     ),
                     child: TextButton(
                       onPressed: () {
-                        AutoRouter.of(context).navigate(const TripPlanCreatedRoute());
+                        AutoRouter.of(context)
+                            .navigate(const TripPlanCreatedRoute());
                       },
                       child: const Text(
                         'Siguiente',

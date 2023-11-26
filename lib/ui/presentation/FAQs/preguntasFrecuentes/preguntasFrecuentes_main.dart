@@ -12,9 +12,9 @@ class FAQsPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(title: Text("Preguntas frecuentes")),
-      body: Column(
-        children: [
+      appBar: AppBar(title: const Text("PREGUNTAS FRECUENTES")),
+      body: ListView(
+        children: <Widget>[
           // const TopScreenBar(),
           Image.asset('assets/FAQs/FAQs.png'),
           const BtnGeneralFAQs(),

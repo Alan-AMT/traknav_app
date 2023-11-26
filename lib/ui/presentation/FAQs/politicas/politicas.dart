@@ -10,14 +10,17 @@ class PoliticasPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Column(
-        children: [
-          const TopScreenBar(),
-          Image.asset('assets/FAQs/FAQs.png'),
-          const ActionArea(
-              text: "POLÍTICAS DE PRIVACIDAD", content: PolicyQuestions())
-        ],
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(title: const Text("PREGUNTAS FRECUENTES")),
+        body: ListView(
+          children: <Widget>[
+            //const TopScreenBar(),
+            Image.asset('assets/FAQs/FAQs.png'),
+            const ActionArea(
+                text: "POLÍTICAS DE PRIVACIDAD", content: PolicyQuestions())
+          ],
+        ),
       ),
     );
   }

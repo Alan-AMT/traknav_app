@@ -9,15 +9,12 @@ class ActionArea extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      decoration: BoxDecoration(
-          color: Colors.blue, borderRadius: BorderRadius.circular(30)),
-      width: 400,
-      height: 350,
+      decoration: const BoxDecoration(
+          color: Color(0xFF3AACFF),
+          borderRadius: BorderRadius.all(Radius.circular(18))),
       child: Column(
         children: [
-          Container(
-            height: 10,
-          ),
+          Container(height: 10),
           Text(
             text,
             style: const TextStyle(
@@ -27,6 +24,7 @@ class ActionArea extends StatelessWidget {
             ),
           ),
           content,
+          Container(height: 22),
         ],
       ),
     );

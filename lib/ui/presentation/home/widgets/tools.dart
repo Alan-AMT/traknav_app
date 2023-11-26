@@ -18,10 +18,10 @@ class ToolsWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-
               //color: const Color.fromARGB(255, 255, 255, 255),
               child: Text(
                 'Herramientas',
+          
                 style: TextStyle(
                   //color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 20.0,
@@ -49,7 +49,7 @@ class ToolsWidget extends StatelessWidget {
                         context.router.push(TripPlanRoute());
                         break;
                       case 'Tiempo':
-                        //context.router.push(TimeRoute());
+                        AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
                       case 'Favoritos':
                         // context.router.push(FavoritesRoute());

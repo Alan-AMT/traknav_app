@@ -8,19 +8,34 @@ import 'package:traknav_app/ui/presentation/FAQs/topScreenBar.dart';
 class InformacionGeneralPage extends StatelessWidget {
   const InformacionGeneralPage({super.key});
 
-  @override
-  Widget build(BuildContext context) {
+  /* @override
+  Widget buildy(BuildContext context) {
     return SafeArea(
         child: Scaffold(
-      appBar: AppBar(),
-      body: Column(
-        children: [
-          const TopScreenBar(),
+      appBar: AppBar(title: const Text("PREGUNTAS FRECUENTES")),
+      body: ListView(
+        children: <Widget>[
+          //const TopScreenBar(),
           Image.asset('assets/FAQs/FAQs.png'),
           const ActionArea(
               text: "INFORMACIÓN GENERAL", content: InformationQuestions())
         ],
       ),
     ));
+  }*/
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(title: const Text("PREGUNTAS FRECUENTES")),
+      body: SafeArea(
+          child: ListView(
+        children: [
+          Image.asset('assets/FAQs/FAQs.png'),
+          const ActionArea(
+              text: "INFORMACIÓN GENERAL", content: InformationQuestions())
+        ],
+      )),
+    );
   }
 }

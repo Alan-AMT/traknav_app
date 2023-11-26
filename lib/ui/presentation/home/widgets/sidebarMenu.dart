@@ -96,6 +96,9 @@ class _SidebarMenu extends State<SidebarMenu> {
               ListTile(
                 leading: const Icon(Icons.cloud),
                 title: Text(AppLocalizations.of(context)!.homeSidemenuWeather),
+                onTap: () {
+                  AutoRouter.of(context).navigate(const ClimaRoute());
+                },
               ),
               const Divider(height: 25, thickness: 3),
               Padding(

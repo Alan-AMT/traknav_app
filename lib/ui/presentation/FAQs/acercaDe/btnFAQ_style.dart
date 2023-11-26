@@ -18,9 +18,11 @@ class BtnFAQ extends StatelessWidget {
       width: MediaQuery.of(context).size.width * (2 / 5),
       height: 100,
       child: ElevatedButton(
-        style: const ButtonStyle(
-            backgroundColor: MaterialStatePropertyAll(Colors.blue),
-            elevation: MaterialStatePropertyAll(7)),
+        style: ElevatedButton.styleFrom(
+            backgroundColor: const Color(0xFF237BBB),
+            elevation: 7,
+            shape: RoundedRectangleBorder(
+                borderRadius: BorderRadius.circular(12))),
         onPressed: onPressed,
         child: Column(
           children: [

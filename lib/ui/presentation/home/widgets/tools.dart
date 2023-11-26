@@ -18,6 +18,7 @@ class ToolsWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
+
               //color: const Color.fromARGB(255, 255, 255, 255),
               child: Text(
                 'Herramientas',

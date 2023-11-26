@@ -6,19 +6,19 @@ class BtnContactanos extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        padding: const EdgeInsets.only(top: 50),
+        padding: const EdgeInsets.only(top: 20),
         child: Column(
           children: [
             const Text(
               "CONTÁCTANOS:",
-              style: TextStyle(fontSize: 18),
+              style: TextStyle(fontSize: 20),
             ),
             Container(
               height: 15,
             ),
             const Text(
               "traknavdudassugerencias@outlook.com",
-              style: TextStyle(fontSize: 15),
+              style: TextStyle(fontSize: 16),
             )
           ],
         ));

@@ -14,13 +14,13 @@ class CuerpoPage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-          // title: Text("Preguntas frecuentes"),
-          ),
+        title: const Text("PREGUNTAS FRECUENTES"),
+      ),
       body: Column(
         children: [
           // const TopScreenBar(),
           Image.asset('assets/FAQs/FAQs.png'),
-          // const ActionArea(text: "PREGUNTAS ACERCA DE:", content: Btns()),
+          const ActionArea(text: "PREGUNTAS ACERCA DE:", content: Btns()),
         ],
       ),
     ));

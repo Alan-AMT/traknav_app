@@ -8,11 +8,10 @@ class BtnGeneralFAQs extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.only(top: 3, left: 5, right: 5),
+      padding: const EdgeInsets.all(40),
       child: ElevatedButton(
         style: ButtonStyle(
-            backgroundColor: const MaterialStatePropertyAll(
-                Color.fromARGB(255, 80, 166, 236)),
+            backgroundColor: const MaterialStatePropertyAll(Color(0xFF237BBB)),
             shape: MaterialStatePropertyAll(RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(16))),
             elevation: const MaterialStatePropertyAll(10)),
@@ -22,25 +21,25 @@ class BtnGeneralFAQs extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 50,
+              height: 25,
             ),
             const Text(
               "PREGUNTAS GENERALES",
               style: TextStyle(
                   color: Colors.white,
-                  fontSize: 23,
+                  fontSize: 19,
                   fontWeight: FontWeight.bold),
             ),
             Container(
-              height: 35,
+              height: 20,
             ),
             const Text(
-              "Resuelve tus dudas con esta recopilación de dudas más frecuentes",
+              "Resuelve tus dudas con esta recopilación de preguntas más frecuentes",
               textAlign: TextAlign.center,
               style: TextStyle(color: Colors.white, fontSize: 16),
             ),
             Container(
-              height: 50,
+              height: 20,
             ),
           ],
         ),

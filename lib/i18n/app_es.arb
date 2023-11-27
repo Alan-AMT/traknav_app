@@ -81,6 +81,80 @@
     "@homeSidemenuSignOut": {
         "description": "La opción de cerrar sesión en el menú de hamburguesa"
     },
+    "homeSearchBar": "Hola, ¿A dónde vamos?",
+    "@homeSearchBar": {
+        "description": "Texto mostrado en la barra de busqueda"
+    },
+    "homeAdviceUp": "Encuetra más lugares",
+    "@homeAdviceUp": {
+        "description": "Texto mostrado en el advice arriba"
+    },
+   "homeAdviceDown": "a tu alrededor",
+    "@homeAdviceDown": {
+        "description": "Texto mostrado en el advice abajo"
+    },
+    "homeAdviceDiscover": "Descubrir ahora >",
+    "@homeAdviceDiscover": {
+        "description": "Texto mostrado en el advice para descubrir"
+    },
+    "homeRecomendedMore": "Ver más",
+    "@homeRecomendedMore": {
+        "description": "Texto ver más"
+    },
+    "homeRecomendedTitle": "Recomendados",
+    "@homeRecomendedTitle": {
+        "description": "Texto Recomendados"
+    },
+    "homeCategoriesTitle": "Categorias",
+    "@homeCategoriesTitle": {
+        "description": "Texto Categorias"
+    },
+     "homeCategoriesComercioLocal": "Comercio Local",
+    "@homeCategoriesComercioLocal": {
+        "description": "Texto de lista Comercio Local"
+    },
+    "homeCategoriesMuseos":"Museos",
+    "@homeCategoriesMuseos":{
+        "description":"Texto de lista museos"
+    },
+    "homeCategoriesHospedaje":"Hospedaje",
+    "@homeCategoriesHospedaje":{
+        "description":"Texto de lista hospedaje"
+    },
+    "homeCategoriesParques":"Parques",
+    "@homeCategoriesParques":{
+        "description":"Texto de lista de Parques"
+    },
+    "homeCategoriesRestaurantes":"Restaurantes",
+    "@homeCategoriesRestaurantes":{
+        "description":"Texto de lista Restaurantes"
+    },
+    "homeCategoriesPersonalizadas":"Personalizadas",
+    "@homeCategoriesPersonalizadas":{
+        "description":"Texto de lista Personalizadas"
+    },
+     "homeCategoriesTiempo":"Tiempo",
+    "@homeCategoriesTiempo":{
+        "description":"Texto de lista Tiempo"
+    },
+     "homeCategoriesPlanViaje":"Plan Viaje",
+    "@homeCategoriesPlanViaje":{
+        "description":"Texto de lista PlanViaje"
+    },
+    "homeCategoriesFavoritos":"Favoritos",
+    "@homeCategoriesFavoritos":{
+        "description":"Texto de lista Favoritos"
+    },
+    "homeCategoriesHerramientas":"Herramientas",
+    "@homeCategoriesHerramientas":{
+        "description":"titulo Herramientas"
+    },
+"aCERCADETEXTS": "aCERCADETEXTS",
+"acercaDerechos": "TRAKNAV. Todos los derechos reservados.",
+    "@acercaDerechos": {
+        "description": "Texto de derechos"
+    },
+
 "sIGNINTEXTS": "sIGNINTEXTS",
     "signinWelcome": "Bienvenido a ",
     "@signinWelcome": {
@@ -163,4 +237,6 @@
     "@buttonSave": {
         "description": "Texto del botón guardar recomendaciones"
     }
+
+
 }

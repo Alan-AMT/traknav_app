@@ -19,7 +19,7 @@ class CreateTripPlanPage extends StatelessWidget {
               fontFamily: 'Nunito',
               fontStyle: FontStyle.italic,
               fontSize: 30,
-              color: Colors.white,
+              color: Color.fromARGB(255, 0, 0, 0),
             ),
           ),
           leading: IconButton(
@@ -28,110 +28,66 @@ class CreateTripPlanPage extends StatelessWidget {
           ),
         ),
         //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        body: Center(
-          child: Container(
-            width: MediaQuery.of(context).size.width * 0.9,
-            height: 900,
-            child: Stack(
+
+        //
+        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Container(
+            height: 170,
+            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+            decoration: BoxDecoration(
+              color: Colors.blue, // Rectángulo azul
+              borderRadius: BorderRadius.circular(20), // Bordes circulares
+            ),
+            child: Column(
               children: [
-                // Rectángulo azul
-                Positioned(
-                  top: MediaQuery.of(context).size.width * 0.08,
-                  left: MediaQuery.of(context).size.width * 0.09,
-                  child: Container(
-                    width: 290,
-                    height: 180,
-                    decoration: BoxDecoration(
-                      color: Colors.blue, // Rectángulo azul
-                      borderRadius:
-                          BorderRadius.circular(20), // Bordes circulares
-                    ),
+                Container(
+                  //barra busqueda
+                  height: 40,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(20), // Bordes circulares
                   ),
-                ),
-
-                // Espacio blanco rectangular con iconos
-                Positioned(
-                  top: MediaQuery.of(context).size.height * 0.07,
-                  left: MediaQuery.of(context).size.width * 0.15,
-                  child: Container(
-                    width: 250,
-                    height: 40,
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(20), // Bordes circulares
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {},
-                        ),
-                        const Text(
-                          '¿A dónde vamos?',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.filter_alt),
-                          onPressed: () {
-                            AutoRouter.of(context)
-                                .navigate(const SearchPlacesRoute());
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Espacio blanco rectangular para números con borde circular
-                Positioned(
-                  top: MediaQuery.of(context).size.height *
-                      0.155, // Ajusta la posición vertical
-                  left: MediaQuery.of(context).size.width * 0.15,
-                  child: Container(
-                    width: 250,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(20), // Bordes circulares
-                    ),
-                    child: const Center(
-                      child: TextField(
-                        keyboardType: TextInputType.number, // Teclado numérico
-                        decoration: InputDecoration(
-                          hintText: '¿Por cuántos días?',
-                          border: InputBorder
-                              .none, // Elimina el borde predeterminado
-                          contentPadding: EdgeInsets.symmetric(horizontal: 10),
-                        ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {},
                       ),
-                    ),
+                      const Text(
+                        '¿A dónde vamos?',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.filter_alt),
+                        onPressed: () {
+                          AutoRouter.of(context)
+                              .navigate(const SearchPlacesRoute());
+                        },
+                      ),
+                    ],
                   ),
                 ),
-                Positioned(
-                  bottom: 20,
-                  right: 20,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: Colors.blue,
-                      borderRadius:
-                          BorderRadius.circular(40), // Bordes redondos
-                    ),
-                    child: TextButton(
-                      onPressed: () {
-                        AutoRouter.of(context)
-                            .navigate(const TripPlanCreatedRoute());
-                      },
-                      child: const Text(
-                        'Siguiente',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
+                Container(
+                  height: 40,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(20), // Bordes circulares
+                  ),
+                  child: const Center(
+                    child: TextField(
+                      keyboardType: TextInputType.number, // Teclado numérico
+                      decoration: InputDecoration(
+                        hintText: '¿Por cuántos días?',
+                        border:
+                            InputBorder.none, // Elimina el borde predeterminado
+                        contentPadding: EdgeInsets.symmetric(horizontal: 30),
                       ),
                     ),
                   ),
@@ -139,7 +95,29 @@ class CreateTripPlanPage extends StatelessWidget {
               ],
             ),
           ),
-        ),
+          Container(
+            //BOTON SIGUIENTE
+            height: 40,
+            width: 200,
+            margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 85, 187, 235),
+              borderRadius: BorderRadius.circular(20), // Bordes circulares
+            ),
+            child: TextButton(
+              onPressed: () {
+                AutoRouter.of(context).navigate(const TripPlanCreatedRoute());
+              },
+              child: const Text(
+                'Siguiente',
+                style: TextStyle(
+                  color: Color.fromARGB(255, 2, 0, 0),
+                  fontSize: 18,
+                ),
+              ),
+            ),
+          ),
+        ]),
       ),
     );
   }

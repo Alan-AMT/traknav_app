@@ -154,7 +154,7 @@ class MyProfilePage extends StatelessWidget {
               );
             }),
           ),
-        ],
+        ),
       ),
     );
   }

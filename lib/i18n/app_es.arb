@@ -192,7 +192,7 @@
     "@formPhone": {
         "description": "Pista de introducir teléfono en el formulario de inicio sesión y registro"
     },
-    "formSecureQuestion1": "¿A que primario fuiste?",
+    "formSecureQuestion1": "¿A que primaria fuiste?",
     "@formSecureQuestion1": {
         "description": "Pista de introducir pregunta seguridad 1 en el formulario de inicio sesión y registro"
     },
@@ -236,7 +236,58 @@
     "buttonSave": "Guardar",
     "@buttonSave": {
         "description": "Texto del botón guardar recomendaciones"
-    }
-
-
+    },
+    "tRIPPLANTEXTS": "tRIPPLANTEXTS",
+        "tripplanappbar": "Plan de viaje",
+        "@tripplanappbar": {
+            "description": "Appbar para Plan de Viaje"
+        },
+        "tripplanday" : "Día",
+        "@tripplanday": {
+        "description": "Día N"
+        },
+        "edittripplan" : "Editar plan de viaje",
+        "@edittripplan": {
+        "description": "Botón Editar plan de la pantalla Crear plan"
+        },
+        "createtripplan" : "Crear plan de viaje",
+        "@createtripplan": {
+        "description": "Botón Crear plan de la pantalla Crear plan"
+        },
+        "tripplanlist" : "Mis planes de viaje",
+        "@tripplanlist": {
+        "description": "Lista de los planes de viaje"
+        },
+        "tripplanlistf" : "Completado",
+        "@tripplanlistf": {
+        "description": "Lista de los planes de viaje-completado"
+        },
+        "tripplanlistu" : "Pendiente",
+        "@tripplanlistu": {
+        "description": "Lista de los planes de viaje-pendiente"
+        },
+        "tripplanlists" : "Iniciar plan de viaje",
+        "@tripplanlists": {
+        "description": "Lista de los planes de viaje-pendiente"
+        },
+        "tripplanhistory" : "Historial",
+        "@tripplanhistory": {
+        "description": "Historial"
+        },
+        "createPlanDialogTitle": "Plan generado exitosamente",
+        "@createPlanDialogTitle": {
+        "description": "cuadro de diálogo al crear el plan de viaje"
+        },
+        "createPlanDialogMessage": "Podrás consultarlo en ''Mis planes de viaje''",
+        "@createPlanDialogMessage": {
+        "description": "contenido del cuadro"
+        },
+        "cancel": "Cancelar",
+        "@cancel": {
+        "description": "Cancelar"
+        },
+        "confirm": "Aceptar",
+        "@confirm": {
+        "description": "Aceptar"
+        }
 }

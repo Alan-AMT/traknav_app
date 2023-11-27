@@ -180,7 +180,7 @@ import 'package:country_icons/country_icons.dart';
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Image.asset(
-                  'assets/olvidastecontra.JPG',
+                  'assets/signin/olvidastecontra.JPG',
                   width: 260.0,
                   height: 260.0,
                   fit: BoxFit.contain,
@@ -204,7 +204,7 @@ import 'package:country_icons/country_icons.dart';
                 Container(
                   width: 340.0,
                   child: const Text(
-                    'Proporciona tu coreo y responde la pregunta de seguridad, se te enviará un correo con una contraseña provicional que podrás editar en la información de tu perfil.',
+                    'Proporciona tu correo y responde la pregunta de seguridad, se te enviará un correo con una contraseña provicional que podrás editar en la información de tu perfil.',
                     style: TextStyle(
                       fontSize: 17.0,
                       fontFamily: 'Nunito',
@@ -239,6 +239,7 @@ import 'package:country_icons/country_icons.dart';
                 ElevatedButton(
                   onPressed: () {
                     // Back para enviar el correo de restablecimiento de contraseña
+                    AutoRouter.of(context).navigate(const SignInRoute());
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 15, 106, 180),
@@ -292,7 +293,7 @@ import 'package:country_icons/country_icons.dart';
         body: Container(
           decoration: BoxDecoration(
             image: DecorationImage(
-              image: AssetImage('assets/fondo.jpg'),
+              image: AssetImage('assets/signin/fondo.jpg'),
               fit: BoxFit.cover,
             ),
           ),
@@ -304,7 +305,7 @@ import 'package:country_icons/country_icons.dart';
               Container(
                 child: Column(
                   children: [
-                    Image.asset('assets/finallogo11.png'),
+                    Image.asset('assets/signin/finallogo11.png'),
                     SizedBox(height: 16.0),
                   ],
                 ),
@@ -615,7 +616,7 @@ import 'package:country_icons/country_icons.dart';
     }
 
     Image getCountryFlagIcon(String countryCode) {
-      String imagePath = 'assets/';
+      String imagePath = 'assets/signin/';
       String flagFileName = '';
 
       switch (countryCode) {

@@ -40,5 +40,19 @@
     "recLodgment": "Lodgment",
     "recParks": "Parks",
     "recGuided": "Guided tours",
-    "buttonSave": "Save"
+    "buttonSave": "Save",
+"tRIPPLANTEXTS": "tRIPPLANTEXTS",
+    "tripplanappbar": "Trip Plan",
+    "tripplanday": "Day",
+    "edittripplan": "Edit trip plan",
+    "createtripplan": "Create trip plan",
+    "tripplanhistory": "History",
+    "tripplanlist" : "My trip plans",
+    "tripplanlistf" : "Finished",
+    "tripplanlistu" : "Unfinished",
+    "tripplanlists" : "Start trip plan",
+    "createPlanDialogTitle": "Trip plan created",
+    "createPlanDialogMessage": "You can see on ''My trip plans''",
+    "cancel": "Canel",
+    "confirm": "Ok"
 }

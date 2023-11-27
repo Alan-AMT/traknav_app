@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 @RoutePage()
@@ -16,7 +17,6 @@ class _TripPlanListState extends State<TripPlanListPage> {
       'title': 'Plan 1',
       'days': [
         {
-          'day': 'Día 1',
           'places': [
             {'name': 'Museo de Frida Kahlo', 'completed': false},
             {'name': 'Museo de Soumaya', 'completed': false},
@@ -32,27 +32,21 @@ class _TripPlanListState extends State<TripPlanListPage> {
   void _toggleDayCompletion(int planIndex, int dayIndex) {
     setState(() {
       var day = planData[planIndex]['days'][dayIndex];
-      bool isCompleted = !day['completed'];
-      day['completed'] = isCompleted;
-      day['places'].forEach((place) => place['completed'] = isCompleted);
+      day['completed'] = !day['completed'];
+      day['places'].forEach((place) => place['completed'] = day['completed']);
     });
   }
 
   void _togglePlaceCompletion(int planIndex, int dayIndex, int placeIndex) {
     setState(() {
-      var place = planData[planIndex]['days'][dayIndex]['places'][placeIndex];
+      var day = planData[planIndex]['days'][dayIndex];
+      var place = day['places'][placeIndex];
+
+      // Cambiar el estado de 'completed' del lugar
       place['completed'] = !place['completed'];
 
-      // Verifica si todos los lugares en el día están completados
-      bool allPlacesCompleted = true;
-      for (var p in planData[planIndex]['days'][dayIndex]['places']) {
-        if (!p['completed']) {
-          allPlacesCompleted = false;
-          break;
-        }
-      }
-
-      planData[planIndex]['days'][dayIndex]['completed'] = allPlacesCompleted;
+      // Verificar si todos los lugares del día están completados
+      day['completed'] = day['places'].every((p) => p['completed'] as bool);
     });
   }
 
@@ -61,13 +55,14 @@ class _TripPlanListState extends State<TripPlanListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: const Text('Mis planes de viaje',
-          style: TextStyle(
-          fontFamily: 'Nunito',
-          fontStyle: FontStyle.italic,
-          fontSize: 30,
-          color: Colors.white,
-        ),),
+        title: Text(AppLocalizations.of(context)!.tripplanlist,
+          style: const TextStyle(
+            fontFamily: 'Nunito',
+            fontStyle: FontStyle.italic,
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
@@ -88,30 +83,33 @@ class _TripPlanListState extends State<TripPlanListPage> {
                   ...plan['days'].asMap().entries.map<Widget>((dayEntry) {
                     int dayIndex = dayEntry.key;
                     var day = dayEntry.value;
+
+                    String dayNumber = (dayIndex + 1).toString();
+                    String dayStatus = day['completed'] ? AppLocalizations.of(context)!.tripplanlistf: AppLocalizations.of(context)!.tripplanlistu;
+
                     return Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         CheckboxListTile(
-                          title: Text('${day['day']} - ${day['completed'] ? "Finalizado" : "Pendiente"}'),
+                          title: Text('${AppLocalizations.of(context)!.tripplanday} $dayNumber - $dayStatus'),
                           value: day['completed'],
                           onChanged: (_) => _toggleDayCompletion(planIndex, dayIndex),
                           controlAffinity: ListTileControlAffinity.leading,
                         ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20.0),
-                          child: Column(
-                            children: day['places'].asMap().entries.map<Widget>((placeEntry) {
-                              int placeIndex = placeEntry.key;
-                              var place = placeEntry.value;
-                              return CheckboxListTile(
-                                controlAffinity: ListTileControlAffinity.leading,
-                                title: Text(place['name']),
-                                value: place['completed'],
-                                onChanged: (_) => _togglePlaceCompletion(planIndex, dayIndex, placeIndex),
-                              );
-                            }).toList(),
-                          ),
-                        ),
+                        ...day['places'].asMap().entries.map<Widget>((placeEntry) {
+                          int placeIndex = placeEntry.key;
+                          var place = placeEntry.value;
+
+                          // CheckboxListTile para cada lugar
+                          return CheckboxListTile(
+                            title: Text(place['name']),
+                            value: place['completed'],
+                            onChanged: (bool? newValue) {
+                              _togglePlaceCompletion(planIndex, dayIndex, placeIndex);
+                            },
+                            controlAffinity: ListTileControlAffinity.leading,
+                          );
+                        }).toList(),
                       ],
                     );
                   }).toList(),
@@ -122,13 +120,13 @@ class _TripPlanListState extends State<TripPlanListPage> {
                         onPressed: () {
                           // Acción para editar el plan de viaje
                         },
-                        child: const Text('Editar plan de viaje'),
+                        child: Text(AppLocalizations.of(context)!.edittripplan),
                       ),
                       TextButton(
                         onPressed: () {
                           // Acción para iniciar el plan de viaje
                         },
-                        child: const Text('Iniciar plan de viaje'),
+                        child: Text(AppLocalizations.of(context)!.tripplanlists),
                       ),
                     ],
                   ),

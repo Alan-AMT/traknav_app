@@ -81,6 +81,80 @@
     "@homeSidemenuSignOut": {
         "description": "La opción de cerrar sesión en el menú de hamburguesa"
     },
+    "homeSearchBar": "Hola, ¿A dónde vamos?",
+    "@homeSearchBar": {
+        "description": "Texto mostrado en la barra de busqueda"
+    },
+    "homeAdviceUp": "Encuetra más lugares",
+    "@homeAdviceUp": {
+        "description": "Texto mostrado en el advice arriba"
+    },
+   "homeAdviceDown": "a tu alrededor",
+    "@homeAdviceDown": {
+        "description": "Texto mostrado en el advice abajo"
+    },
+    "homeAdviceDiscover": "Descubrir ahora >",
+    "@homeAdviceDiscover": {
+        "description": "Texto mostrado en el advice para descubrir"
+    },
+    "homeRecomendedMore": "Ver más",
+    "@homeRecomendedMore": {
+        "description": "Texto ver más"
+    },
+    "homeRecomendedTitle": "Recomendados",
+    "@homeRecomendedTitle": {
+        "description": "Texto Recomendados"
+    },
+    "homeCategoriesTitle": "Categorias",
+    "@homeCategoriesTitle": {
+        "description": "Texto Categorias"
+    },
+     "homeCategoriesComercioLocal": "Comercio Local",
+    "@homeCategoriesComercioLocal": {
+        "description": "Texto de lista Comercio Local"
+    },
+    "homeCategoriesMuseos":"Museos",
+    "@homeCategoriesMuseos":{
+        "description":"Texto de lista museos"
+    },
+    "homeCategoriesHospedaje":"Hospedaje",
+    "@homeCategoriesHospedaje":{
+        "description":"Texto de lista hospedaje"
+    },
+    "homeCategoriesParques":"Parques",
+    "@homeCategoriesParques":{
+        "description":"Texto de lista de Parques"
+    },
+    "homeCategoriesRestaurantes":"Restaurantes",
+    "@homeCategoriesRestaurantes":{
+        "description":"Texto de lista Restaurantes"
+    },
+    "homeCategoriesPersonalizadas":"Personalizadas",
+    "@homeCategoriesPersonalizadas":{
+        "description":"Texto de lista Personalizadas"
+    },
+     "homeCategoriesTiempo":"Tiempo",
+    "@homeCategoriesTiempo":{
+        "description":"Texto de lista Tiempo"
+    },
+     "homeCategoriesPlanViaje":"Plan Viaje",
+    "@homeCategoriesPlanViaje":{
+        "description":"Texto de lista PlanViaje"
+    },
+    "homeCategoriesFavoritos":"Favoritos",
+    "@homeCategoriesFavoritos":{
+        "description":"Texto de lista Favoritos"
+    },
+    "homeCategoriesHerramientas":"Herramientas",
+    "@homeCategoriesHerramientas":{
+        "description":"titulo Herramientas"
+    },
+"aCERCADETEXTS": "aCERCADETEXTS",
+"acercaDerechos": "TRAKNAV. Todos los derechos reservados.",
+    "@acercaDerechos": {
+        "description": "Texto de derechos"
+    },
+
 "sIGNINTEXTS": "sIGNINTEXTS",
     "signinWelcome": "Bienvenido a ",
     "@signinWelcome": {
@@ -118,7 +192,7 @@
     "@formPhone": {
         "description": "Pista de introducir teléfono en el formulario de inicio sesión y registro"
     },
-    "formSecureQuestion1": "¿A que primario fuiste?",
+    "formSecureQuestion1": "¿A que primaria fuiste?",
     "@formSecureQuestion1": {
         "description": "Pista de introducir pregunta seguridad 1 en el formulario de inicio sesión y registro"
     },
@@ -162,5 +236,58 @@
     "buttonSave": "Guardar",
     "@buttonSave": {
         "description": "Texto del botón guardar recomendaciones"
-    }
+    },
+    "tRIPPLANTEXTS": "tRIPPLANTEXTS",
+        "tripplanappbar": "Plan de viaje",
+        "@tripplanappbar": {
+            "description": "Appbar para Plan de Viaje"
+        },
+        "tripplanday" : "Día",
+        "@tripplanday": {
+        "description": "Día N"
+        },
+        "edittripplan" : "Editar plan de viaje",
+        "@edittripplan": {
+        "description": "Botón Editar plan de la pantalla Crear plan"
+        },
+        "createtripplan" : "Crear plan de viaje",
+        "@createtripplan": {
+        "description": "Botón Crear plan de la pantalla Crear plan"
+        },
+        "tripplanlist" : "Mis planes de viaje",
+        "@tripplanlist": {
+        "description": "Lista de los planes de viaje"
+        },
+        "tripplanlistf" : "Completado",
+        "@tripplanlistf": {
+        "description": "Lista de los planes de viaje-completado"
+        },
+        "tripplanlistu" : "Pendiente",
+        "@tripplanlistu": {
+        "description": "Lista de los planes de viaje-pendiente"
+        },
+        "tripplanlists" : "Iniciar plan de viaje",
+        "@tripplanlists": {
+        "description": "Lista de los planes de viaje-pendiente"
+        },
+        "tripplanhistory" : "Historial",
+        "@tripplanhistory": {
+        "description": "Historial"
+        },
+        "createPlanDialogTitle": "Plan generado exitosamente",
+        "@createPlanDialogTitle": {
+        "description": "cuadro de diálogo al crear el plan de viaje"
+        },
+        "createPlanDialogMessage": "Podrás consultarlo en ''Mis planes de viaje''",
+        "@createPlanDialogMessage": {
+        "description": "contenido del cuadro"
+        },
+        "cancel": "Cancelar",
+        "@cancel": {
+        "description": "Cancelar"
+        },
+        "confirm": "Aceptar",
+        "@confirm": {
+        "description": "Aceptar"
+        }
 }

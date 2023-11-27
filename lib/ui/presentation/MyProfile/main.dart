@@ -121,7 +121,7 @@ class MyProfilePage extends StatelessWidget {
                             ),
                             Container(
                               child: const Text(
-                                'Contraseña: *************',
+                                'Contraseña: *****',
                                 style: TextStyle(
                                     fontSize: 20,
                                     fontFamily: 'Nunito',
@@ -154,7 +154,7 @@ class MyProfilePage extends StatelessWidget {
               );
             }),
           ),
-        ),
+        ],
       ),
     );
   }

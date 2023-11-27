@@ -91,6 +91,7 @@ flutter:
       - assets/TravelPlan/
       - assets/MyProfile/
       - assets/clima/
+      - assets/TravelPlan/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

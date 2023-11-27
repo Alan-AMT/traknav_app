@@ -15,33 +15,31 @@ class MyProfilePage extends StatelessWidget {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(80.0),
-        child: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Mi Cuenta',
-            style: TextStyle(
-              fontFamily: 'Nunito',
-              fontStyle: FontStyle.italic,
-              fontSize: 30,
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(80.0),
+          child: AppBar(
+            centerTitle: true,
+            title: const Text(
+              'Mi Cuenta',
+              style: TextStyle(
+                fontFamily: 'Nunito',
+                fontStyle: FontStyle.italic,
+                fontSize: 30,
+                color: Colors.white,
+              ),
+            ),
+            leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              onPressed: () {
+                AutoRouter.of(context).navigate(const HomeRoute());
+              },
               color: Colors.white,
             ),
+            backgroundColor: const Color.fromARGB(0, 71, 171, 1),
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              AutoRouter.of(context).navigate(const HomeRoute());
-            },
-            color: Colors.white,
-          ),
-          backgroundColor: const Color.fromARGB(0, 71, 171, 1),
         ),
-      ),
-      backgroundColor: const Color.fromRGBO(0, 71, 171, 1),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: [
+        backgroundColor: const Color.fromRGBO(0, 71, 171, 1),
+        body: Column(mainAxisAlignment: MainAxisAlignment.end, children: [
           Container(
             height: height * 0.8,
 
@@ -154,8 +152,6 @@ class MyProfilePage extends StatelessWidget {
               );
             }),
           ),
-        ),
-      ),
-    );
+        ]));
   }
 }

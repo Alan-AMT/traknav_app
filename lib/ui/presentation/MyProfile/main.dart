@@ -12,6 +12,8 @@ class MyProfilePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+    double height = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(80.0),
@@ -33,124 +35,126 @@ class MyProfilePage extends StatelessWidget {
             },
             color: Colors.white,
           ),
-          backgroundColor: const Color.fromARGB(255, 18, 103, 173),
+          backgroundColor: const Color.fromARGB(0, 71, 171, 1),
         ),
       ),
-      backgroundColor: const Color.fromRGBO(8, 88, 153, 1),
-      body: Stack(
+      backgroundColor: const Color.fromRGBO(0, 71, 171, 1),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          // Fondo de color sólido
           Container(
-            color: const Color.fromARGB(255, 18, 103, 173),
-            width: double.infinity,
-            height: double.infinity,
-          ),
+            height: height * 0.8,
 
-          // Rectángulo
-          Positioned(
-            top: 100,
-            left: 0,
-            child: Container(
-              width: 360,
-              height: 550,
-              decoration: BoxDecoration(
-                color: Color.fromARGB(255, 161, 156, 156),
-                borderRadius: BorderRadius.circular(20), // Bordes rectangulares
-              ),
-            ),
-          ),
-
-          // Imagen con borde circular
-          Positioned(
-            top: 30,
-            left: 30,
-            child: Container(
-              width: 180,
-              height: 180,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                border: Border.all(
-                  color: Colors.white,
-                  width: 2.0,
-                ),
-              ),
-              child: const CircleAvatar(
-                backgroundImage:
-                    NetworkImage('https://picsum.photos/250?image=2'),
-              ),
-            ),
-          ),
-          Positioned(
-            top: 250,
-            left: 20,
-            child: Container(
-              width: 317,
-              height: 300,
-              decoration: BoxDecoration(
-                color: const Color.fromARGB(255, 255, 255, 255),
-                borderRadius: BorderRadius.circular(10),
-              ),
-              child: const Column(
-                //crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            //margin: EdgeInsets.symmetric(horizontal: 0),
+            child: LayoutBuilder(builder: (context, constraints) {
+              double innerHeight = constraints.maxHeight;
+              double innerWidth = constraints.maxWidth;
+              return Stack(
+                fit: StackFit.expand,
                 children: [
-                  Text(
-                    'Enzo Fernandez',
-                    style: TextStyle(
-                        fontSize: 35,
-                        fontFamily: 'Nunito',
-                        color: Colors.black),
+                  Positioned(
+                    //RECTANGULO GRIS
+                    bottom: 0,
+                    left: 0,
+                    right: 0,
+                    child: Container(
+                      height: innerHeight * 0.9,
+                      width: innerWidth,
+                      decoration: const BoxDecoration(
+                          borderRadius: BorderRadius.only(
+                            topLeft: Radius.circular(40),
+                            topRight: Radius.circular(40),
+                          ),
+                          color: Color(0xffd9d9d9)),
+                      child: Container(
+                        //datos personales
+                        //height: 10,
+                        margin: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 100),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius:
+                              BorderRadius.circular(40), // Bordes circulares
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                          children: [
+                            Container(
+                              child: const Text(
+                                'Enzo Fernandez',
+                                style: TextStyle(
+                                    fontSize: 40,
+                                    fontFamily: 'Nunito',
+                                    color: Colors.black),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Container(
+                              // margin: const EdgeInsets.symmetric(horizontal: 2),
+                              child: const Text(
+                                'Correo electrónico: user@gmail.com',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Nunito',
+                                    color: Colors.black),
+                              ),
+                            ),
+                            Container(
+                              child: const Text(
+                                'De: CDMX, México',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Nunito',
+                                    color: Colors.black),
+                                textAlign: TextAlign.left,
+                              ),
+                            ),
+                            Container(
+                              child: const Text(
+                                'Teléfono: 55-1111-1111',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Nunito',
+                                    color: Colors.black),
+                              ),
+                            ),
+                            Container(
+                              child: const Text(
+                                'Contraseña: *************',
+                                style: TextStyle(
+                                    fontSize: 20,
+                                    fontFamily: 'Nunito',
+                                    color: Colors.black),
+                              ),
+                            ),
+                          ],
+                          //
+                        ),
+                      ),
+                    ),
                   ),
-                  Text(
-                    'Correo electrónico: user@gmail.com',
-                    style: TextStyle(fontFamily: 'Nunito', color: Colors.black),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    'De: CDMX, México',
-                    style: TextStyle(fontFamily: 'Nunito', color: Colors.black),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    'Teléfono: 55-1111-1111',
-                    style: TextStyle(fontFamily: 'Nunito', color: Colors.black),
-                    textAlign: TextAlign.left,
-                  ),
-                  Text(
-                    'Contraseña: *************',
-                    style: TextStyle(fontFamily: 'Nunito', color: Colors.black),
-                    textAlign: TextAlign.left,
+                  Positioned(
+                    ///IMAGEN DE PERFIL
+                    top: 0,
+                    left: 0,
+                    right: 90,
+                    child: Center(
+                      child: Container(
+                        width: 150,
+                        height: 150,
+                        child: const CircleAvatar(
+                          backgroundImage:
+                              AssetImage('assets/MyProfile/yoyo.JPG'),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
-              ),
-            ),
+              );
+            }),
           ),
-          const Positioned(
-            top: 105,
-            right: 50,
-            child: Text(
-              'Editar',
-              style: TextStyle(
-                fontFamily: 'Nunito',
-                color: Colors.white,
-                fontSize: 30,
-              ),
-            ),
-          ),
-
-          // IconButton
-          Positioned(
-            top: 100,
-            right: -1,
-            child: IconButton(
-              icon: const Icon(Icons.edit_note),
-              iconSize: 40,
-              onPressed: () {
-                // Acción a realizar cuando se presiona el IconButton
-              },
-            ),
-          ),
-        ],
+        ),
       ),
     );
   }

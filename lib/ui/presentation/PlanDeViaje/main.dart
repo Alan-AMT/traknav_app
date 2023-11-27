@@ -2,7 +2,6 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 
-
 @RoutePage()
 class TripPlanPage extends StatelessWidget {
   const TripPlanPage({super.key});
@@ -80,6 +79,7 @@ class TripPlanPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   child: Text('Crear plan de viaje',
                       style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
                         fontFamily: 'Nunito',
                       )),
@@ -102,6 +102,7 @@ class TripPlanPage extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
                   child: Text('Mis planes de viaje',
                       style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
                         fontFamily: 'Nunito',
                       )),
@@ -121,9 +122,10 @@ class TripPlanPage extends StatelessWidget {
                     backgroundColor: const Color(0xff0098FA),
                     shape: const StadiumBorder()),
                 child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 75, vertical: 15),
+                  padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
                   child: Text('Historial',
                       style: TextStyle(
+                        fontSize: 20,
                         color: Colors.white,
                         fontFamily: 'Nunito',
                       )),

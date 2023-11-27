@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 
 @RoutePage()
@@ -28,7 +29,7 @@ class TripPlanHistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text('Historial',
+        title: Text(AppLocalizations.of(context)!.tripplanhistory,
           style: TextStyle(
             fontFamily: 'Nunito',
             fontStyle: FontStyle.italic,

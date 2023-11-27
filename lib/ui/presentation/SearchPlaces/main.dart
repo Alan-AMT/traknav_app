@@ -34,101 +34,79 @@ class SearchPlacesPage extends StatelessWidget {
             backgroundColor: Colors.white,
           ),
         ),
-        backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        body: Center(
-          child: Container(
-            width: 800,
-            height: 800,
-            child: Stack(
+        //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
+        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+          Container(
+            height: 550,
+            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
+            decoration: BoxDecoration(
+              color: Colors.blue, // Rectángulo azul
+              borderRadius: BorderRadius.circular(20), // Bordes circulares
+            ),
+            child: Column(
               children: [
-                // Rectángulo azul
-                Positioned(
-                  top: 20, // Ajusta la posición vertical
-                  left: 35, // Ajusta la posición horizontal
-                  child: Container(
-                    width: 290,
-                    height: 550,
-                    decoration: BoxDecoration(
-                      color: Colors.blue, // Rectángulo azul
-                      borderRadius:
-                          BorderRadius.circular(20), // Bordes circulares
-                    ),
+                Container(
+                  //barra busqueda
+                  height: 40,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius:
+                        BorderRadius.circular(20), // Bordes circulares
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      IconButton(
+                        icon: const Icon(Icons.search),
+                        onPressed: () {},
+                      ),
+                      const Text(
+                        '¿A dónde vamos?',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      IconButton(
+                        icon: const Icon(Icons.filter_alt),
+                        onPressed: () {
+                          AutoRouter.of(context)
+                              .navigate(const SearchPlacesRoute());
+                        },
+                      ),
+                    ],
                   ),
                 ),
-
-                // Espacio blanco rectangular con iconos y texto
-                Positioned(
-                  top: 40, // Ajusta la posición vertical
-                  left: 55,
-                  //left: MediaQuery.of(context).size.width / 2 - 100,
-                  child: Container(
-                    width: 250,
-                    height: 40,
-                    margin: const EdgeInsets.symmetric(vertical: 10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(20), // Bordes circulares
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        IconButton(
-                          icon: const Icon(Icons.search),
-                          onPressed: () {
-                            // Lógica al presionar el botón izquierdo
-                          },
-                        ),
-                        const Text(
-                          '¿A dónde vamos?',
-                          style: TextStyle(fontSize: 16),
-                        ),
-                        IconButton(
-                          icon: const Icon(Icons.filter_alt),
-                          onPressed: () {
-                            // Lógica al presionar el botón derecho
-                          },
-                        ),
-                      ],
-                    ),
+                Container(
+                  width: 250,
+                  height: 370,
+                  padding: const EdgeInsets.all(10),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(10), // Bordes redondos
                   ),
+                  child:
+                      MyCheckboxList(), //------------------------------------------------------
                 ),
-
-                Positioned(
-                  top: 100,
-                  left: 55,
-                  child: Container(
-                    width: 250,
-                    height: 350,
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius:
-                          BorderRadius.circular(10), // Bordes redondos
-                    ),
-                    child:
-                        MyCheckboxList(), //------------------------------------------------------
+                Container(
+                  //BOTON SIGUIENTE
+                  height: 40,
+                  margin:
+                      const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
+                  decoration: BoxDecoration(
+                    color: const Color.fromARGB(255, 85, 187, 235),
+                    borderRadius:
+                        BorderRadius.circular(20), // Bordes circulares
                   ),
-                ),
-
-                Positioned(
-                  top: 470,
-                  left: MediaQuery.of(context).size.width / 2,
-                  child: Container(
-                    padding: const EdgeInsets.all(5),
-                    decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 113, 181, 237),
-                      borderRadius:
-                          BorderRadius.circular(40), // Bordes redondos
-                    ),
-                    child: TextButton(
-                      onPressed: () {},
-                      child: const Text(
-                        'Siguiente',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18,
-                        ),
+                  child: TextButton(
+                    onPressed: () {
+                      AutoRouter.of(context)
+                          .navigate(const CreateTripPlanRoute());
+                    },
+                    child: const Text(
+                      'Aceptar',
+                      style: TextStyle(
+                        color: Color.fromARGB(255, 2, 0, 0),
+                        fontSize: 18,
                       ),
                     ),
                   ),
@@ -136,7 +114,7 @@ class SearchPlacesPage extends StatelessWidget {
               ],
             ),
           ),
-        ),
+        ]),
       ),
     );
   }

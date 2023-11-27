@@ -18,11 +18,12 @@ class ToolsWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              color: const Color.fromARGB(255, 255, 255, 255),
+              //color: const Color.fromARGB(255, 255, 255, 255),
               child: Text(
-                "",
+                'Herramientas',
+          
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                  //color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 20.0,
                 ),
               ),
@@ -83,7 +84,7 @@ class ToolsWidget extends StatelessWidget {
                           Text(
                             listTools[index].text,
                             style: TextStyle(
-                              color: Colors.black,
+                              //color: Colors.black,
                               fontSize: 15.0,
                             ),
                           ),

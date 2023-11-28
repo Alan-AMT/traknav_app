@@ -28,6 +28,7 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: PoliticasRoute.page),
         AutoRoute(page: MapSearchRoute.page),
         AutoRoute(page: ClimaRoute.page),
-        AutoRoute(page: MapDirectionsRoute.page),
+        AutoRoute(page: MultiUserRoute.page),
+        // AutoRoute(page: SignUpRoute.page),
       ];
 }

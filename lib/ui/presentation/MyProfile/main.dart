@@ -131,9 +131,22 @@ class MyProfilePage extends StatelessWidget {
                                       color: Colors.black),
                                 ),
                               ),
-                            ],
-                            //
-                          ),
+
+                            ),
+                            ElevatedButton(
+                                style: ButtonStyle(
+                                    shape: MaterialStatePropertyAll(
+                                        RoundedRectangleBorder(
+                                            borderRadius:
+                                                BorderRadius.circular(12)))),
+                                onPressed: () {
+                                  AutoRouter.of(context)
+                                      .navigate(const MultiUserRoute());
+                                },
+                                child: const Text("Cambiar de usuario"))
+                          ],
+                          //
+
                         ),
                       ),
                     ),

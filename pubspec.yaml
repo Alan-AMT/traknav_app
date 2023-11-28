@@ -92,6 +92,7 @@ flutter:
       - assets/MyProfile/
       - assets/clima/
       - assets/TravelPlan/
+      - assets/MultiUser/
   #   - images/a_dot_burr.jpeg
   #   - images/a_dot_ham.jpeg
 

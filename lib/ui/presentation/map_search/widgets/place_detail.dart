@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PlaceDetail extends StatefulWidget {
   final String placeId;
@@ -60,7 +61,7 @@ class _PlaceDetail extends State<PlaceDetail> {
           children: [
             Expanded(
                 child: TextButton(
-              child: Text("Ir a"),
+              child: Text(AppLocalizations.of(context)!.goToPlaceButton),
               onPressed: () async {
                 if (!await checkPermissions()) return;
                 context.router.push(MapDirectionsRoute(
@@ -71,7 +72,7 @@ class _PlaceDetail extends State<PlaceDetail> {
             )),
             Expanded(
                 child: TextButton(
-              child: Text("Detalles"),
+              child: Text(AppLocalizations.of(context)!.placeDetailsButton),
               onPressed: () {},
             ))
           ],

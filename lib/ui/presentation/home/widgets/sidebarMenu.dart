@@ -71,8 +71,7 @@ class _SidebarMenu extends State<SidebarMenu> {
               ),
               ListTile(
                 leading: const Icon(Icons.map),
-                title: const Text("Mapa"),
-                // title: Text(AppLocalizations.of(context)!.homeSidemenuProfile),
+                title: Text(AppLocalizations.of(context)!.homeSidemenuMap),
                 onTap: () async {
                   await _allowLocation();
                   _close();

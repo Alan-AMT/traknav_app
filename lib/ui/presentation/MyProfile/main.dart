@@ -55,101 +55,99 @@ class MyProfilePage extends StatelessWidget {
                   fit: StackFit.expand,
                   children: [
                     Positioned(
-                      //RECTANGULO GRIS
-                      bottom: 0,
-                      left: 0,
-                      right: 0,
-                      child: Container(
-                        height: innerHeight * 0.9,
-                        width: innerWidth,
-                        decoration: const BoxDecoration(
-                            borderRadius: BorderRadius.only(
-                              topLeft: Radius.circular(40),
-                              topRight: Radius.circular(40),
-                            ),
-                            color: Color(0xffd9d9d9)),
+                        //RECTANGULO GRIS
+                        bottom: 0,
+                        left: 0,
+                        right: 0,
                         child: Container(
-                          //datos personales
-                          //height: 10,
-                          margin: const EdgeInsets.symmetric(
-                              horizontal: 20, vertical: 100),
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            borderRadius:
-                                BorderRadius.circular(40), // Bordes circulares
-                          ),
-
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-
-                            children: [
-                              Container(
-                                child: const Text(
-                                  'Enzo Fernandez',
-                                  style: TextStyle(
-                                      fontSize: 40,
-                                      fontFamily: 'Nunito',
-                                      color: Colors.black),
-                                  textAlign: TextAlign.left,
-                                ),
+                          height: innerHeight * 0.9,
+                          width: innerWidth,
+                          decoration: const BoxDecoration(
+                              borderRadius: BorderRadius.only(
+                                topLeft: Radius.circular(40),
+                                topRight: Radius.circular(40),
                               ),
-                              Container(
-                                // margin: const EdgeInsets.symmetric(horizontal: 2),
-                                child: const Text(
-                                  'Correo electrónico: user@gmail.com',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      color: Colors.black),
-                                ),
-                              ),
-                              Container(
-                                child: const Text(
-                                  'De: CDMX, México',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      color: Colors.black),
-                                  textAlign: TextAlign.left,
-                                ),
-                              ),
-                              Container(
-                                child: const Text(
-                                  'Teléfono: 55-1111-1111',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      color: Colors.black),
-                                ),
-                              ),
-                              Container(
-                                child: const Text(
-                                  'Contraseña: *****',
-                                  style: TextStyle(
-                                      fontSize: 20,
-                                      fontFamily: 'Nunito',
-                                      color: Colors.black),
-                                ),
-                              ),
-
+                              color: Color(0xffd9d9d9)),
+                          child: Container(
+                            //datos personales
+                            //height: 10,
+                            margin: const EdgeInsets.symmetric(
+                                horizontal: 20, vertical: 100),
+                            decoration: BoxDecoration(
+                              color: Colors.white,
+                              borderRadius: BorderRadius.circular(
+                                  40), // Bordes circulares
                             ),
-                            ElevatedButton(
-                                style: ButtonStyle(
-                                    shape: MaterialStatePropertyAll(
-                                        RoundedRectangleBorder(
-                                            borderRadius:
-                                                BorderRadius.circular(12)))),
-                                onPressed: () {
-                                  AutoRouter.of(context)
-                                      .navigate(const MultiUserRoute());
-                                },
-                                child: const Text("Cambiar de usuario"))
-                          ],
-                          //
 
-                        ),
-                      ),
-                    ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+
+                              children: [
+                                Container(
+                                  child: const Text(
+                                    'Enzo Fernandez',
+                                    style: TextStyle(
+                                        fontSize: 40,
+                                        fontFamily: 'Nunito',
+                                        color: Colors.black),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                                Container(
+                                  // margin: const EdgeInsets.symmetric(horizontal: 2),
+                                  child: const Text(
+                                    'Correo electrónico: user@gmail.com',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Nunito',
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                Container(
+                                  child: const Text(
+                                    'De: CDMX, México',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Nunito',
+                                        color: Colors.black),
+                                    textAlign: TextAlign.left,
+                                  ),
+                                ),
+                                Container(
+                                  child: const Text(
+                                    'Teléfono: 55-1111-1111',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Nunito',
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                Container(
+                                  child: const Text(
+                                    'Contraseña: *****',
+                                    style: TextStyle(
+                                        fontSize: 20,
+                                        fontFamily: 'Nunito',
+                                        color: Colors.black),
+                                  ),
+                                ),
+                                ElevatedButton(
+                                    style: ButtonStyle(
+                                        shape: MaterialStatePropertyAll(
+                                            RoundedRectangleBorder(
+                                                borderRadius:
+                                                    BorderRadius.circular(
+                                                        12)))),
+                                    onPressed: () {
+                                      AutoRouter.of(context)
+                                          .navigate(const MultiUserRoute());
+                                    },
+                                    child: const Text("Cambiar de usuario"))
+                              ],
+                              //
+                            ),
+                          ),
+                        )),
                     Positioned(
                       ///IMAGEN DE PERFIL
                       top: 0,

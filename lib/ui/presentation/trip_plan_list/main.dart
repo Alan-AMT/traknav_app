@@ -57,7 +57,6 @@ class _TripPlanListState extends State<TripPlanListPage> {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-
         title: Text(AppLocalizations.of(context)!.tripplanlist,
           style: const TextStyle(
             fontFamily: 'Nunito',
@@ -66,7 +65,6 @@ class _TripPlanListState extends State<TripPlanListPage> {
             color: Colors.white,
           ),
         ),
-
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),

@@ -34,11 +34,8 @@ class _SearchForm extends State<SearchForm> {
             ),
             debounceTime: 600,
             isLatLngRequired: true,
-            getPlaceDetailWithLatLng: (Prediction prediction) {
-              print("placeDetails" + prediction.lng.toString());
-            },
+            getPlaceDetailWithLatLng: (Prediction prediction) {},
             itemClick: (Prediction prediction) {
-              print("placeDetails" + prediction.lng.toString());
               controller.text = prediction.description ?? "";
               controller.selection = TextSelection.fromPosition(
                   TextPosition(offset: prediction.description?.length ?? 0));

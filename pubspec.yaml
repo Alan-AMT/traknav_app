@@ -55,6 +55,8 @@ dependencies:
   google_places_flutter: ^2.0.6
   location: ^5.0.3
   country_icons: ^2.0.2
+  google_maps_widget: ^1.0.5+1
+
 dev_dependencies:
   flutter_test:
     sdk: flutter

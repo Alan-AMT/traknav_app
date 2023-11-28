@@ -16,6 +16,10 @@
     "@homeSidemenuHome": {
         "description": "La opción de ir a pantalla inicial en el menú de hamburguesa"
     },
+    "homeSidemenuMap": "Mapa",
+    "@homeSidemenuMap": {
+        "description": "La opción de ir al mapa en el menú de hamburguesa"
+    },
     "homeSidemenuProfile": "Mi cuenta",
     "@homeSidemenuProfile": {
         "description": "La opción de ir a mi cuenta en el menú de hamburguesa"
@@ -358,5 +362,14 @@
     "hwCustomAccAns": "Si no configuraste tus preferencias a la hora de crear tu cuenta o deseas cambiarlas, solo tienes que acceder al apartado de 'modificar recomendaciones' del menú de hamburguesa",
     "@hwCustomAccAns": {
         "description": "Pregunta de perfil de usuario sobre la personalización de la cuenta"
+    },
+"mAPTEXTS": "MAPTEXTS",
+    "goToPlaceButton": "Ir a",
+    "@goToPlaceButton": {
+        "description": "Botón de mostrar direcciones para una locación"
+    },
+    "placeDetailsButton": "Detalles",
+    "@goToPlaceButton": {
+        "description": "Botón de mostrar detalles para una locación"
     }
 }

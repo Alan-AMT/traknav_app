@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
-import 'package:traknav_app/ui/presentation/home/widgets/searchBar.dart';
 import 'package:traknav_app/ui/core/data/map_search.dart' as dataSource;
 import 'package:traknav_app/ui/presentation/map_search/cubit/map_search_cubit.dart';
 import 'package:traknav_app/ui/presentation/map_search/widgets/main.dart';
@@ -43,8 +42,8 @@ class _MapSearchPage extends State<MapSearchPage> {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance
-        .addPostFrameCallback((_) => _getLocation(_controller));
+    WidgetsBinding.instance.addPostFrameCallback((_) => _getLocation()
+        .then((locationData) => setLocation(_controller, locationData)));
   }
 
   Future<bool> checkPermissions() async {
@@ -68,17 +67,22 @@ class _MapSearchPage extends State<MapSearchPage> {
     return true;
   }
 
-  Future<void> _getLocation(Completer<GoogleMapController> controller) async {
-    final bool hasPermission = await checkPermissions();
-    if (!hasPermission) return;
-    Location location = Location();
-    LocationData locationData = await location.getLocation();
+  Future<void> setLocation(Completer<GoogleMapController> controller,
+      LocationData? locationData) async {
+    if (locationData == null) return;
     final GoogleMapController controller = await _controller.future;
     await controller.animateCamera(CameraUpdate.newCameraPosition(
         CameraPosition(
             target:
                 LatLng(locationData.latitude ?? 0, locationData.longitude ?? 0),
             zoom: 15)));
+  }
+
+  Future<LocationData?> _getLocation() async {
+    final bool hasPermission = await checkPermissions();
+    if (!hasPermission) return null;
+    Location location = Location();
+    return await location.getLocation();
   }
 
   Future<void> moveToPlace(Completer<GoogleMapController> controller,
@@ -121,23 +125,25 @@ class _MapSearchPage extends State<MapSearchPage> {
             GestureDetector(
               child: const ListTile(leading: Icon(Icons.search)),
               onTap: () async {
-                final <Object?>[placeId, mainText, secText, ...rest] =
+                final <Object?>[placeId, mainText, secText, ..._] =
                     await showMaterialModalBottomSheet(
                         context: context,
                         builder: (context) => const SearchForm());
                 if (placeId == null) return;
                 final details = await dataSource.getPlaceDetails(
                     placeId: placeId.toString());
-                await moveToPlace(
-                    _controller,
-                    LatLng(
-                        details.location.latitude, details.location.longitude),
-                    mainText.toString(),
+                final position = LatLng(
+                    details.location.latitude, details.location.longitude);
+                await moveToPlace(_controller, position, mainText.toString(),
                     secText.toString());
+                final LocationData? currentLocation = await _getLocation();
                 // ignore: use_build_context_synchronously
                 await showMaterialModalBottomSheet(
                     context: context,
                     builder: (context) => PlaceDetail(
+                        currentPosition: LatLng(currentLocation?.latitude ?? 0,
+                            currentLocation?.longitude ?? 0),
+                        placePosition: position,
                         placeId: placeId.toString(),
                         placeAdress: secText.toString(),
                         placeName: mainText.toString()));

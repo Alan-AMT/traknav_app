@@ -16,6 +16,10 @@
     "@homeSidemenuHome": {
         "description": "La opción de ir a pantalla inicial en el menú de hamburguesa"
     },
+    "homeSidemenuMap": "Mapa",
+    "@homeSidemenuMap": {
+        "description": "La opción de ir al mapa en el menú de hamburguesa"
+    },
     "homeSidemenuProfile": "Mi cuenta",
     "@homeSidemenuProfile": {
         "description": "La opción de ir a mi cuenta en el menú de hamburguesa"
@@ -81,6 +85,80 @@
     "@homeSidemenuSignOut": {
         "description": "La opción de cerrar sesión en el menú de hamburguesa"
     },
+    "homeSearchBar": "Hola, ¿A dónde vamos?",
+    "@homeSearchBar": {
+        "description": "Texto mostrado en la barra de busqueda"
+    },
+    "homeAdviceUp": "Encuetra más lugares",
+    "@homeAdviceUp": {
+        "description": "Texto mostrado en el advice arriba"
+    },
+   "homeAdviceDown": "a tu alrededor",
+    "@homeAdviceDown": {
+        "description": "Texto mostrado en el advice abajo"
+    },
+    "homeAdviceDiscover": "Descubrir ahora >",
+    "@homeAdviceDiscover": {
+        "description": "Texto mostrado en el advice para descubrir"
+    },
+    "homeRecomendedMore": "Ver más",
+    "@homeRecomendedMore": {
+        "description": "Texto ver más"
+    },
+    "homeRecomendedTitle": "Recomendados",
+    "@homeRecomendedTitle": {
+        "description": "Texto Recomendados"
+    },
+    "homeCategoriesTitle": "Categorias",
+    "@homeCategoriesTitle": {
+        "description": "Texto Categorias"
+    },
+     "homeCategoriesComercioLocal": "Comercio Local",
+    "@homeCategoriesComercioLocal": {
+        "description": "Texto de lista Comercio Local"
+    },
+    "homeCategoriesMuseos":"Museos",
+    "@homeCategoriesMuseos":{
+        "description":"Texto de lista museos"
+    },
+    "homeCategoriesHospedaje":"Hospedaje",
+    "@homeCategoriesHospedaje":{
+        "description":"Texto de lista hospedaje"
+    },
+    "homeCategoriesParques":"Parques",
+    "@homeCategoriesParques":{
+        "description":"Texto de lista de Parques"
+    },
+    "homeCategoriesRestaurantes":"Restaurantes",
+    "@homeCategoriesRestaurantes":{
+        "description":"Texto de lista Restaurantes"
+    },
+    "homeCategoriesPersonalizadas":"Personalizadas",
+    "@homeCategoriesPersonalizadas":{
+        "description":"Texto de lista Personalizadas"
+    },
+     "homeCategoriesTiempo":"Tiempo",
+    "@homeCategoriesTiempo":{
+        "description":"Texto de lista Tiempo"
+    },
+     "homeCategoriesPlanViaje":"Plan Viaje",
+    "@homeCategoriesPlanViaje":{
+        "description":"Texto de lista PlanViaje"
+    },
+    "homeCategoriesFavoritos":"Favoritos",
+    "@homeCategoriesFavoritos":{
+        "description":"Texto de lista Favoritos"
+    },
+    "homeCategoriesHerramientas":"Herramientas",
+    "@homeCategoriesHerramientas":{
+        "description":"titulo Herramientas"
+    },
+"aCERCADETEXTS": "aCERCADETEXTS",
+"acercaDerechos": "TRAKNAV. Todos los derechos reservados.",
+    "@acercaDerechos": {
+        "description": "Texto de derechos"
+    },
+
 "sIGNINTEXTS": "sIGNINTEXTS",
     "signinWelcome": "Bienvenido a ",
     "@signinWelcome": {
@@ -215,5 +293,83 @@
         "confirm": "Aceptar",
         "@confirm": {
         "description": "Aceptar"
-        }
+        },
+"fAQSTEXTS": "fAQSTEXTS",
+    "navBarTitle": "PREGUNTAS FRECUENTES",
+    "@navBarTitle": {
+        "description": "Título de la barra de navegación"
+    },
+    "mainBtnTitle": "PREGUNTAS GENERALES",
+    "@mainBtnTitle": {
+        "description": "Título de botón principal"
+    },
+    "mainBtnText": "Resuelve tus dudas con esta recopilación de preguntas más frecuentes",
+    "@mainBtnText": {
+        "description": "Texto del botón principal"
+    },
+    "contactUs": "CONTÁCTANOS",
+    "@contactUs": {
+        "description": "Título para información de contacto"
+    },
+    "questionsAbout": "PREGUNTAS ACERCA DE:",
+    "@questionsAbout": {
+        "description": "Título para el action area de la pagina acerca de"
+    },
+    "usrProfile": "Perfil de Usuario",
+    "@usrProfile": {
+        "description": "botón perfil de usuario"
+    },
+    "generalInfo": "Información General",
+    "@generalInfo": {
+        "description": "botón de información general"
+    },
+    "tecProblems": "Problemas Técnicos",
+    "@tecProblems": {
+        "description": "botón de problemas técnicos"
+    },
+    "privPolicies": "Políticas de Privacidad",
+    "@privPolicies": {
+        "description": "botón de políticas"
+    },
+    "hwEditProfile": "¿Cómo editar mi perfil de usuario?",
+    "@hwEditProfile": {
+        "description": "pregunta de perfil de usuario sobre editar el perfil"
+    },
+    "hwEditProfileAns": "Puedes editar tu perfil de usuario accediendo a los detalles de tu cuenta a través del ícono redondo de la ezquina superior derecha de la pantalla principal. Una vez en los detalles de tu cuenta solo tienes que hacer tap en 'editar'",
+    "@hwEditProfileAns": {
+        "description": "Respuesta de perfil de usuario sobre editar el perfil"
+    },
+    "hwResetPass": "¿Cómo reestablezco mi contraseña?",
+    "@hwResetPass": {
+        "description": "Pregunta de perfil de usuario sobre reestabecer contraseña"
+    },
+    "hwResetPassAns": "Reestablecer contraseña es una de las modificaciones que puedes hacer al editar tu perfil, por lo que tienes que acceder a editar perfil",
+    "@hwResetPassAns": {
+        "description": "Pregunta de perfil de usuario sobre reestabecer contraseña"
+    },
+    "plansAndTrips": "¿Mis planes de viaje son públicos?",
+    "@plansAndTrips": {
+        "description": "Pregunta de perfil de usuario sobre si planes de viaje son públicos"
+    },
+    "plansAndTripsAns": "No, tus planes y viajes son privados y se almacenan en tu cuenta de usuario. Los planes se pueden compartir por redes sociales, pero no es obligatorio hacerlo",
+    "@plansAndTripsAns": {
+        "description": "Pregunta de perfil de usuario sobre si planes de viaje son públicos"
+    },
+    "hwCustomAcc": "¿Cómo personalizar mi cuenta?",
+    "@hwCustomAcc": {
+        "description": "Pregunta de perfil de usuario sobre la personalización de la cuenta"
+    },
+    "hwCustomAccAns": "Si no configuraste tus preferencias a la hora de crear tu cuenta o deseas cambiarlas, solo tienes que acceder al apartado de 'modificar recomendaciones' del menú de hamburguesa",
+    "@hwCustomAccAns": {
+        "description": "Pregunta de perfil de usuario sobre la personalización de la cuenta"
+    },
+"mAPTEXTS": "MAPTEXTS",
+    "goToPlaceButton": "Ir a",
+    "@goToPlaceButton": {
+        "description": "Botón de mostrar direcciones para una locación"
+    },
+    "placeDetailsButton": "Detalles",
+    "@goToPlaceButton": {
+        "description": "Botón de mostrar detalles para una locación"
+    }
 }

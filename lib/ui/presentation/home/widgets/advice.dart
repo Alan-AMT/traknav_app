@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class AdviceWidget extends StatelessWidget {
   const AdviceWidget({super.key});
@@ -95,7 +96,7 @@ class AdviceWidget extends StatelessWidget {
           top: 25,
           left: 55,
           child: Text(
-            'Encuetra más lugares',
+            AppLocalizations.of(context)!.homeAdviceUp,
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
@@ -107,7 +108,7 @@ class AdviceWidget extends StatelessWidget {
           top: 52,
           left: 55,
           child: Text(
-            'a tu alrededor',
+            AppLocalizations.of(context)!.homeAdviceDown,
             style: TextStyle(
               color: Colors.white,
               fontSize: 20.0,
@@ -119,7 +120,7 @@ class AdviceWidget extends StatelessWidget {
           top: 95,
           left: 55,
           child: Text(
-            'Descubrir ahora >',
+            AppLocalizations.of(context)!.homeAdviceDiscover,
             style: TextStyle(
               color: Colors.white,
               fontSize: 15.0,

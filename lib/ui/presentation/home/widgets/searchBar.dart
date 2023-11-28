@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:traknav_app/ui/presentation/map_search/widgets/search_form.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class SearchBarWidget extends StatelessWidget {
   const SearchBarWidget({super.key});
 
   @override
   Widget build(BuildContext context) {
+    String? homeSearchBarText = AppLocalizations.of(context)!.homeSearchBar;
+
     return Container(
       alignment: Alignment.center,
       padding: EdgeInsets.only(left: 17.0, right: 17.0),
@@ -32,7 +35,7 @@ class SearchBarWidget extends StatelessWidget {
           if (placeId == null) return;
         },
         cursorColor: Colors.white,
-        decoration: const InputDecoration(
+        decoration: InputDecoration(
           suffixIcon: Icon(
             Icons.search,
             color: Colors.black,
@@ -44,7 +47,7 @@ class SearchBarWidget extends StatelessWidget {
             fontSize: 18.0,
             fontFamily: 'NUNITO_LIGHT',
           ),
-          hintText: 'Hola, ¿A dónde vamos?',
+          hintText: homeSearchBarText.toString(),
         ),
       ),
     );

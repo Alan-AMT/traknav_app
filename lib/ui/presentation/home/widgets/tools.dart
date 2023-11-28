@@ -2,12 +2,18 @@ import 'package:auto_route/auto_route.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ToolsWidget extends StatelessWidget {
   const ToolsWidget({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    List<String> categories = [
+      AppLocalizations.of(context)!.homeCategoriesTiempo,
+      AppLocalizations.of(context)!.homeCategoriesPlanViaje,
+      AppLocalizations.of(context)!.homeCategoriesFavoritos,
+    ];
     return Expanded(
       flex: 6,
       child: Stack(
@@ -18,11 +24,11 @@ class ToolsWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              color: const Color.fromARGB(255, 255, 255, 255),
+              //color: const Color.fromARGB(255, 255, 255, 255),
               child: Text(
-                "",
+                AppLocalizations.of(context)!.homeCategoriesHerramientas,
                 style: TextStyle(
-                  color: const Color.fromARGB(255, 0, 0, 0),
+                  //color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 20.0,
                 ),
               ),
@@ -43,14 +49,23 @@ class ToolsWidget extends StatelessWidget {
                 return GestureDetector(
                   onTap: () {
                     // Ejemplo: Navegar a diferentes rutas según el texto del ítem
-                    switch (listTools[index].text) {
+                    switch (categories[index]) {
                       case 'Plan Viaje':
+                        context.router.push(TripPlanRoute());
+                        break;
+                      case 'Trip plan':
                         context.router.push(TripPlanRoute());
                         break;
                       case 'Tiempo':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
+                      case 'Climate':
+                        AutoRouter.of(context).navigate(const ClimaRoute());
+                        break;
                       case 'Favoritos':
+                        // context.router.push(FavoritesRoute());
+                        break;
+                      case 'Favorites':
                         // context.router.push(FavoritesRoute());
                         break;
                       // Agrega más casos según sea necesario
@@ -81,9 +96,9 @@ class ToolsWidget extends StatelessWidget {
                             height: 15.0,
                           ),
                           Text(
-                            listTools[index].text,
+                            categories[index],
                             style: TextStyle(
-                              color: Colors.black,
+                              //  color: Colors.black,
                               fontSize: 15.0,
                             ),
                           ),
@@ -103,13 +118,11 @@ class StyleModelTools {
   final int id;
   final Color color;
   final List<BoxShadow> boxShadow;
-  final String text;
 
   StyleModelTools({
     required this.id,
     required this.color,
     required this.boxShadow,
-    required this.text,
   });
 }
 
@@ -125,7 +138,6 @@ List<StyleModelTools> listTools = [
         offset: Offset(0, 0),
       ),
     ],
-    text: 'Tiempo',
   ),
   StyleModelTools(
     id: 2,
@@ -138,7 +150,6 @@ List<StyleModelTools> listTools = [
         offset: Offset(0, 0),
       ),
     ],
-    text: 'Plan Viaje',
   ),
   StyleModelTools(
     id: 3,
@@ -151,6 +162,5 @@ List<StyleModelTools> listTools = [
         offset: Offset(0, 0),
       ),
     ],
-    text: 'Favoritos',
   ),
 ];

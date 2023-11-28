@@ -32,8 +32,8 @@ class Btns extends StatelessWidget {
               imgUrl: 'assets/FAQs/info.png',
               descripcion: AppLocalizations.of(context)!.generalInfo,
               onPressed: () {
-                //AutoRouter.of(context).navigate(const InformacionGeneralRoute());
-                AutoRouter.of(context).navigate(const MultiUserRoute());
+                AutoRouter.of(context)
+                    .navigate(const InformacionGeneralRoute());
               },
             ),
           ],

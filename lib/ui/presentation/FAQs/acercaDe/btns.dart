@@ -5,6 +5,7 @@ import 'package:traknav_app/ui/presentation/FAQs/acercaDe/btnFAQ_style.dart';
 import 'package:traknav_app/ui/presentation/FAQs/politicas/politicas.dart';
 import 'package:traknav_app/ui/presentation/FAQs/problemasTecnicos/problemasTecnicos.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Btns extends StatelessWidget {
   const Btns({super.key});
@@ -22,17 +23,17 @@ class Btns extends StatelessWidget {
           children: [
             BtnFAQ(
               imgUrl: 'assets/FAQs/usuario.png',
-              descripcion: "Perfil de Usuario",
+              descripcion: AppLocalizations.of(context)!.usrProfile,
               onPressed: () {
                 AutoRouter.of(context).navigate(const PerfilUsuarioRoute());
               },
             ),
             BtnFAQ(
               imgUrl: 'assets/FAQs/info.png',
-              descripcion: "Información general",
+              descripcion: AppLocalizations.of(context)!.generalInfo,
               onPressed: () {
-                AutoRouter.of(context)
-                    .navigate(const InformacionGeneralRoute());
+                //AutoRouter.of(context).navigate(const InformacionGeneralRoute());
+                AutoRouter.of(context).navigate(const MultiUserRoute());
               },
             ),
           ],
@@ -46,14 +47,14 @@ class Btns extends StatelessWidget {
           children: [
             BtnFAQ(
               imgUrl: 'assets/FAQs/alerta.png',
-              descripcion: "Problemas técnicos",
+              descripcion: AppLocalizations.of(context)!.tecProblems,
               onPressed: () {
                 AutoRouter.of(context).navigate(const ProblemasTecnicosRoute());
               },
             ),
             BtnFAQ(
               imgUrl: 'assets/FAQs/privacidad.png',
-              descripcion: "Políticas de privacidad",
+              descripcion: AppLocalizations.of(context)!.privPolicies,
               onPressed: () {
                 AutoRouter.of(context).navigate(const PoliticasRoute());
               },

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BtnContactanos extends StatelessWidget {
   const BtnContactanos({super.key});
@@ -9,8 +10,8 @@ class BtnContactanos extends StatelessWidget {
         padding: const EdgeInsets.only(top: 20),
         child: Column(
           children: [
-            const Text(
-              "CONTÁCTANOS:",
+            Text(
+              AppLocalizations.of(context)!.contactUs,
               style: TextStyle(fontSize: 20),
             ),
             Container(

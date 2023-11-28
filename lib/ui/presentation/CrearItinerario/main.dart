@@ -28,7 +28,6 @@ class CreateTripPlanPage extends StatelessWidget {
           ),
         ),
         //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-
         //
         body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(

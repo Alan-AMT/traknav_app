@@ -34,7 +34,6 @@ class SearchPlacesPage extends StatelessWidget {
             backgroundColor: Colors.white,
           ),
         ),
-
         //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
           Container(
@@ -91,7 +90,6 @@ class SearchPlacesPage extends StatelessWidget {
                 Container(
                   //BOTON SIGUIENTE
                   height: 40,
-
                   margin:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
                   decoration: BoxDecoration(

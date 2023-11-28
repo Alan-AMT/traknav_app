@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-import '../../router/android.gr.dart';
-
 
 @RoutePage()
 class TripPlanListPage extends StatefulWidget {
@@ -121,7 +119,6 @@ class _TripPlanListState extends State<TripPlanListPage> {
                       TextButton(
                         onPressed: () {
                           // Acción para editar el plan de viaje
-                          //context.router.push(EditTripPlanRoute(planData: planData[planIndex], tripDaysData: []));
                         },
                         child: Text(AppLocalizations.of(context)!.edittripplan),
                       ),

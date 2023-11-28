@@ -4,30 +4,46 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 import '../../router/android.gr.dart';
+import '../trip_plan_edit/main.dart';
 
 @RoutePage()
-class TripPlanCreatedPage extends StatelessWidget {
+class TripPlanCreatedPage extends StatefulWidget {
   const TripPlanCreatedPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    final List<Map<String, dynamic>> tripDaysData = [
-      {
-        'day': 1,
-        'places': [
-          {'name': 'Museo de Frida Kahlo', 'image': 'assets/TravelPlan/museoF.png'},
-          {'name': 'Museo Soumaya', 'image': 'assets/TravelPlan/museoS.png'},
-        ],
-      },
-      {
-        'day': 2,
-        'places': [
-          {'name': 'Museo de Antropología', 'image': 'assets/TravelPlan/museoA.png'},
-          {'name': 'Museo de la Ciudad de Mexico', 'image': 'assets/TravelPlan/museoC.png'},
-        ],
-      },
+  _TripPlanCreatedPageState createState() => _TripPlanCreatedPageState();
+}
 
-    ];
+class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
+  List<Map<String, dynamic>> tripDaysData;
+  _TripPlanCreatedPageState() : tripDaysData = [
+    // Inicializa con tus datos iniciales aquí...
+    {
+      'day': 1,
+      'places': [
+        {
+          'name': 'Museo de Frida Kahlo',
+          'image': 'assets/TravelPlan/museoF.png'
+        },
+        {'name': 'Museo Soumaya', 'image': 'assets/TravelPlan/museoS.png'},
+      ],
+    },
+    {
+      'day': 2,
+      'places': [
+        {
+          'name': 'Museo de Antropología',
+          'image': 'assets/TravelPlan/museoA.png'
+        },
+        {
+          'name': 'Museo de la Ciudad de Mexico',
+          'image': 'assets/TravelPlan/museoC.png'
+        },
+      ],
+    },
+  ];
+  @override
+  Widget build(BuildContext context) {
 
     void _showCreatePlanDialog() {
       showDialog(
@@ -35,19 +51,24 @@ class TripPlanCreatedPage extends StatelessWidget {
         builder: (BuildContext dialogContext) {
           return AlertDialog(
             title: Text(AppLocalizations.of(context)!.createPlanDialogTitle),
-            content: Text(AppLocalizations.of(context)!.createPlanDialogMessage),
+            content: Text(
+                AppLocalizations.of(context)!.createPlanDialogMessage),
             actions: <Widget>[
               TextButton(
                 child: Text(AppLocalizations.of(context)!.cancel),
                 onPressed: () {
-                  Navigator.of(dialogContext).pop(); // Cierra el cuadro de diálogo
+                  Navigator.of(dialogContext)
+                      .pop(); // Cierra el cuadro de diálogo
                 },
               ),
               TextButton(
                 child: Text(AppLocalizations.of(context)!.confirm),
                 onPressed: () {
-                  Navigator.of(dialogContext).pop(); // Cierra el cuadro de diálogo
-                  context.router.popUntil((route) => route.settings.name == TripPlanRoute.name); // Regresa a la pantalla TripPlanRoute
+                  Navigator.of(dialogContext)
+                      .pop(); // Cierra el cuadro de diálogo
+                  context.router.popUntil((route) =>
+                  route.settings.name == TripPlanRoute
+                      .name); // Regresa a la pantalla TripPlanRoute
                 },
               ),
             ],
@@ -82,12 +103,15 @@ class TripPlanCreatedPage extends StatelessWidget {
                       children: [
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Text('${AppLocalizations.of(context)!.tripplanday} ${dayData['day']}',
-                              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
+                          child: Text('${AppLocalizations.of(context)!
+                              .tripplanday} ${dayData['day']}',
+                              style: const TextStyle(
+                                  fontSize: 24, fontWeight: FontWeight.bold)),
                         ),
                         GridView.builder(
                           shrinkWrap: true,
-                          physics: const NeverScrollableScrollPhysics(), // Deshabilita el scroll de GridView
+                          physics: const NeverScrollableScrollPhysics(),
+                          // Deshabilita el scroll de GridView
                           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
                             crossAxisCount: 2,
                             childAspectRatio: 1,
@@ -100,7 +124,8 @@ class TripPlanCreatedPage extends StatelessWidget {
                             return Card(
                               child: Column(
                                 children: [
-                                  Image.asset(place['image'], fit: BoxFit.cover),
+                                  Image.asset(
+                                      place['image'], fit: BoxFit.cover),
                                   Text(place['name']),
                                 ],
                               ),
@@ -120,14 +145,28 @@ class TripPlanCreatedPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () {
-                    // Lógica para editar plan
+                  onPressed: () async {
+                    // Navega a la pantalla de edición y espera los datos modificados
+                    final updatedTripData = await Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) =>
+                            EditTripPlanPage(tripDaysData: tripDaysData),
+                      ),
+                    );
+
+                    if (updatedTripData != null) {
+                      setState(() {
+                        tripDaysData = updatedTripData;
+                      });
+                    }
                   },
                   child: Text(AppLocalizations.of(context)!.edittripplan),
                 ),
                 ElevatedButton(
-                onPressed: _showCreatePlanDialog, // Llama al método cuando se presiona el botón
-              child: Text(AppLocalizations.of(context)!.createtripplan),
+                  onPressed: _showCreatePlanDialog,
+                  // Llama al método cuando se presiona el botón
+                  child: Text(AppLocalizations.of(context)!.createtripplan),
                 ),
               ],
             ),
@@ -135,7 +174,5 @@ class TripPlanCreatedPage extends StatelessWidget {
         ],
       ),
     );
-
   }
 }
-

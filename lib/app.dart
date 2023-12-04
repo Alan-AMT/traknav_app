@@ -5,9 +5,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/presentation/map_search/cubit/map_search_cubit.dart';
+import 'package:traknav_app/ui/presentation/signin/main.dart';
 import 'package:traknav_app/ui/router/android.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 class TrakNavApp extends StatefulWidget {
   const TrakNavApp({Key? key}) : super(key: key);
@@ -55,12 +57,6 @@ class _TrakNavApp extends State<TrakNavApp> {
   @override
   Widget build(BuildContext context) {
     //TODO: LINK USER INSTANCE???? check login and sign up myevents
-    // FirebaseAuth.instance.userChanges().listen((User? user) async {
-    //   if (user == null) {
-    //     androidRouter.pushAndPopUntil(const SignInRoute(),
-    //         predicate: (Route<dynamic> route) => false);
-    //   }
-    // });
     return MultiBlocProvider(
       providers: [
         BlocProvider(

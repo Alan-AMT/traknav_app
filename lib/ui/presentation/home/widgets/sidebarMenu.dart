@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
@@ -21,7 +22,6 @@ class _SidebarMenu extends State<SidebarMenu> {
 
   Future<void> _allowLocation() async {
     try {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
       Permission permission;
       permission = Permission.location;
       await permission.request();
@@ -233,7 +233,7 @@ class _SidebarMenu extends State<SidebarMenu> {
                 ),
                 onTap: () {
                   _close();
-                  AutoRouter.of(context).navigate(const SignInRoute());
+                  FirebaseAuth.instance.signOut();
                 },
               ),
             ]),

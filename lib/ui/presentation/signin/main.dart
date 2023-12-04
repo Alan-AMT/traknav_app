@@ -2,6 +2,9 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
+import 'package:traknav_app/ui/presentation/signin/widgets/forgot_password.dart';
+import 'package:traknav_app/ui/presentation/signin/widgets/signin_form.dart';
+import 'package:traknav_app/ui/presentation/signup/main.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -14,6 +17,7 @@ class SignInPage extends StatefulWidget {
 }
 
 class _SignInPage extends State<SignInPage> {
+<<<<<<< Updated upstream
   String _email = '';
   String _password = '';
   String _email1 = '';
@@ -25,6 +29,9 @@ class _SignInPage extends State<SignInPage> {
   String _selectedLanguage = 'MX';
   bool _isLogin =
       true; // Variable para rastrear si está en el modo de inicio de sesión o registro
+=======
+  bool _isLogin = true;
+>>>>>>> Stashed changes
 
   List<String> listaIdioma = ['MX', 'USA'];
 
@@ -44,6 +51,7 @@ class _SignInPage extends State<SignInPage> {
               vertical: 60.0,
             ),
             children: <Widget>[
+<<<<<<< Updated upstream
               Container(
                 child: Column(
                   children: [
@@ -51,6 +59,13 @@ class _SignInPage extends State<SignInPage> {
                     const SizedBox(height: 16.0),
                   ],
                 ),
+=======
+              Column(
+                children: [
+                  Image.asset('assets/signin/finallogo11.png'),
+                  const SizedBox(height: 16.0),
+                ],
+>>>>>>> Stashed changes
               ),
 
               // BOTÓN DESPLEGABLE DE IDIOMA
@@ -82,12 +97,36 @@ class _SignInPage extends State<SignInPage> {
                             _selectedLanguage = newValue!;
                           });
                         },
+<<<<<<< Updated upstream
+=======
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: Colors.white.withOpacity(0.0),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20.0),
+                          ),
+                          fixedSize: const Size(80.0, 45.0),
+                          padding: EdgeInsets.zero,
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            const Icon(Icons.language),
+                            const SizedBox(width: 8.0),
+                            Text(state.locale == const Locale("es")
+                                ? "MX"
+                                : "US"),
+                          ],
+                        ),
+>>>>>>> Stashed changes
                       ),
                     ],
                   ),
                 ),
               ),
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
               const Divider(
                 height: 30.0,
               ),
@@ -100,7 +139,13 @@ class _SignInPage extends State<SignInPage> {
                 ),
                 padding: const EdgeInsets.all(16.0),
                 decoration: BoxDecoration(
+<<<<<<< Updated upstream
                   color: Colors.white.withOpacity(0.75),
+=======
+                  color: state.isLightTheme
+                      ? Colors.white.withOpacity(1.0)
+                      : Colors.black,
+>>>>>>> Stashed changes
                   borderRadius: BorderRadius.circular(40.0),
                 ),
                 child: Column(
@@ -108,7 +153,10 @@ class _SignInPage extends State<SignInPage> {
                     RichText(
                       text: TextSpan(
                         style: const TextStyle(
+<<<<<<< Updated upstream
                           color: Colors.black,
+=======
+>>>>>>> Stashed changes
                           fontFamily: 'Nunito',
                           fontSize: 21.0,
                         ),
@@ -125,7 +173,10 @@ class _SignInPage extends State<SignInPage> {
                         ],
                       ),
                     ),
+<<<<<<< Updated upstream
 
+=======
+>>>>>>> Stashed changes
                     const SizedBox(
                       height: 30.0,
                     ),
@@ -162,7 +213,11 @@ class _SignInPage extends State<SignInPage> {
                           ),
                         ),
                         const SizedBox(
+<<<<<<< Updated upstream
                           height: 10.0, // Espacio ajustado entre los botones
+=======
+                          height: 10.0,
+>>>>>>> Stashed changes
                         ),
                         ElevatedButton(
                           onPressed: () {
@@ -193,6 +248,7 @@ class _SignInPage extends State<SignInPage> {
                         ),
                       ],
                     ),
+<<<<<<< Updated upstream
 
                     const SizedBox(
                       height: 30.0,
@@ -254,6 +310,32 @@ class _SignInPage extends State<SignInPage> {
                             color: Colors.black,
                             fontSize: 20.0,
                             fontFamily: 'Nunito',
+=======
+                    const SizedBox(
+                      height: 30.0,
+                    ),
+                    _isLogin ? LoginForm() : SignUpForm(),
+                    const Divider(
+                      height: 3.0,
+                    ),
+                    if (_isLogin)
+                      SizedBox(
+                        child: TextButton(
+                          onPressed: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ForgotPasswordPage(),
+                              ),
+                            );
+                          },
+                          child: Text(
+                            AppLocalizations.of(context)!.signinForgotPass,
+                            style: const TextStyle(
+                              fontSize: 20.0,
+                              fontFamily: 'Nunito',
+                            ),
+>>>>>>> Stashed changes
                           ),
                         ),
                       ),
@@ -268,6 +350,7 @@ class _SignInPage extends State<SignInPage> {
     });
   }
 
+<<<<<<< Updated upstream
   Widget _buildLoginForm() {
     return Column(
       children: <Widget>[
@@ -411,6 +494,87 @@ class _SignInPage extends State<SignInPage> {
           },
         ),
       ],
+=======
+  void _showLanguageMenu(BuildContext context) {
+    showModalBottomSheet(
+      context: context,
+      builder: (BuildContext context) {
+        return Container(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                AppLocalizations.of(context)!.changeLanguageTitle,
+                style: const TextStyle(
+                  fontSize: 18.0,
+                  fontFamily: 'Nunito',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 16.0),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'MX - Español',
+                      style: TextStyle(
+                        fontFamily: 'Nunito',
+                      ),
+                    ),
+                    getCountryFlagIcon('MX'),
+                  ],
+                ),
+                onTap: () {
+                  context.read<HomeCubit>().changeLanguage(lang: "es");
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                contentPadding: EdgeInsets.zero,
+                title: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    const Text(
+                      'US - English',
+                      style: TextStyle(
+                        fontFamily: 'Nunito',
+                      ),
+                    ),
+                    getCountryFlagIcon('US'),
+                  ],
+                ),
+                onTap: () {
+                  context.read<HomeCubit>().changeLanguage(lang: "en");
+                  Navigator.pop(context);
+                },
+              ),
+            ],
+          ),
+        );
+      },
+    );
+  }
+
+  Image getCountryFlagIcon(String countryCode) {
+    String imagePath = 'assets/signin/';
+    String flagFileName = '';
+
+    switch (countryCode) {
+      case 'MX':
+        flagFileName = 'mexico.png';
+        break;
+      case 'US':
+        flagFileName = 'estados unidos.png';
+        break;
+    }
+    return Image.asset(
+      '$imagePath$flagFileName',
+      width: 50.0,
+      height: 30.0,
+>>>>>>> Stashed changes
     );
   }
 }

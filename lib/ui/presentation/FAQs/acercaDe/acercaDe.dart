@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/FAQs/acercaDe/btns.dart';
 import 'package:traknav_app/ui/presentation/FAQs/actionArea.dart';
 import 'package:traknav_app/ui/presentation/FAQs/topScreenBar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 //---------WIDGET CUERPO (CONTIENE LOS WIDGETS QUE FORMAN EL WIDGET FINAL/TOTAL)------------
 @RoutePage()
@@ -14,13 +15,16 @@ class CuerpoPage extends StatelessWidget {
     return SafeArea(
         child: Scaffold(
       appBar: AppBar(
-        title: const Text("PREGUNTAS FRECUENTES"),
+        title: Text(AppLocalizations.of(context)!.navBarTitle,
+            style: const TextStyle(fontSize: 18)),
       ),
       body: Column(
         children: [
           // const TopScreenBar(),
           Image.asset('assets/FAQs/FAQs.png'),
-          const ActionArea(text: "PREGUNTAS ACERCA DE:", content: Btns()),
+          ActionArea(
+              text: AppLocalizations.of(context)!.questionsAbout,
+              content: Btns()),
         ],
       ),
     ));

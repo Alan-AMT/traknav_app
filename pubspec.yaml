@@ -56,6 +56,10 @@ dependencies:
   location: ^5.0.3
   country_icons: ^2.0.2
   google_maps_widget: ^1.0.5+1
+  flutter_form_builder: ^9.1.1
+  form_builder_validators: ^9.1.0
+  cloud_firestore: ^4.13.3
+  fluttertoast: ^8.2.4
 
 dev_dependencies:
   flutter_test:

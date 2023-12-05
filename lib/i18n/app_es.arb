@@ -228,6 +228,14 @@
     "@errorPassword": {
         "description": "Error a mostrar cuando el campo contraseña es muy debil"
     },
+    "failedSignIn": "No pudimos iniciar sesión. Intenta de nuevo",
+    "@errorPassword": {
+        "description": "Error al intentar iniciar sesión con firebase"
+    },
+    "failedSignUp": "No crear tu cuenta. Intenta de nuevo",
+    "@errorPassword": {
+        "description": "Error al registrar usuario con firebase"
+    },
 "rECOMMENDATIONSTEXTS": "rECOMMENDATIONSTEXTS",
     "recPopular": "Sitios populares",
     "@recPopular": {

@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 
+@RoutePage()
 class ForgotPasswordPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

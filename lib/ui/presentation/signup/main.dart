@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
@@ -15,7 +16,7 @@ class SignUpForm extends StatelessWidget {
 
   final signUpKey = GlobalKey<FormBuilderState>();
 
-  Future<void> onFormSent() async {
+  Future<void> onFormSent(BuildContext context) async {
     if (signUpKey.currentState?.saveAndValidate() ?? false) {
       try {
         await EasyLoading.show();
@@ -36,9 +37,10 @@ class SignUpForm extends StatelessWidget {
           "recommendations": []
         });
         await EasyLoading.dismiss();
+        AutoRouter.of(context).navigate(const RecommendationsRoute());
       } catch (_) {
         await EasyLoading.dismiss();
-        // await ToastApp.error(SignInTexts.loginError);
+        await ToastApp.error(AppLocalizations.of(context)!.failedSignIn);
       }
     }
   }
@@ -194,9 +196,8 @@ class SignUpForm extends StatelessWidget {
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
-                    onFormSent().then((_) => AutoRouter.of(context)
-                        .navigate(const RecommendationsRoute()));
+                  onPressed: () async {
+                    await onFormSent(context);
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 15, 106, 180),

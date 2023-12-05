@@ -4,16 +4,18 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 
 class LoginForm extends StatelessWidget {
   LoginForm({Key? key}) : super(key: key);
   final loginKey = GlobalKey<FormBuilderState>();
 
-  Future<void> login() async {
+  Future<void> login(BuildContext context) async {
     if (loginKey.currentState?.saveAndValidate() ?? false) {
       try {
         await EasyLoading.show();
@@ -21,10 +23,11 @@ class LoginForm extends StatelessWidget {
         final password = loginKey.currentState!.fields["password"]!.value;
         await FirebaseAuth.instance
             .signInWithEmailAndPassword(email: email, password: password);
+        AutoRouter.of(context).navigate(const HomeRoute());
         await EasyLoading.dismiss();
       } catch (_) {
         await EasyLoading.dismiss();
-        // await ToastApp.error(SignInTexts.loginError);
+        await ToastApp.error(AppLocalizations.of(context)!.failedSignIn);
       }
     }
   }
@@ -52,34 +55,37 @@ class LoginForm extends StatelessWidget {
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
                       errorText: AppLocalizations.of(context)!.errorRequired),
-                  FormBuilderValidators.email()
+                  FormBuilderValidators.email(
+                      errorText: AppLocalizations.of(context)!.errorEmail)
                 ]),
               ),
               const SizedBox(
                 height: 30.0,
               ),
               FormBuilderTextField(
-                name: "password",
-                obscureText: true,
-                enableInteractiveSelection: false,
-                decoration: InputDecoration(
-                  hintText: AppLocalizations.of(context)!.formPassword,
-                  labelText: AppLocalizations.of(context)!.formPassword,
-                  suffixIcon: const Icon(Icons.lock_outline),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20.0),
+                  name: "password",
+                  obscureText: true,
+                  enableInteractiveSelection: false,
+                  decoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.formPassword,
+                    labelText: AppLocalizations.of(context)!.formPassword,
+                    suffixIcon: const Icon(Icons.lock_outline),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(20.0),
+                    ),
                   ),
-                ),
-              ),
+                  validator: FormBuilderValidators.compose([
+                    FormBuilderValidators.required(
+                        errorText: AppLocalizations.of(context)!.errorRequired)
+                  ])),
               const Divider(
                 height: 30.0,
               ),
               SizedBox(
                 width: double.infinity,
                 child: TextButton(
-                  onPressed: () {
-                    login().then((_) =>
-                        AutoRouter.of(context).navigate(const HomeRoute()));
+                  onPressed: () async {
+                    await login(context);
                   },
                   style: TextButton.styleFrom(
                     backgroundColor: const Color.fromARGB(255, 15, 106, 180),

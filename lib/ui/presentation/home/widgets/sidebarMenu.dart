@@ -1,10 +1,10 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
-import 'package:device_info_plus/device_info_plus.dart';
 import 'package:permission_handler/permission_handler.dart';
 
 class SidebarMenu extends StatefulWidget {
@@ -21,7 +21,6 @@ class _SidebarMenu extends State<SidebarMenu> {
 
   Future<void> _allowLocation() async {
     try {
-      final androidInfo = await DeviceInfoPlugin().androidInfo;
       Permission permission;
       permission = Permission.location;
       await permission.request();
@@ -71,8 +70,7 @@ class _SidebarMenu extends State<SidebarMenu> {
               ),
               ListTile(
                 leading: const Icon(Icons.map),
-                title: const Text("Mapa"),
-                // title: Text(AppLocalizations.of(context)!.homeSidemenuProfile),
+                title: Text(AppLocalizations.of(context)!.homeSidemenuMap),
                 onTap: () async {
                   await _allowLocation();
                   _close();
@@ -233,7 +231,7 @@ class _SidebarMenu extends State<SidebarMenu> {
                 ),
                 onTap: () {
                   _close();
-                  AutoRouter.of(context).navigate(const SignInRoute());
+                  FirebaseAuth.instance.signOut();
                 },
               ),
             ]),

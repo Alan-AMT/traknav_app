@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:traknav_app/ui/presentation/home/widgets/acercaDe.dart';
+import 'package:traknav_app/ui/presentation/home/widgets/catalog.dart';
 
 class RecomendedWidget extends StatelessWidget {
   const RecomendedWidget({super.key});
@@ -17,7 +20,7 @@ class RecomendedWidget extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.0),
               //color: const Color.fromARGB(255, 255, 255, 255), // Puedes ajustar el color del fondo
               child: Text(
-                'Recomendados',
+                AppLocalizations.of(context)!.homeRecomendedTitle,
                 style: TextStyle(
                   //color: Colors.black,
                   fontSize: 20.0,
@@ -30,13 +33,16 @@ class RecomendedWidget extends StatelessWidget {
             right: 0,
             child: GestureDetector(
               onTap: () {
-                // Agregar aquí la lógica para manejar el clic en "Ver más"
+                // Navegar a la nueva pantalla al hacer clic en el texto
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => WidgetCatalog()),
+                );
               },
               child: Container(
                 padding: EdgeInsets.symmetric(horizontal: 16.0),
-                // color: const Color.fromARGB( 255, 255, 255, 255), // Puedes ajustar el color del fondo
                 child: Text(
-                  'Ver más',
+                  AppLocalizations.of(context)!.homeRecomendedMore,
                   style: TextStyle(
                     color: Color.fromRGBO(58, 172, 255, 1),
                     fontSize: 15.0,

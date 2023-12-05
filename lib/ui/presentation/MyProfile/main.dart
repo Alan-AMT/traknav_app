@@ -5,10 +5,32 @@ import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 @RoutePage()
-class MyProfilePage extends StatelessWidget {
+class MyProfilePage extends StatefulWidget {
   const MyProfilePage({super.key});
+
+  @override
+  State<MyProfilePage> createState() => _MyProfilePageState();
+}
+
+class _MyProfilePageState extends State<MyProfilePage> {
+  FirebaseFirestore db = FirebaseFirestore.instance;
+  getUsers() async {
+    CollectionReference collRef = db.collection('users');
+    QuerySnapshot users = await collRef.get();
+
+    users.docs.forEach((documento) {
+      print(documento.data());
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getUsers();
+  }
 
   @override
   Widget build(BuildContext context) {

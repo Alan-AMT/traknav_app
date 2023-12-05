@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class BtnGeneralFAQs extends StatelessWidget {
   const BtnGeneralFAQs({super.key});
@@ -23,9 +24,9 @@ class BtnGeneralFAQs extends StatelessWidget {
             Container(
               height: 25,
             ),
-            const Text(
-              "PREGUNTAS GENERALES",
-              style: TextStyle(
+            Text(
+              AppLocalizations.of(context)!.mainBtnTitle,
+              style: const TextStyle(
                   color: Colors.white,
                   fontSize: 19,
                   fontWeight: FontWeight.bold),
@@ -33,10 +34,10 @@ class BtnGeneralFAQs extends StatelessWidget {
             Container(
               height: 20,
             ),
-            const Text(
-              "Resuelve tus dudas con esta recopilación de preguntas más frecuentes",
+            Text(
+              AppLocalizations.of(context)!.mainBtnText,
               textAlign: TextAlign.center,
-              style: TextStyle(color: Colors.white, fontSize: 16),
+              style: const TextStyle(color: Colors.white, fontSize: 16),
             ),
             Container(
               height: 20,

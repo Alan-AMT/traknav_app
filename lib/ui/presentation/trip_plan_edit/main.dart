@@ -26,10 +26,19 @@ class _EditTripPlanPageState extends State<EditTripPlanPage> {
 
   void _addNewDay() {
     // Agregar lógica para añadir un nuevo día
+    setState(() {
+      editableTripData.add({
+        'day': editableTripData.length + 1,
+        'places': [],
+      });
+    });
   }
 
   void _removeDay(int dayIndex) {
     // Agregar lógica para remover un día
+    setState(() {
+      editableTripData.removeAt(dayIndex);
+    });
   }
 
   void _addPlaceToDay(int dayIndex) {
@@ -44,7 +53,7 @@ class _EditTripPlanPageState extends State<EditTripPlanPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Edit Trip Plan'),
+        title: Text('Editar Plan de Viaje'),
       ),
       body: ListView.builder(
         itemCount: editableTripData.length,
@@ -54,7 +63,7 @@ class _EditTripPlanPageState extends State<EditTripPlanPage> {
             child: Column(
               children: [
                 ListTile(
-                  title: Text('Day ${dayIndex + 1}'),
+                  title: Text('Día ${dayIndex + 1}'),
                   trailing: IconButton(
                     icon: Icon(Icons.remove_circle_outline),
                     onPressed: () => _removeDay(dayIndex),
@@ -72,7 +81,7 @@ class _EditTripPlanPageState extends State<EditTripPlanPage> {
                 }).toList(),
                 TextButton(
                   onPressed: () => _addPlaceToDay(dayIndex),
-                  child: Text('Add Place'),
+                  child: Text('Añadir Lugar'),
                 ),
               ],
             ),

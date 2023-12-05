@@ -80,7 +80,7 @@ class TripPlanPage extends StatelessWidget {
                 child: TextButton(
                   onPressed: () {
                     AutoRouter.of(context)
-                        .navigate(const CreateTripPlanRoute());
+                        .navigate( CreateTripPlanRoute());
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: const Color(0xff0098FA),

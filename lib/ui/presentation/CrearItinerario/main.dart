@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
-import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class CreateTripPlanPage extends StatelessWidget {
-  const CreateTripPlanPage({super.key});
+  final TextEditingController daysController = TextEditingController();
+  CreateTripPlanPage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -87,8 +89,9 @@ class CreateTripPlanPage extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(20), // Bordes circulares
                   ),
-                  child: const Center(
+                  child: Center(
                     child: TextField(
+                      controller: daysController,
                       keyboardType: TextInputType.number, // Teclado numérico
                       decoration: InputDecoration(
                         hintText: '¿Por cuántos días?',
@@ -117,7 +120,20 @@ class CreateTripPlanPage extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                AutoRouter.of(context).navigate(const TripPlanCreatedRoute());
+                // Intenta convertir el texto a un entero, si falla, usa 0 como predeterminado
+                int numberOfDays = int.tryParse(daysController.text) ?? 0;
+
+                // Verifica si el número de días es mayor que 0 antes de navegar
+                if (numberOfDays > 0) {
+                  AutoRouter.of(context).navigate(
+                      TripPlanCreatedRoute(days: numberOfDays)
+                  );
+                } else {
+                  // Muestra algún mensaje de error o maneja el caso de entrada inválida
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Por favor ingresa un número válido de días.'))
+                  );
+                }
               },
               child: const Text(
                 'Siguiente',

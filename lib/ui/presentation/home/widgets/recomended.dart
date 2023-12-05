@@ -5,7 +5,6 @@ import 'package:traknav_app/ui/presentation/home/widgets/catalog.dart';
 
 class RecomendedWidget extends StatelessWidget {
   const RecomendedWidget({super.key});
-
   @override
   Widget build(BuildContext context) {
     return Expanded(

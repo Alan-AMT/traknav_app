@@ -204,6 +204,38 @@
     "@formSecureQuestion2": {
         "description": "Pista de introducir pregunta seguridad 2 en el formulario de inicio sesión y registro"
     },
+    "changeLanguageTitle": "SELECCIONA TU IDIOMA",
+    "@changeLanguageTitle": {
+        "description": "Título de la sección cambiar idioma en pantalla inicio sesión"
+    },
+    "formCity": "Ciudad",
+    "@formCity": {
+        "description": "Campo de ciudad en el formulario de registro"
+    },
+    "errorRequired": "Este campo es obligatorio",
+    "@errorRequired": {
+        "description": "Error a mostrar cuando un campo requerido no se llenó"
+    },
+    "errorEmail": "Introduce un email válido",
+    "@errorEmail": {
+        "description": "Error a mostrar cuando el campo email está mal"
+    },
+    "errorPhone": "Introduce un número de teléfono válido",
+    "@errorPhone": {
+        "description": "Error a mostrar cuando el campo teléfono está mal"
+    },
+    "errorPassword": "La contraseña debe tener al menos:\n- Una letra minúscula.\n- Una letra mayúscula.\n- Un dígito, punto (.) o asterisco (*).\n- Ser de al menos 8 caracteres de longitud.",
+    "@errorPassword": {
+        "description": "Error a mostrar cuando el campo contraseña es muy debil"
+    },
+    "failedSignIn": "No pudimos iniciar sesión. Intenta de nuevo",
+    "@errorPassword": {
+        "description": "Error al intentar iniciar sesión con firebase"
+    },
+    "failedSignUp": "No crear tu cuenta. Intenta de nuevo",
+    "@errorPassword": {
+        "description": "Error al registrar usuario con firebase"
+    },
 "rECOMMENDATIONSTEXTS": "rECOMMENDATIONSTEXTS",
     "recPopular": "Sitios populares",
     "@recPopular": {

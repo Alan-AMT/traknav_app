@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class TripPlanPage extends StatelessWidget {
@@ -14,24 +15,14 @@ class TripPlanPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Plan de viaje',
-            style: TextStyle(
+          title: Text(AppLocalizations.of(context)!.tripplanappbar,
+            style: const   TextStyle(
               fontFamily: 'Nunito',
               fontStyle: FontStyle.italic,
               fontSize: 30,
+              color: Colors.white,
             ),
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () {
-              AutoRouter.of(context).navigate(const HomeRoute());
-            },
-            color: Colors.black,
-          ),
-          backgroundColor: state.isLightTheme
-              ? Colors.white
-              : const Color.fromRGBO(13, 71, 161, 1),
         ),
         // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Column(

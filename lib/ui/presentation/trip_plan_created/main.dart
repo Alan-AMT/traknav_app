@@ -7,6 +7,8 @@ import '../../router/android.gr.dart';
 import '../trip_plan_edit/main.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 
+import '../trip_plan_list/main.dart';
+
 @RoutePage()
 class TripPlanCreatedPage extends StatefulWidget {
   final int days;
@@ -116,27 +118,102 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
   }
 
   void _showCreatePlanDialog() {
+    // Verifica si hay al menos un lugar en el plan de viaje
+    bool hasPlaces = tripDaysData.any((day) => day['places'].isNotEmpty);
+
+    if (!hasPlaces) {
+      // Si no hay lugares, muestra el diálogo de validación
+      _showValidationDialog();
+    } else {
+      // Si hay lugares, muestra el diálogo de confirmación para crear el plan
+      showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: Text(AppLocalizations.of(context)!.createPlanDialogTitle),
+            content: Text(AppLocalizations.of(context)!.createPlanDialogMessage),
+            actions: <Widget>[
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop(); // Cierra el diálogo
+                },
+              ),
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.confirm),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop(); // Cierra el cuadro de diálogo
+                  context.router.popUntil((route) =>
+                  route.settings.name == TripPlanRoute.name);
+                },
+              ),
+            ],
+          );
+        },
+      );
+    }
+  }
+
+  void _showValidationDialog() {
     showDialog(
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(AppLocalizations.of(context)!.createPlanDialogTitle),
-          content: Text(AppLocalizations.of(context)!.createPlanDialogMessage),
+          title: Text('Error al generar el Plan de Viaje'),
+          content: Text('Por favor, añade al menos un lugar antes de crear el plan.'),
           actions: <Widget>[
             TextButton(
-              child: Text(AppLocalizations.of(context)!.cancel),
+              child: Text('Aceptar'),
               onPressed: () {
                 Navigator.of(dialogContext).pop(); // Cierra el diálogo
               },
             ),
+          ],
+        );
+      },
+    );
+  }
+
+  void _navigateToEditPage() {
+    // Verifica si hay al menos un día y ese día tiene al menos un lugar
+    bool canEdit = tripDaysData.isNotEmpty && tripDaysData.any((day) => day['places'].isNotEmpty);
+
+    if (canEdit) {
+      _navigateToEditTripPlanPage();
+    } else {
+      _showCannotEditDialog();
+    }
+  }
+
+  void _navigateToEditTripPlanPage() async {
+    final updatedTripData = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => EditTripPlanPage(tripDaysData: tripDaysData),
+      ),
+    );
+
+    if (updatedTripData != null) {
+      setState(() {
+        tripDaysData = updatedTripData;
+      });
+    }
+  }
+
+
+
+  void _showCannotEditDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext dialogContext) {
+        return AlertDialog(
+          title: Text('Error al Editar Plan de Viaje'),
+          content: Text('Debe haber al menos un día con un lugar para editar el plan de viaje.'),
+          actions: <Widget>[
             TextButton(
-              child: Text(AppLocalizations.of(context)!.confirm),
+              child: Text('Aceptar'),
               onPressed: () {
-                Navigator.of(dialogContext)
-                    .pop(); // Cierra el cuadro de diálogo
-                context.router.popUntil((route) =>
-                route.settings.name == TripPlanRoute
-                    .name); // Regresa a la pantalla TripPlanRoute // Cierra el diálogo
+                Navigator.of(dialogContext).pop(); // Cierra el diálogo
               },
             ),
           ],
@@ -182,7 +259,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                           padding: const EdgeInsets.symmetric(vertical: 8.0),
                           child: ElevatedButton(
                             onPressed: () => _showPlaceSearchDialog(index),
-                            child: Text('Buscar Lugar'),
+                            child: Text('Agregar Lugar'),
                           ),
                         ),
                         GridView.builder(
@@ -220,21 +297,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 ElevatedButton(
-                  onPressed: () async {
-                    final updatedTripData = await Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) =>
-                            EditTripPlanPage(tripDaysData: tripDaysData),
-                      ),
-                    );
-
-                    if (updatedTripData != null) {
-                      setState(() {
-                        tripDaysData = updatedTripData;
-                      });
-                    }
-                  },
+                  onPressed: _navigateToEditPage,
                   child: Text(AppLocalizations.of(context)!.edittripplan),
                 ),
                 ElevatedButton(

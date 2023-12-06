@@ -29,10 +29,11 @@ class FavoritosPage extends StatelessWidget {
           },
         ),
         // Se usa el widget Text para mostrar el título "Mis favoritos"
-        title: const Text(
-          'Mis favoritos',
+        title: Text(
+          //'Mis favoritos'
+          AppLocalizations.of(context)!.favoritosTitle,
           // Se usa el estilo TextStyle para darle formato al texto
-          style: TextStyle(
+          style: const TextStyle(
             // Se usa el color negro para el texto
             color: Colors.black,
             // Se usa la propiedad fontStyle para poner el texto en cursiva
@@ -145,11 +146,11 @@ class FavoritosPage extends StatelessWidget {
                             ),
                           
                             child: 
-                              const Center( 
+                              Center( 
                                 child: 
                                 Column( 
                                   children: [
-                                    Text("Hotel la Ruta", style: 
+                                    Text(AppLocalizations.of(context)!.favoritosEjemploLugar, style: 
                                       TextStyle(color: Colors.white,
                                       fontSize:17,
                                       fontWeight: FontWeight.bold,
@@ -192,8 +193,8 @@ class FavoritosPage extends StatelessWidget {
                 AutoRouter.of(context).navigate(const EditarFavoritosRoute());
                 // Aquí se puede usar el método Navigator.push para ir a otra pantalla
               },
-              child: const Text(
-                'Editar sitios',
+              child: Text(
+                AppLocalizations.of(context)!.favoritosEditarSitios,
                 // Se usa el estilo TextStyle para darle formato al texto
                 style: TextStyle(
                   // Se usa el color negro para el texto
@@ -234,7 +235,7 @@ class _MyButtonState extends State<MyButton> {
       children: [
         ElevatedButton.icon(
           onPressed: _toggleMenu,
-          label: const Text('Compartir'), 
+          label: Text(AppLocalizations.of(context)!.favoritosCompartirSitio), 
           icon: const Icon(
                               Icons.share, // Icono de compartir
                               size: 24.0,

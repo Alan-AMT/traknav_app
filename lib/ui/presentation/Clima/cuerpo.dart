@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/Clima/modelo.dart';
 import 'package:traknav_app/ui/presentation/Clima/climaHoy.dart';
 import 'package:traknav_app/ui/presentation/Clima/pronostico.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class Cuerpo extends StatelessWidget {
   final List<Clima>? climaData;
@@ -24,7 +25,8 @@ class Cuerpo extends StatelessWidget {
         Container(
           alignment: Alignment.topLeft,
           padding: const EdgeInsets.only(left: 20, top: 25, bottom: 5),
-          child: const Text("Semana", style: TextStyle(fontSize: 18)),
+          child: Text(AppLocalizations.of(context)!.weekTitle,
+              style: const TextStyle(fontSize: 18)),
         ),
         Container(
           padding: const EdgeInsets.only(bottom: 20),

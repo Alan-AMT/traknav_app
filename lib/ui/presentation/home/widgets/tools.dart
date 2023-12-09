@@ -56,10 +56,10 @@ class ToolsWidget extends StatelessWidget {
                       case 'Trip plan':
                         context.router.push(TripPlanRoute());
                         break;
-                      case 'Tiempo':
+                      case 'Clima':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
-                      case 'Climate':
+                      case 'Weather':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
                       case 'Favoritos':

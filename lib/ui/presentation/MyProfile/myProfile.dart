@@ -69,7 +69,7 @@ class _ProfilePageState extends State<ProfilePage> {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Mi Cuenta'),
+          title: Text(AppLocalizations.of(context)!.miCuenta),
           backgroundColor: state.isLightTheme
               ? const Color.fromRGBO(0, 71, 171, 1)
               : Colors.black,
@@ -120,9 +120,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       },
                       child: Row(
                         children: [
-                          const Text(
-                            "Editar",
-                            style: TextStyle(fontSize: 18),
+                          Text(
+                            AppLocalizations.of(context)!.editBtn,
+                            style: const TextStyle(fontSize: 18),
                           ),
                           Container(width: 5),
                           const CircleAvatar(
@@ -171,9 +171,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                       children: [
                                         Row(
                                           children: [
-                                            const Text(
-                                              "Correo:",
-                                              style: TextStyle(
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .correoTxtField,
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold),
@@ -190,9 +191,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         Container(height: 30),
                                         Row(
                                           children: [
-                                            const Text(
-                                              "Ciudad:",
-                                              style: TextStyle(
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .ciudadTxtField,
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold),
@@ -209,9 +211,10 @@ class _ProfilePageState extends State<ProfilePage> {
                                         Container(height: 30),
                                         Row(
                                           children: [
-                                            const Text(
-                                              "Teléfono:",
-                                              style: TextStyle(
+                                            Text(
+                                              AppLocalizations.of(context)!
+                                                  .telTxtField,
+                                              style: const TextStyle(
                                                   color: Colors.black,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold),

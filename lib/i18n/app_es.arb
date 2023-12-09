@@ -483,5 +483,79 @@
     "placeDetailsButton": "Detalles",
     "@goToPlaceButton": {
         "description": "Botón de mostrar detalles para una locación"
+    },
+"uSERTEXTS": "USERTEXTS",
+    "miCuenta": "Mi Cuenta",
+    "@miCuenta": {
+        "description": "Título del AppBar"
+    },
+    "editBtn": "Editar",
+    "@editBtn": {
+        "description": "Botón de editar información del perfil de usuario"
+    },
+    "correoTxtField": "Correo:",
+    "@correoTxtField": {
+        "description": "Campo de texto de correo"
+    },
+    "ciudadTxtField": "Ciudad:",
+    "@ciudadTxtField": {
+        "description": "Campo de texto de ciudad"
+    },
+    "telTxtField": "Teléfono:",
+    "@telTxtField": {
+        "description": "Campo de texto de teléfono"
+    },
+    "nameTxtField": "Nombre",
+    "@nameTxtField": {
+        "description": "Label del campo de texto nombre para editarlo"
+    },
+    "nameTxtFieldErr": "El nombre no debe contener dígitos ni caracteres especiales",
+    "@nameTxtFieldErr": {
+        "description": "se introduce un nombre incorrecto"
+    },
+    "ciudadTxtFieldErr": "ninguna ciudad contiene esos caracteres especiales",
+    "@ciudadTxtFieldErr": {
+        "description": "se introduce una ciudad incorrecta"
+    },
+    "telTxtFieldErr": "Ingrese un número válido. Puede ingresar la Lada de manera opcional colocando un + y hasta 3 dígitos. Si ingresó la Lada, debe haber un espacio, luego coloque el número (de 8 a 10 dígitos)",
+    "@telTxtFieldErr": {
+        "description": "se introduce un formato de correo incorrecto"
+    },
+    "succMsg": "Información actualizada exitosamente",
+    "@succMsg": {
+        "description": "Mensaje que se muetsra al actualizar la información de forma exitosa"
+    },
+    "saveBtn": "Guardar",
+    "@saveBtn": {
+        "description": "Botón pa guardar cambios"
+    },
+"wEATHERTEXTS": "WEATHERTEXTS",
+    "weatherTitle": "Clima",
+    "@weatherTitle": {
+        "description": "Título de clima en el app bar"
+    },
+    "sunny": "Soleado",
+    "@sunny": {
+        "description": "Si está soleado"
+    },
+    "cloudy": "Nublado",
+    "@cloudy": {
+        "description": "Si está nublado"
+    },
+    "rainChance": "% de probabilidad de lluvia",
+    "@rainChance": {
+        "description": "Texto de probabilidad de lluvia"
+    },
+    "weekTitle": "Semana",
+    "@weekTitle": {
+        "description": "Texto"
+    },
+    "temperaturaDia": "Temperatura",
+    "@temperaturaDia": {
+        "description": "Texto"
+    },
+    "chanceRainDia": "Prob. lluvia:",
+    "@chanceRainDiaDia": {
+        "description": "Texto"
     }
 }

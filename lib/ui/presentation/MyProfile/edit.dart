@@ -79,7 +79,7 @@ class _EditProfilePageState extends State<EditProfilePage> {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text('Mi Cuenta'),
+          title: Text(AppLocalizations.of(context)!.miCuenta),
           backgroundColor: state.isLightTheme
               ? const Color.fromRGBO(0, 71, 171, 1)
               : Colors.black,
@@ -149,14 +149,20 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                             //height: 50,
                                             child: TextFormField(
                                               controller: controlName, //NOMBRE
-                                              decoration: const InputDecoration(
+                                              decoration: InputDecoration(
                                                   errorMaxLines: 4,
-                                                  border: OutlineInputBorder(
-                                                      borderSide: BorderSide(
-                                                          color: Colors.black,
-                                                          width: 1)),
-                                                  labelText: "nombre",
-                                                  labelStyle: TextStyle(
+                                                  border:
+                                                      const OutlineInputBorder(
+                                                          borderSide:
+                                                              BorderSide(
+                                                                  color: Colors
+                                                                      .black,
+                                                                  width: 1)),
+                                                  labelText:
+                                                      AppLocalizations.of(
+                                                              context)!
+                                                          .nameTxtField,
+                                                  labelStyle: const TextStyle(
                                                       color: Colors.black)),
                                               style: const TextStyle(
                                                   color: Colors.black),
@@ -166,7 +172,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                               validator: (value) {
                                                 if (!RegExp(r'^[a-zA-Z ]+$')
                                                     .hasMatch(value!)) {
-                                                  return "El nombre no debe contener dígitos ni caracteres especiales";
+                                                  return AppLocalizations.of(
+                                                          context)!
+                                                      .nameTxtFieldErr;
                                                 }
                                                 return null;
                                               },
@@ -181,9 +189,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                         children: [
                                           Row(
                                             children: [
-                                              const Text(
-                                                "Correo:",
-                                                style: TextStyle(
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .correoTxtField,
+                                                style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18,
                                                     fontWeight:
@@ -201,9 +210,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           Container(height: 20),
                                           Row(
                                             children: [
-                                              const Text(
-                                                "Ciudad:",
-                                                style: TextStyle(
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .ciudadTxtField,
+                                                style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18),
                                               ),
@@ -224,7 +234,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                       if (!RegExp(
                                                               r'^[a-zA-ZÀ-ÖØ-öø-ÿ0-9\s.,-]+$')
                                                           .hasMatch(value!)) {
-                                                        return "ninguna ciudad contiene esos caracteres especiales";
+                                                        return AppLocalizations
+                                                                .of(context)!
+                                                            .ciudadTxtFieldErr;
                                                       }
                                                       return null;
                                                     },
@@ -234,9 +246,10 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                           Container(height: 20),
                                           Row(
                                             children: [
-                                              const Text(
-                                                "Teléfono:",
-                                                style: TextStyle(
+                                              Text(
+                                                AppLocalizations.of(context)!
+                                                    .telTxtField,
+                                                style: const TextStyle(
                                                     color: Colors.black,
                                                     fontSize: 18),
                                               ),
@@ -258,7 +271,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                     if (!RegExp(
                                                             r'^(\+\d{1,3} )?\d{8,10}$')
                                                         .hasMatch(value!)) {
-                                                      return "Ingrese un número válido. Puede ingresar la Lada de manera opcional colocando un + y hasta 3 dígitos. Si ingresó la Lada, debe haber un espacio, luego coloque el número (de 8 a 10 dígitos)";
+                                                      return AppLocalizations
+                                                              .of(context)!
+                                                          .telTxtFieldErr;
                                                     }
                                                     return null;
                                                   },
@@ -297,10 +312,11 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                     });
                                                     ScaffoldMessenger.of(
                                                             context)
-                                                        .showSnackBar(
-                                                            const SnackBar(
-                                                                content: Text(
-                                                                    "Información actualizada exitosamente")));
+                                                        .showSnackBar(SnackBar(
+                                                            content: Text(
+                                                                AppLocalizations.of(
+                                                                        context)!
+                                                                    .succMsg)));
                                                   }
 
                                                   AutoRouter.of(context)
@@ -308,7 +324,9 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                           const HomeRoute());
                                                 }
                                               },
-                                              child: const Text('Guardar'),
+                                              child: Text(
+                                                  AppLocalizations.of(context)!
+                                                      .saveBtn),
                                             ),
                                           ),
                                         ],

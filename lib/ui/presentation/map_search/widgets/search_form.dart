@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
+import 'package:google_places_flutter/model/place_details.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 
 class SearchForm extends StatefulWidget {
@@ -16,11 +17,13 @@ class _SearchForm extends State<SearchForm> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(),
-        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
+        body: Column(mainAxisAlignment: MainAxisAlignment.start, children:[
           GooglePlaceAutoCompleteTextField(
             showError: true,
+            countries: ["mx"],
             textEditingController: controller,
             googleAPIKey: "AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s",
+
             inputDecoration: const InputDecoration(
               suffixIcon: Icon(
                 Icons.search,

@@ -89,7 +89,7 @@
     "@homeSearchBar": {
         "description": "Texto mostrado en la barra de busqueda"
     },
-    "homeAdviceUp": "Encuetra más lugares",
+    "homeAdviceUp": "Encuentra más lugares",
     "@homeAdviceUp": {
         "description": "Texto mostrado en el advice arriba"
     },

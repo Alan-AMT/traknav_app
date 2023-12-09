@@ -4,10 +4,13 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class CreateTripPlanPage extends StatelessWidget {
-  const CreateTripPlanPage({super.key});
+  final TextEditingController daysController = TextEditingController();
+  CreateTripPlanPage({Key? key}) : super(key: key);
+
 
   @override
   Widget build(BuildContext context) {
@@ -15,23 +18,14 @@ class CreateTripPlanPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: const Text(
-            'Plan de viaje',
-            style: TextStyle(
+          title: Text(AppLocalizations.of(context)!.tripplanappbar,
+            style: const   TextStyle(
               fontFamily: 'Nunito',
               fontStyle: FontStyle.italic,
               fontSize: 30,
-              //color: Color.fromARGB(255, 0, 0, 0),
+              color: Colors.white,
             ),
           ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).pop(),
-            color: Colors.black,
-          ),
-          backgroundColor: state.isLightTheme
-              ? Colors.white
-              : const Color.fromRGBO(13, 71, 161, 1),
         ),
         //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         //
@@ -87,18 +81,20 @@ class CreateTripPlanPage extends StatelessWidget {
                     borderRadius:
                         BorderRadius.circular(20), // Bordes circulares
                   ),
-                  child: const Center(
+                  child: Center(
                     child: TextField(
+                      controller: daysController,
                       keyboardType: TextInputType.number, // Teclado numérico
+                      style: TextStyle(
+                        color: state.isLightTheme ? Colors.black : Colors.white, // Cambia el color del texto según el tema
+                      ),
                       decoration: InputDecoration(
                         hintText: '¿Por cuántos días?',
-                        labelStyle: TextStyle(
-                          color: Colors.black,
+                        hintStyle: TextStyle(
+                          color: state.isLightTheme ? Colors.black.withOpacity(0.6) : Colors.white70, // También ajusta el color del hint
                         ),
-                        border:
-                            InputBorder.none, // Elimina el borde predeterminado
+                        border: InputBorder.none, // Elimina el borde predeterminado
                         contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                        hintStyle: TextStyle(color: Colors.black),
                       ),
                     ),
                   ),
@@ -117,7 +113,20 @@ class CreateTripPlanPage extends StatelessWidget {
             ),
             child: TextButton(
               onPressed: () {
-                AutoRouter.of(context).navigate(const TripPlanCreatedRoute());
+                // Intenta convertir el texto a un entero, si falla, usa 0 como predeterminado
+                int numberOfDays = int.tryParse(daysController.text) ?? 0;
+
+                // Verifica si el número de días es mayor que 0 antes de navegar
+                if (numberOfDays > 0) {
+                  AutoRouter.of(context).navigate(
+                      TripPlanCreatedRoute(days: numberOfDays)
+                  );
+                } else {
+                  // Muestra algún mensaje de error o maneja el caso de entrada inválida
+                  ScaffoldMessenger.of(context).showSnackBar(
+                      SnackBar(content: Text('Por favor ingresa un número válido de días.'))
+                  );
+                }
               },
               child: const Text(
                 'Siguiente',

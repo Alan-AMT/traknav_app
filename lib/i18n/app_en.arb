@@ -4,6 +4,7 @@
     "homeSidemenuTitle": "Menu",
     "homeScaffold": "TrakNav",
     "homeSidemenuHome": "Home",
+    "homeSidemenuMap": "Map",
     "homeSidemenuProfile": "My account",
     "homeSidemenuFavs": "Favourites",
     "homeSidemenuPlan": "Trip plan",
@@ -50,6 +51,14 @@
     "formPhone": "Phone number",
     "formSecureQuestion1": "Name of your elementary school",
     "formSecureQuestion2": "Where do you live?",
+    "formCity": "City",
+    "changeLanguageTitle": "LANGUAGE",
+    "errorRequired": "This is a mandatory field",
+    "errorEmail": "Field must be a valid email",
+    "errorPhone": "Field must be a valid phone number",
+    "errorPassword": "The password must have at least:\n- One lowercase letter.\n- One uppercase letter.\n- One digit, period (.), or asterisk (*).\n- Be at least 8 characters long.",
+    "failedSignIn": "Failed to sign in. Try again",
+    "failedSignUp": "Failed to create account. Try again",
 "rECOMMENDATIONSTEXTS": "rECOMMENDATIONSTEXTS",
     "recPopular": "Most popular",
     "recMuseum": "Museums",
@@ -111,5 +120,8 @@
     "privPolicies2": "What type of information is collected?",
     "privPoliciesAns2":"We only collect the information provided when creating the account, and it is to tailor a more personalized user experience. As part of a system functionality, travel plans are also saved",
     "privPolicies3": "Do we share the collected information with third parties?",
-    "privPoliciesAns3": "No"
+    "privPoliciesAns3": "No",
+"MAPTEXTS": "MAPTEXTS",
+    "goToPlaceButton": "Go to",
+    "placeDetailsButton": "Details"
 }

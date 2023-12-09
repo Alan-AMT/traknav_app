@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -9,30 +11,29 @@ class SearchPlacesPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(80.0),
-          child: AppBar(
-            centerTitle: true,
-            title: const Text(
-              'Buscar Sitios',
-              style: TextStyle(
-                fontFamily: 'Nunito',
-                fontStyle: FontStyle.italic,
-                fontSize: 30,
-                color: Colors.black,
-              ),
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: const Text(
+            'Buscar Sitios',
+            style: TextStyle(
+              fontFamily: 'Nunito',
+              fontStyle: FontStyle.italic,
+              fontSize: 30,
+              //color: Colors.black,
             ),
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {
-                AutoRouter.of(context).navigate(const CreateTripPlanRoute());
-              },
-              color: Colors.black,
-            ),
-            backgroundColor: Colors.white,
           ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () {
+              AutoRouter.of(context).navigate(const CreateTripPlanRoute());
+            },
+            color: Colors.black,
+          ),
+          backgroundColor: state.isLightTheme
+              ? Colors.white
+              : const Color.fromRGBO(13, 71, 161, 1),
         ),
         //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
@@ -60,14 +61,16 @@ class SearchPlacesPage extends StatelessWidget {
                     children: [
                       IconButton(
                         icon: const Icon(Icons.search),
+                        color: Colors.black,
                         onPressed: () {},
                       ),
                       const Text(
                         '¿A dónde vamos?',
-                        style: TextStyle(fontSize: 16),
+                        style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                       IconButton(
                         icon: const Icon(Icons.filter_alt),
+                        color: Colors.black,
                         onPressed: () {
                           AutoRouter.of(context)
                               .navigate(const SearchPlacesRoute());
@@ -93,7 +96,7 @@ class SearchPlacesPage extends StatelessWidget {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 50, vertical: 25),
                   decoration: BoxDecoration(
-                    color: const Color.fromARGB(255, 85, 187, 235),
+                    color: const Color(0xff99DBFF),
                     borderRadius:
                         BorderRadius.circular(20), // Bordes circulares
                   ),
@@ -115,8 +118,8 @@ class SearchPlacesPage extends StatelessWidget {
             ),
           ),
         ]),
-      ),
-    );
+      );
+    });
   }
 }
 
@@ -151,8 +154,14 @@ class _MyCheckboxListState extends State<MyCheckboxList> {
       children: [
         // Checkbox para "Seleccionar todos" fuera del contenedor blanco
         CheckboxListTile(
+          activeColor: Color.fromARGB(255, 188, 225, 255),
+
+          // checkColor: Colors.black,
           controlAffinity: ListTileControlAffinity.leading,
-          title: const Text('Seleccionar todos'),
+          title: const Text(
+            'Seleccionar todos',
+            style: TextStyle(fontSize: 16, color: Colors.black),
+          ),
           value: _selectAll,
           onChanged: _controller.setChecked,
         ),
@@ -167,7 +176,11 @@ class _MyCheckboxListState extends State<MyCheckboxList> {
               itemCount: 10,
               itemBuilder: (context, index) {
                 return CheckboxListTile(
-                  title: Text(getCheckboxText(index)),
+                  activeColor: Color.fromARGB(255, 188, 225, 255),
+                  title: Text(
+                    getCheckboxText(index),
+                    style: TextStyle(fontSize: 16, color: Colors.black),
+                  ),
                   value: _isCheckedList[index],
                   onChanged: (value) {
                     setState(() {

@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
@@ -18,6 +19,12 @@ class _HomePage extends State<HomePage> {
   bool isDisplayLanguages = false;
   @override
   Widget build(BuildContext context) {
+    FirebaseAuth.instance.userChanges().listen((User? user) async {
+      if (user == null) {
+        AutoRouter.of(context).pushAndPopUntil(const SignInRoute(),
+            predicate: (Route<dynamic> route) => false);
+      }
+    });
     return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
       return Scaffold(
           appBar: AppBar(
@@ -30,7 +37,7 @@ class _HomePage extends State<HomePage> {
                       Icons.account_circle_sharp,
                     ),
                     onPressed: () {
-                      AutoRouter.of(context).navigate(const MyProfileRoute());
+                      AutoRouter.of(context).navigate(const ProfileRoute());
                     },
                   )),
             ],

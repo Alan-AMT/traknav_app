@@ -10,7 +10,7 @@ class ToolsWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<String> categories = [
-      AppLocalizations.of(context)!.homeCategoriesTiempo,
+      AppLocalizations.of(context)!.homeSidemenuWeather,
       AppLocalizations.of(context)!.homeCategoriesPlanViaje,
       AppLocalizations.of(context)!.homeCategoriesFavoritos,
     ];

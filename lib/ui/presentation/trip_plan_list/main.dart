@@ -7,7 +7,7 @@ import '../../router/android.gr.dart';
 
 @RoutePage()
 class TripPlanListPage extends StatefulWidget {
-  const TripPlanListPage({Key? key}) : super(key: key);
+  const TripPlanListPage({Key? key, required List<Map<String, dynamic>> tripDaysData}) : super(key: key);
 
   @override
   _TripPlanListState createState() => _TripPlanListState();

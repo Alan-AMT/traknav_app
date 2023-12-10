@@ -6,7 +6,7 @@ import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubi
 
 @RoutePage()
 class TripPlanListPage extends StatefulWidget {
-  const TripPlanListPage({Key? key}) : super(key: key);
+  const TripPlanListPage({Key? key, required List<Map<String, dynamic>> tripDaysData}) : super(key: key);
 
   @override
   State<TripPlanListPage> createState() => _TripPlanListPage();

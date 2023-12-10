@@ -1,19 +1,28 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-
-import '../../router/android.gr.dart';
-
+import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubit.dart';
 
 @RoutePage()
 class TripPlanListPage extends StatefulWidget {
   const TripPlanListPage({Key? key}) : super(key: key);
 
   @override
-  _TripPlanListState createState() => _TripPlanListState();
+  State<TripPlanListPage> createState() => _TripPlanListPage();
 }
 
-class _TripPlanListState extends State<TripPlanListPage> {
+class _TripPlanListPage extends State<TripPlanListPage> {
+  @override
+  void initState() {
+    super.initState();
+    fetchCurrentPlanes();
+  }
+
+  void fetchCurrentPlanes() async {
+    await context.read<PlanDeViajeCubit>().fetchCurrentPlanes();
+  }
+
   List<Map<String, dynamic>> planData = [
     {
       'title': 'Plan 1',
@@ -54,91 +63,107 @@ class _TripPlanListState extends State<TripPlanListPage> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(AppLocalizations.of(context)!.tripplanlist,
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontStyle: FontStyle.italic,
-            fontSize: 30,
-            color: Colors.white,
+    return BlocBuilder<PlanDeViajeCubit, PlanDeViajeState>(
+        builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            AppLocalizations.of(context)!.tripplanlist,
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontStyle: FontStyle.italic,
+              fontSize: 30,
+              color: Colors.white,
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: planData.length,
-        itemBuilder: (context, planIndex) {
-          final plan = planData[planIndex];
-          return Card(
-            margin: const EdgeInsets.all(8.0),
-            child: Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(plan['title'], style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold)),
-                  ...plan['days'].asMap().entries.map<Widget>((dayEntry) {
-                    int dayIndex = dayEntry.key;
-                    var day = dayEntry.value;
+        body: ListView.builder(
+          itemCount: state.planes.length,
+          itemBuilder: (context, planIndex) {
+            final plan = planData[planIndex];
+            return Card(
+              margin: const EdgeInsets.all(8.0),
+              child: Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(plan['title'],
+                        style: const TextStyle(
+                            fontSize: 24, fontWeight: FontWeight.bold)),
+                    ...plan['days'].asMap().entries.map<Widget>((dayEntry) {
+                      int dayIndex = dayEntry.key;
+                      var day = dayEntry.value;
 
-                    String dayNumber = (dayIndex + 1).toString();
-                    String dayStatus = day['completed'] ? AppLocalizations.of(context)!.tripplanlistf: AppLocalizations.of(context)!.tripplanlistu;
+                      String dayNumber = (dayIndex + 1).toString();
+                      String dayStatus = day['completed']
+                          ? AppLocalizations.of(context)!.tripplanlistf
+                          : AppLocalizations.of(context)!.tripplanlistu;
 
-                    return Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        CheckboxListTile(
-                          title: Text('${AppLocalizations.of(context)!.tripplanday} $dayNumber - $dayStatus'),
-                          value: day['completed'],
-                          onChanged: (_) => _toggleDayCompletion(planIndex, dayIndex),
-                          controlAffinity: ListTileControlAffinity.leading,
-                        ),
-                        ...day['places'].asMap().entries.map<Widget>((placeEntry) {
-                          int placeIndex = placeEntry.key;
-                          var place = placeEntry.value;
-
-                          // CheckboxListTile para cada lugar
-                          return CheckboxListTile(
-                            title: Text(place['name']),
-                            value: place['completed'],
-                            onChanged: (bool? newValue) {
-                              _togglePlaceCompletion(planIndex, dayIndex, placeIndex);
-                            },
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          CheckboxListTile(
+                            title: Text(
+                                '${AppLocalizations.of(context)!.tripplanday} $dayNumber - $dayStatus'),
+                            value: day['completed'],
+                            onChanged: (_) =>
+                                _toggleDayCompletion(planIndex, dayIndex),
                             controlAffinity: ListTileControlAffinity.leading,
-                          );
-                        }).toList(),
+                          ),
+                          ...day['places']
+                              .asMap()
+                              .entries
+                              .map<Widget>((placeEntry) {
+                            int placeIndex = placeEntry.key;
+                            var place = placeEntry.value;
+
+                            // CheckboxListTile para cada lugar
+                            return CheckboxListTile(
+                              title: Text(place['name']),
+                              value: place['completed'],
+                              onChanged: (bool? newValue) {
+                                _togglePlaceCompletion(
+                                    planIndex, dayIndex, placeIndex);
+                              },
+                              controlAffinity: ListTileControlAffinity.leading,
+                            );
+                          }).toList(),
+                        ],
+                      );
+                    }).toList(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        TextButton(
+                          onPressed: () {
+                            // Acción para editar el plan de viaje
+                            //context.router.push(EditTripPlanRoute(planData: planData[planIndex], tripDaysData: []));
+                          },
+                          child:
+                              Text(AppLocalizations.of(context)!.edittripplan),
+                        ),
+                        TextButton(
+                          onPressed: () {
+                            // Acción para iniciar el plan de viaje
+                          },
+                          child:
+                              Text(AppLocalizations.of(context)!.tripplanlists),
+                        ),
                       ],
-                    );
-                  }).toList(),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      TextButton(
-                        onPressed: () {
-                          // Acción para editar el plan de viaje
-                          //context.router.push(EditTripPlanRoute(planData: planData[planIndex], tripDaysData: []));
-                        },
-                        child: Text(AppLocalizations.of(context)!.edittripplan),
-                      ),
-                      TextButton(
-                        onPressed: () {
-                          // Acción para iniciar el plan de viaje
-                        },
-                        child: Text(AppLocalizations.of(context)!.tripplanlists),
-                      ),
-                    ],
-                  ),
-                ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          );
-        },
-      ),
-    );
+            );
+          },
+        ),
+      );
+    });
   }
 }

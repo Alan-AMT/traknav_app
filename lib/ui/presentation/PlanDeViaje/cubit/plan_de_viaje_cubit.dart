@@ -7,9 +7,9 @@ part 'plan_de_viaje_state.dart';
 part 'plan_de_viaje_cubit.freezed.dart';
 
 abstract class IPlanDeViajeCubit {
-  void fetchCurrentPlanes();
-  void fetchDonePlanes();
-  void createPlanDeViaje();
+  Future<void> fetchCurrentPlanes();
+  Future<void> createPlanDeViaje();
+  Future<void> fetchExpiredPlanes();
 }
 
 class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
@@ -23,15 +23,26 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
         await PlanDeViajeDataSource.fetchCurrentPlanes();
     final plans = <PlanDeViaje>[];
     for (final plan in response.docs) {
+      // print("*******");
+      // print(plan.data().toString());
       plans.add(PlanDeViaje.fromJson(plan.data()));
     }
-    emit(state.copyWith(isLoadinggPlanesDeViaje: false, planes: plans));
+    final filtered = plans.where((plan) => !plan.completed).toList();
+    emit(state.copyWith(isLoadinggPlanesDeViaje: false, planes: filtered));
   }
 
   @override
-  Future<void> fetchDonePlanes() async {
+  Future<void> fetchExpiredPlanes() async {
     emit(state.copyWith(isLoadinggPlanesDeViaje: true));
-    emit(state.copyWith(isLoadinggPlanesDeViaje: false));
+    final QuerySnapshot<Map<String, dynamic>> response =
+        await PlanDeViajeDataSource.fetchCurrentPlanes();
+    final plans = <PlanDeViaje>[];
+    for (final plan in response.docs) {
+      plans.add(PlanDeViaje.fromJson(plan.data()));
+    }
+    final filtered = plans.where((plan) => plan.completed).toList();
+    emit(state.copyWith(
+        isLoadinggPlanesDeViaje: false, expiredPlanes: filtered));
   }
 
   @override

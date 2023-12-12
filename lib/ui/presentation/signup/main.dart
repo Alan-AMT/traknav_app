@@ -135,8 +135,10 @@ class SignUpForm extends StatelessWidget {
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
                       errorText: AppLocalizations.of(context)!.errorRequired),
+                  // FormBuilderValidators.match(
+                  //     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d.*])[\w.*]{8,}$',
                   FormBuilderValidators.match(
-                      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d.*])[\w.*]{8,}$',
+                      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(.{8,})$,',
                       errorText: AppLocalizations.of(context)!.errorPassword)
                 ]),
               ),

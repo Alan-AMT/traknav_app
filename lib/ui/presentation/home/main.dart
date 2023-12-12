@@ -37,7 +37,7 @@ class _HomePage extends State<HomePage> {
                       Icons.account_circle_sharp,
                     ),
                     onPressed: () {
-                      AutoRouter.of(context).navigate(const MyProfileRoute());
+                      AutoRouter.of(context).navigate(const ProfileRoute());
                     },
                   )),
             ],

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/FAQs/buildPanel.dart';
 import '../Item.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PolicyQuestions extends StatefulWidget {
   const PolicyQuestions({super.key});
@@ -10,27 +11,23 @@ class PolicyQuestions extends StatefulWidget {
 }
 
 class _PolicyQuestionsState extends State<PolicyQuestions> {
-  final List<Item> _data = [
-    Item(
-        expandedValue:
-            "A través del control de acceso mediante cuentas privadas pertenecientes al usuario en cuestión. Es responsabilidad del usuario el compartir su contraseña para acceder a la aplicación",
-        headerValue:
-            "¿Cómo protege nuestra aplicación la privacidad de los usuarios?"),
-    Item(
-        expandedValue:
-            "Solamente recopilamos la información proporcionada a la hora de crear la cuenta, y es para adaptar una experiencia de usuario más personalizada. Como parte de una funcionalidad del sistema, también se guardan los planes de viaje",
-        headerValue: "¿Qué tipo de información se recopila?"),
-    Item(
-        expandedValue: "No",
-        headerValue: "¿Se comparte la información recopilada a terceros?"),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final List<Item> data = [
+      Item(
+          expandedValue: AppLocalizations.of(context)!.privPoliciesAns1,
+          headerValue: AppLocalizations.of(context)!.privPolicies1),
+      Item(
+          expandedValue: AppLocalizations.of(context)!.privPoliciesAns2,
+          headerValue: AppLocalizations.of(context)!.privPolicies2),
+      Item(
+          expandedValue: AppLocalizations.of(context)!.privPoliciesAns3,
+          headerValue: AppLocalizations.of(context)!.privPolicies3),
+    ];
     return SingleChildScrollView(
       child: Container(
         padding: const EdgeInsets.all(10),
-        child: BuildPanel(data: _data),
+        child: BuildPanel(data: data),
       ),
     );
   }

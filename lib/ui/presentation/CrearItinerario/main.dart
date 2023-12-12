@@ -7,138 +7,106 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
-class CreateTripPlanPage extends StatelessWidget {
-  final TextEditingController daysController = TextEditingController();
+class CreateTripPlanPage extends StatefulWidget {
   CreateTripPlanPage({Key? key}) : super(key: key);
 
+  @override
+  _CreateTripPlanPageState createState() => _CreateTripPlanPageState();
+}
+
+class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
+  final TextEditingController _daysController = TextEditingController();
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: Text(AppLocalizations.of(context)!.tripplanappbar,
-            style: const   TextStyle(
-              fontFamily: 'Nunito',
-              fontStyle: FontStyle.italic,
-              fontSize: 30,
-              color: Colors.white,
-            ),
+    return Scaffold(
+      resizeToAvoidBottomInset: true, // Añadir esta línea
+      appBar: AppBar(
+      centerTitle: true,
+      title: Text(AppLocalizations.of(context)!.tripplanlist,
+        style: const TextStyle(
+          fontFamily: 'Nunito',
+          fontStyle: FontStyle.italic,
+          fontSize: 30,
+          color: Colors.white,
+        ),
+      ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+    ),
+      body: SingleChildScrollView( // Envolver en un SingleChildScrollView
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                'Planifica tu viaje de manera fácil y eficiente.',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0), // Bordes redondeados aquí
+                child: Image.asset('assets/TravelPlan/im1.jpg'),
+              ), // Imagen agregada
+              SizedBox(height: 20),
+              Text(
+                'Ingresa la duración de tu estadía e inicia tu aventura.',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              _numberOfDaysField(),
+              SizedBox(height: 20),
+              _submitButton(),
+            ],
           ),
         ),
-        //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        //
-        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Container(
-            height: 170,
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-            decoration: BoxDecoration(
-              color: Colors.blue, // Rectángulo azul
-              borderRadius: BorderRadius.circular(20), // Bordes circulares
-            ),
-            child: Column(
-              children: [
-                Container(
-                  //barra busqueda
-                  height: 40,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(20), // Bordes circulares
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.search),
-                        color: Colors.black,
-                        onPressed: () {},
-                      ),
-                      const Text(
-                        '¿A dónde vamos?',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.filter_alt),
-                        color: Colors.black,
-                        onPressed: () {
-                          AutoRouter.of(context)
-                              .navigate(const SearchPlacesRoute());
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 40,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(20), // Bordes circulares
-                  ),
-                  child: Center(
-                    child: TextField(
-                      controller: daysController,
-                      keyboardType: TextInputType.number, // Teclado numérico
-                      style: TextStyle(
-                        color: state.isLightTheme ? Colors.black : Colors.white, // Cambia el color del texto según el tema
-                      ),
-                      decoration: InputDecoration(
-                        hintText: '¿Por cuántos días?',
-                        hintStyle: TextStyle(
-                          color: state.isLightTheme ? Colors.black.withOpacity(0.6) : Colors.white70, // También ajusta el color del hint
-                        ),
-                        border: InputBorder.none, // Elimina el borde predeterminado
-                        contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            //BOTON SIGUIENTE
-            height: 40,
-            width: 200,
-            margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            decoration: BoxDecoration(
-              color: const Color(0xff99DBFF),
-              borderRadius: BorderRadius.circular(20), // Bordes circulares
-            ),
-            child: TextButton(
-              onPressed: () {
-                // Intenta convertir el texto a un entero, si falla, usa 0 como predeterminado
-                int numberOfDays = int.tryParse(daysController.text) ?? 0;
+      ),
+    );
+  }
 
-                // Verifica si el número de días es mayor que 0 antes de navegar
-                if (numberOfDays > 0) {
-                  AutoRouter.of(context).navigate(
-                      TripPlanCreatedRoute(days: numberOfDays)
-                  );
-                } else {
-                  // Muestra algún mensaje de error o maneja el caso de entrada inválida
-                  ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text('Por favor ingresa un número válido de días.'))
-                  );
-                }
-              },
-              child: const Text(
-                'Siguiente',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 2, 0, 0),
-                  fontSize: 18,
-                ),
-              ),
-            ),
-          ),
-        ]),
+  Widget _numberOfDaysField() {
+    return TextField(
+      controller: _daysController,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: 'Número de Días',
+        border: OutlineInputBorder(),
+      ),
+      onChanged: (value) {
+        // TODO: Implementar lógica de validación de entrada
+      },
+    );
+  }
+
+  Widget _submitButton() {
+    return ElevatedButton(
+      onPressed: () => _onSubmit(),
+      child: Text('Planificar Viaje'),
+    );
+  }
+
+  void _onSubmit() {
+    int numberOfDays = int.tryParse(_daysController.text) ?? 0;
+    if (numberOfDays > 0) {
+      //Lógica de planificación
+       AutoRouter.of(context).navigate(TripPlanCreatedRoute(days: numberOfDays));
+    } else {
+      // Mostrar mensaje de error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Por favor, introduce un número válido de días.')),
       );
-    });
+    }
+  }
+
+  @override
+  void dispose() {
+    _daysController.dispose();
+    super.dispose();
   }
 }
+
+

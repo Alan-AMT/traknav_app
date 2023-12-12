@@ -5,6 +5,7 @@ import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/main.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 @RoutePage()
 class MyProfilePage extends StatelessWidget {
@@ -140,7 +141,7 @@ class MyProfilePage extends StatelessWidget {
                                                         12)))),
                                     onPressed: () {
                                       AutoRouter.of(context)
-                                          .navigate(const MultiUserRoute());
+                                          .navigate(const EditProfileRoute());
                                     },
                                     child: const Text("Cambiar de usuario"))
                               ],
@@ -166,9 +167,9 @@ class MyProfilePage extends StatelessWidget {
                     ),
                     Container(
                       margin: EdgeInsets.only(
-                        bottom: 470,
+                        bottom: 400,
                         left: 280,
-                        right: 10,
+                        right: 0,
                       ),
                       child: Row(
                         children: [

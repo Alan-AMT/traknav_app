@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/FAQs/actionArea.dart';
 import 'package:traknav_app/ui/presentation/FAQs/politicas/policyQuestions.dart';
 import 'package:traknav_app/ui/presentation/FAQs/topScreenBar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class PoliticasPage extends StatelessWidget {
@@ -12,13 +13,16 @@ class PoliticasPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        appBar: AppBar(title: const Text("PREGUNTAS FRECUENTES")),
+        appBar: AppBar(
+            title: Text(AppLocalizations.of(context)!.navBarTitle,
+                style: const TextStyle(fontSize: 18))),
         body: ListView(
           children: <Widget>[
             //const TopScreenBar(),
             Image.asset('assets/FAQs/FAQs.png'),
-            const ActionArea(
-                text: "POLÍTICAS DE PRIVACIDAD", content: PolicyQuestions())
+            ActionArea(
+                text: AppLocalizations.of(context)!.privPolicies,
+                content: PolicyQuestions())
           ],
         ),
       ),

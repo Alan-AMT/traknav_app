@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/Clima/modelo.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class PronosticoDia extends StatelessWidget {
   final Clima? climaData;
@@ -24,7 +25,8 @@ class PronosticoDia extends StatelessWidget {
                 child: climaData!.nublado > 50
                     ? Image.asset('assets/clima/dia-nublado.png')
                     : Image.asset('assets/clima/sol.png')),
-            Text("Temperatura: ${climaData!.temperatura}",
+            Text(
+                "${AppLocalizations.of(context)!.temperaturaDia} ${climaData!.temperatura}",
                 style: const TextStyle(color: Colors.black)),
             Container(width: 20),
             Container(
@@ -32,7 +34,8 @@ class PronosticoDia extends StatelessWidget {
                 height: 50,
                 padding: const EdgeInsets.only(top: 10),
                 child: Image.asset('assets/clima/clima.png')),
-            Text("Prob. lluvia: ${climaData!.probLluvia}",
+            Text(
+                "${AppLocalizations.of(context)!.chanceRainDia} ${climaData!.probLluvia}",
                 style: const TextStyle(color: Colors.black)),
           ],
         ),

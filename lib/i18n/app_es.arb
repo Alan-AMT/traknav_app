@@ -228,7 +228,7 @@
     "@errorPassword": {
         "description": "Error a mostrar cuando el campo contraseña es muy debil"
     },
-    "failedSignIn": "No pudimos iniciar sesión. Intenta de nuevo",
+    "failedSignIn": "No pudimos iniciar sesión. Revisa tu contraseña e intenta de nuevo",
     "@errorPassword": {
         "description": "Error al intentar iniciar sesión con firebase"
     },

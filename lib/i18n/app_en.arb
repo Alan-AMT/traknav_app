@@ -57,7 +57,7 @@
     "errorEmail": "Field must be a valid email\n name@example.com",
     "errorPhone": "Field must be a valid phone number (10 digits)",
     "errorPassword": "The password must have at least:\n- One lowercase letter.\n- One uppercase letter.\n- One digit, period (.), or asterisk (*).\n- Be at least 8 characters long.",
-    "failedSignIn": "Failed to sign in. Try again",
+    "failedSignIn": "Failed to sign in. Check your password and try again",
     "failedSignUp": "Failed to create account. Try again",
 "rECOMMENDATIONSTEXTS": "rECOMMENDATIONSTEXTS",
     "recPopular": "Most popular",

@@ -5,14 +5,14 @@ import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 
-class WidgetCatalog extends StatefulWidget {
-  const WidgetCatalog({Key? key}) : super(key: key);
+class WidgetCatalogHospedaje extends StatefulWidget {
+  const WidgetCatalogHospedaje({Key? key}) : super(key: key);
 
   @override
-  _WidgetCatalogState createState() => _WidgetCatalogState();
+  _WidgetCatalogHospedajeState createState() => _WidgetCatalogHospedajeState();
 }
 
-class _WidgetCatalogState extends State<WidgetCatalog> {
+class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
   List<CatalogItem> catalogItems = [];
 
   @override
@@ -30,10 +30,20 @@ class _WidgetCatalogState extends State<WidgetCatalog> {
     // Body de la solicitud
     Map<String, dynamic> lugares = {
       "includedTypes": [
-        "museum",
-        "restaurant",
-        "mexican_restaurant",
-        "park",
+        "bed_and_breakfast",
+        "campground",
+        "camping_cabin",
+        "cottage",
+        "extended_stay_hotel",
+        "farmstay",
+        "guest_house",
+        "hostel",
+        "hotel",
+        "lodging",
+        "motel",
+        "private_guest_room",
+        "resort_hotel",
+        "rv_park",
       ],
       "maxResultCount": 20,
       "locationRestriction": {

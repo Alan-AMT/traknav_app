@@ -60,6 +60,7 @@ dependencies:
   form_builder_validators: ^9.1.0
   cloud_firestore: ^4.13.3
   fluttertoast: ^8.2.4
+  cached_network_image: ^3.3.0
   skeletons: ^0.0.3
 
 dev_dependencies:

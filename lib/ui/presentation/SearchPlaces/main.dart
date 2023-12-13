@@ -27,7 +27,7 @@ class SearchPlacesPage extends StatelessWidget {
           leading: IconButton(
             icon: const Icon(Icons.arrow_back),
             onPressed: () {
-              AutoRouter.of(context).navigate(const CreateTripPlanRoute());
+              AutoRouter.of(context).navigate( CreateTripPlanRoute());
             },
             color: Colors.black,
           ),
@@ -103,7 +103,7 @@ class SearchPlacesPage extends StatelessWidget {
                   child: TextButton(
                     onPressed: () {
                       AutoRouter.of(context)
-                          .navigate(const CreateTripPlanRoute());
+                          .navigate( CreateTripPlanRoute());
                     },
                     child: const Text(
                       'Aceptar',

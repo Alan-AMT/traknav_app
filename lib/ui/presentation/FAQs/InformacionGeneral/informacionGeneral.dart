@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/FAQs/InformacionGeneral/informationQuestions.dart';
 import 'package:traknav_app/ui/presentation/FAQs/actionArea.dart';
 import 'package:traknav_app/ui/presentation/FAQs/topScreenBar.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class InformacionGeneralPage extends StatelessWidget {
@@ -27,13 +28,16 @@ class InformacionGeneralPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("PREGUNTAS FRECUENTES")),
+      appBar: AppBar(
+          title: Text(AppLocalizations.of(context)!.navBarTitle,
+              style: const TextStyle(fontSize: 18))),
       body: SafeArea(
           child: ListView(
         children: [
           Image.asset('assets/FAQs/FAQs.png'),
-          const ActionArea(
-              text: "INFORMACIÓN GENERAL", content: InformationQuestions())
+          ActionArea(
+              text: AppLocalizations.of(context)!.generalInfo,
+              content: InformationQuestions())
         ],
       )),
     );

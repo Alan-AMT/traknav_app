@@ -14,7 +14,7 @@ class _ToolsWidgetState extends State<ToolsWidget> {
   @override
   Widget build(BuildContext context) {
     List<String> categories = [
-      AppLocalizations.of(context)!.homeCategoriesTiempo,
+      AppLocalizations.of(context)!.homeSidemenuWeather,
       AppLocalizations.of(context)!.homeCategoriesPlanViaje,
       AppLocalizations.of(context)!.homeCategoriesFavoritos,
     ];
@@ -57,10 +57,10 @@ class _ToolsWidgetState extends State<ToolsWidget> {
                       case 'Trip plan':
                         context.router.push(TripPlanRoute());
                         break;
-                      case 'Tiempo':
+                      case 'Clima':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
-                      case 'Climate':
+                      case 'Weather':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
                       case 'Favoritos':

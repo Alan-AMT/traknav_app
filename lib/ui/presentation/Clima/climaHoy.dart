@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/presentation/Clima/modelo.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 class ClimaHoy extends StatelessWidget {
   final List<Clima>? climaData;
@@ -15,10 +16,10 @@ class ClimaHoy extends StatelessWidget {
           padding: const EdgeInsets.only(top: 20),
           child: Column(
             children: [
-              Text(
-                climaData![0].lugarStr(),
+              const Text(
+                "",
                 textAlign: TextAlign.center,
-                style: const TextStyle(
+                style: TextStyle(
                     fontSize: 20,
                     fontWeight: FontWeight.bold,
                     color: Colors.white),
@@ -42,7 +43,9 @@ class ClimaHoy extends StatelessWidget {
               : Image.asset('assets/clima/sol.png'),
         ),
         Text(
-          climaData![0].nublado > 50 ? "Nublado" : "Soleado",
+          climaData![0].nublado > 50
+              ? AppLocalizations.of(context)!.cloudy
+              : AppLocalizations.of(context)!.sunny,
           style: const TextStyle(fontSize: 20, color: Colors.white),
         ),
         Container(
@@ -67,7 +70,7 @@ class ClimaHoy extends StatelessWidget {
                 width: 20,
               ),
               Text(
-                '${climaData![0].probLluvia}% de probabilidad de lluvia',
+                '${climaData![0].probLluvia}${AppLocalizations.of(context)!.rainChance}',
                 style: const TextStyle(fontSize: 18, color: Colors.white),
               ),
             ],

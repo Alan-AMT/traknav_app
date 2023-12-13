@@ -4,132 +4,109 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+//import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
-class CreateTripPlanPage extends StatelessWidget {
-  const CreateTripPlanPage({super.key});
+class CreateTripPlanPage extends StatefulWidget {
+  CreateTripPlanPage({Key? key}) : super(key: key);
+
+  @override
+  _CreateTripPlanPageState createState() => _CreateTripPlanPageState();
+}
+
+class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
+  final TextEditingController _daysController = TextEditingController();
+  DateTime? selectedDate;
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
-      return Scaffold(
-        appBar: AppBar(
-          centerTitle: true,
-          title: const Text(
-            'Plan de viaje',
-            style: TextStyle(
-              fontFamily: 'Nunito',
-              fontStyle: FontStyle.italic,
-              fontSize: 30,
-              //color: Color.fromARGB(255, 0, 0, 0),
-            ),
-          ),
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back),
-            onPressed: () => Navigator.of(context).pop(),
-            color: Colors.black,
-          ),
-          backgroundColor: state.isLightTheme
-              ? Colors.white
-              : const Color.fromRGBO(13, 71, 161, 1),
+    return Scaffold(
+      resizeToAvoidBottomInset: true, // Añadir esta línea
+      appBar: AppBar(
+      centerTitle: true,
+      title: Text(AppLocalizations.of(context)!.tripplanlist,
+        style: const TextStyle(
+          fontFamily: 'Nunito',
+          fontStyle: FontStyle.italic,
+          fontSize: 30,
+          color: Colors.white,
         ),
-        //backgroundColor: const Color.fromARGB(255, 255, 255, 255),
-        //
-        body: Column(mainAxisAlignment: MainAxisAlignment.start, children: [
-          Container(
-            height: 170,
-            margin: const EdgeInsets.symmetric(horizontal: 40, vertical: 40),
-            decoration: BoxDecoration(
-              color: Colors.blue, // Rectángulo azul
-              borderRadius: BorderRadius.circular(20), // Bordes circulares
-            ),
-            child: Column(
-              children: [
-                Container(
-                  //barra busqueda
-                  height: 40,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(20), // Bordes circulares
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      IconButton(
-                        icon: const Icon(Icons.search),
-                        color: Colors.black,
-                        onPressed: () {},
-                      ),
-                      const Text(
-                        '¿A dónde vamos?',
-                        style: TextStyle(fontSize: 16, color: Colors.black),
-                      ),
-                      IconButton(
-                        icon: const Icon(Icons.filter_alt),
-                        color: Colors.black,
-                        onPressed: () {
-                          AutoRouter.of(context)
-                              .navigate(const SearchPlacesRoute());
-                        },
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  height: 40,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius:
-                        BorderRadius.circular(20), // Bordes circulares
-                  ),
-                  child: const Center(
-                    child: TextField(
-                      keyboardType: TextInputType.number, // Teclado numérico
-                      decoration: InputDecoration(
-                        hintText: '¿Por cuántos días?',
-                        labelStyle: TextStyle(
-                          color: Colors.black,
-                        ),
-                        border:
-                            InputBorder.none, // Elimina el borde predeterminado
-                        contentPadding: EdgeInsets.symmetric(horizontal: 30),
-                        hintStyle: TextStyle(color: Colors.black),
-                      ),
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Container(
-            //BOTON SIGUIENTE
-            height: 40,
-            width: 200,
-            margin: const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
-            decoration: BoxDecoration(
-              color: const Color(0xff99DBFF),
-              borderRadius: BorderRadius.circular(20), // Bordes circulares
-            ),
-            child: TextButton(
-              onPressed: () {
-                AutoRouter.of(context).navigate(const TripPlanCreatedRoute());
-              },
-              child: const Text(
-                'Siguiente',
-                style: TextStyle(
-                  color: Color.fromARGB(255, 2, 0, 0),
-                  fontSize: 18,
-                ),
+      ),
+      leading: IconButton(
+        icon: const Icon(Icons.arrow_back),
+        onPressed: () => Navigator.of(context).pop(),
+      ),
+    ),
+      body: SingleChildScrollView( // Envolver en un SingleChildScrollView
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: <Widget>[
+              Text(
+                'Planifica tu viaje de manera fácil y eficiente.',
+                style: TextStyle(fontSize: 16),
               ),
-            ),
+              SizedBox(height: 20),
+              ClipRRect(
+                borderRadius: BorderRadius.circular(10.0), // Bordes redondeados aquí
+                child: Image.asset('assets/TravelPlan/im1.jpg'),
+              ), // Imagen agregada
+              SizedBox(height: 20),
+              Text(
+                'Ingresa la duración de tu estadía e inicia tu aventura.',
+                style: TextStyle(fontSize: 16),
+              ),
+              SizedBox(height: 20),
+              _numberOfDaysField(),
+              SizedBox(height: 20),
+              _submitButton(),
+            ],
           ),
-        ]),
+        ),
+      ),
+    );
+  }
+
+  Widget _numberOfDaysField() {
+    return TextField(
+      controller: _daysController,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        labelText: 'Número de Días',
+        border: OutlineInputBorder(),
+      ),
+      onChanged: (value) {
+        // TODO: Implementar lógica de validación de entrada
+      },
+    );
+  }
+
+  Widget _submitButton() {
+    return ElevatedButton(
+      onPressed: () => _onSubmit(),
+      child: Text('Planificar Viaje'),
+    );
+  }
+
+  void _onSubmit() {
+    int numberOfDays = int.tryParse(_daysController.text) ?? 0;
+    if (numberOfDays > 0) {
+      //Lógica de planificación
+       AutoRouter.of(context).navigate(TripPlanCreatedRoute(days: numberOfDays));
+    } else {
+      // Mostrar mensaje de error
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(content: Text('Por favor, introduce un número válido de días.')),
       );
-    });
+    }
+  }
+
+  @override
+  void dispose() {
+    _daysController.dispose();
+    super.dispose();
   }
 }
+
+

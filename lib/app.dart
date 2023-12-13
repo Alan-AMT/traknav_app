@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubit.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:traknav_app/ui/presentation/map_search/cubit/map_search_cubit.dart';
 import 'package:traknav_app/ui/presentation/signin/main.dart';
@@ -64,6 +65,9 @@ class _TrakNavApp extends State<TrakNavApp> {
         ),
         BlocProvider(
           create: (_) => MapSearchCubit(),
+        ),
+        BlocProvider(
+          create: (_) => PlanDeViajeCubit(),
         ),
       ],
       child: BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {

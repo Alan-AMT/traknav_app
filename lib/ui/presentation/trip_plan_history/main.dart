@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-
 @RoutePage()
 class TripPlanHistoryPage extends StatelessWidget {
   const TripPlanHistoryPage({Key? key}) : super(key: key);
@@ -29,15 +28,17 @@ class TripPlanHistoryPage extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
-        title: Text(AppLocalizations.of(context)!.tripplanhistory,
-          style: TextStyle(
+        title: Text(
+          AppLocalizations.of(context)!.tripplanhistory,
+          style: const TextStyle(
             fontFamily: 'Nunito',
             fontStyle: FontStyle.italic,
             fontSize: 30,
             color: Colors.white,
-          ),),
+          ),
+        ),
         leading: IconButton(
-          icon: Icon(Icons.arrow_back),
+          icon: const Icon(Icons.arrow_back),
           onPressed: () => Navigator.of(context).pop(),
         ),
       ),
@@ -88,9 +89,12 @@ class HistoryListItem extends StatelessWidget {
               fit: BoxFit.cover,
             ),
             const SizedBox(height: 8),
-            Text(title, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+            Text(title,
+                style:
+                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text(date, style: const TextStyle(fontSize: 16, color: Colors.grey)),
+            Text(date,
+                style: const TextStyle(fontSize: 16, color: Colors.grey)),
             const SizedBox(height: 8),
             Text(route, style: const TextStyle(fontSize: 16)),
             if (completed) ...[

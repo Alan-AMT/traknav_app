@@ -208,7 +208,7 @@
     "@changeLanguageTitle": {
         "description": "Título de la sección cambiar idioma en pantalla inicio sesión"
     },
-    "formCity": "Ciudad",
+    "formCity": "Ciudad de orígen",
     "@formCity": {
         "description": "Campo de ciudad en el formulario de registro"
     },
@@ -216,19 +216,19 @@
     "@errorRequired": {
         "description": "Error a mostrar cuando un campo requerido no se llenó"
     },
-    "errorEmail": "Introduce un email válido",
+    "errorEmail": "Introduce un correo elecrónico válido\n nombre@ejemplo.com",
     "@errorEmail": {
         "description": "Error a mostrar cuando el campo email está mal"
     },
-    "errorPhone": "Introduce un número de teléfono válido",
+    "errorPhone": "Introduce un número de teléfono válido (10 dígitos)",
     "@errorPhone": {
         "description": "Error a mostrar cuando el campo teléfono está mal"
     },
-    "errorPassword": "La contraseña debe tener al menos:\n- Una letra minúscula.\n- Una letra mayúscula.\n- Un dígito, punto (.) o asterisco (*).\n- Ser de al menos 8 caracteres de longitud.",
+    "errorPassword": "La contraseña debe tener al menos:\n- Una letra minúscula.\n- Una letra mayúscula.\n- Un número \n- Ser de al menos 8 caracteres de longitud.",
     "@errorPassword": {
         "description": "Error a mostrar cuando el campo contraseña es muy debil"
     },
-    "failedSignIn": "No pudimos iniciar sesión. Intenta de nuevo",
+    "failedSignIn": "No pudimos iniciar sesión. Revisa tu contraseña e intenta de nuevo",
     "@errorPassword": {
         "description": "Error al intentar iniciar sesión con firebase"
     },

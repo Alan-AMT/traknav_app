@@ -15,8 +15,9 @@ class TripPlanPage extends StatelessWidget {
       return Scaffold(
         appBar: AppBar(
           centerTitle: true,
-          title: Text(AppLocalizations.of(context)!.tripplanappbar,
-            style: const   TextStyle(
+          title: Text(
+            AppLocalizations.of(context)!.tripplanappbar,
+            style: const TextStyle(
               fontFamily: 'Nunito',
               fontStyle: FontStyle.italic,
               fontSize: 30,
@@ -70,8 +71,7 @@ class TripPlanPage extends StatelessWidget {
               child: Center(
                 child: TextButton(
                   onPressed: () {
-                    AutoRouter.of(context)
-                        .navigate( CreateTripPlanRoute());
+                    AutoRouter.of(context).navigate(CreateTripPlanRoute());
                   },
                   style: TextButton.styleFrom(
                       backgroundColor: const Color(0xff0098FA),
@@ -89,49 +89,43 @@ class TripPlanPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-            Container(
-              //color: Colors.white,
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context).navigate( TripPlanListRoute(tripDaysData: []));
-                  },
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xff0098FA),
-                      shape: const StadiumBorder()),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    child: Text('Mis planes de viaje',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: 'Nunito',
-                        )),
-                  ),
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  AutoRouter.of(context)
+                      .navigate(TripPlanListRoute(tripDaysData: []));
+                },
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xff0098FA),
+                    shape: const StadiumBorder()),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  child: Text('Mis planes de viaje',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontFamily: 'Nunito',
+                      )),
                 ),
               ),
             ),
             const SizedBox(height: 15),
-            Container(
-              //color: Colors.white,
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context)
-                        .navigate(const TripPlanHistoryRoute());
-                  },
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xff0098FA),
-                      shape: const StadiumBorder()),
-                  child: const Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
-                    child: Text('Historial',
-                        style: TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: 'Nunito',
-                        )),
-                  ),
+            Center(
+              child: TextButton(
+                onPressed: () {
+                  AutoRouter.of(context).navigate(const TripPlanHistoryRoute());
+                },
+                style: TextButton.styleFrom(
+                    backgroundColor: const Color(0xff0098FA),
+                    shape: const StadiumBorder()),
+                child: const Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
+                  child: Text('Historial',
+                      style: TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontFamily: 'Nunito',
+                      )),
                 ),
               ),
             ),

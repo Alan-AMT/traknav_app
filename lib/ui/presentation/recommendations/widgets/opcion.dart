@@ -36,7 +36,6 @@ class BotonOpcion extends StatefulWidget {
 }
 
 class _BotonOpcionState extends State<BotonOpcion> {
-  
   @override
   /*
   final signUpKey = GlobalKey<FormBuilderState>();
@@ -59,53 +58,47 @@ class _BotonOpcionState extends State<BotonOpcion> {
   }
   */
   final opciones = [
-      //**Volver a coloca AppLocalizations...
-      Categoria(
-          1, "recPopular", "Sitios_populares.png",false),
-      Categoria(2, "recMuseum", "Museos.png",false),
-      Categoria(
-          3, "recRestaurants", "Restaurantes.png",false),
-      Categoria(4, "recLocalCommerce",
-          "Comercio_local.png",false),
-      Categoria(5, "recHistorical",
-          "Patrimonio_historico.png",false),
-      Categoria(6, "recLodgment", "Hospedaje.png",false),
-      Categoria(7, "recParks", "Parques.png",false),
-      Categoria(
-          8, "recGuided", "Visitas_guiadas.png",false),
-    ];
-  
+    //**Volver a coloca AppLocalizations...
+    Categoria(1, "recPopular", "Sitios_populares.png", false),
+    Categoria(2, "recMuseum", "Museos.png", false),
+    Categoria(3, "recRestaurants", "Restaurantes.png", false),
+    Categoria(4, "recLocalCommerce", "Comercio_local.png", false),
+    Categoria(5, "recHistorical", "Patrimonio_historico.png", false),
+    Categoria(6, "recLodgment", "Hospedaje.png", false),
+    Categoria(7, "recParks", "Parques.png", false),
+    Categoria(8, "recGuided", "Visitas_guiadas.png", false),
+  ];
+
   Preferencias prefs = Preferencias();
 
   void agregarPreferencias() {
     if (prefs.preferenciasSeleccionadas.isEmpty == false) {
       prefs.preferenciasSeleccionadas.clear();
     }
-      for (var opcion in opciones) {
-        if (opcion.estaSeleccionado == true) {
-          prefs.preferenciasSeleccionadas.add(opcion.id);
-        }
+    for (var opcion in opciones) {
+      if (opcion.estaSeleccionado == true) {
+        prefs.preferenciasSeleccionadas.add(opcion.id);
       }
+    }
   }
-
 
   void mostrarPreferencias() {
     debugPrint(prefs.preferenciasSeleccionadas.toString());
   }
 
-  int countSelected(){
+  int countSelected() {
     int count = 0;
-    for(var opcion in opciones){
-      if(opcion.estaSeleccionado == true){
-          count++;
+    for (var opcion in opciones) {
+      if (opcion.estaSeleccionado == true) {
+        count++;
       }
     }
     return count;
   }
 
-  void toggleCategoria(int index){
+  void toggleCategoria(int index) {
     setState(() {
-      if(opciones[index].estaSeleccionado!){
+      if (opciones[index].estaSeleccionado!) {
         opciones[index].estaSeleccionado = false;
       } else {
         if (countSelected() < 3) {
@@ -115,114 +108,108 @@ class _BotonOpcionState extends State<BotonOpcion> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Column( children:[
-        Center(
-        child:
-        Container(
-          width: MediaQuery.of(context).size.width * 0.8,
-        height: MediaQuery.of(context).size.height * 0.79,
-        decoration: BoxDecoration(
-          color: const Color.fromARGB(255, 58, 172, 255),
-            
-          borderRadius: BorderRadius.circular(20),
-        ),
-        child:
-         Column(children: [
-          Expanded(
-              child: GridView.builder(
-                  itemCount: opciones.length,
-                  gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 2),
-                  itemBuilder: ((context, index) {
-                    return GestureDetector(
-                        onTap: () {
-                        // Cambiar el estado al opuesto cada vez que se toca el Container
-                          setState(() {
-                            toggleCategoria(index);
-                            
-                          });
-                        },
-                        child: Container(
+    return Column(children: [
+      Center(
+        child: Container(
+            width: MediaQuery.of(context).size.width * 0.8,
+            height: MediaQuery.of(context).size.height * 0.79,
+            decoration: BoxDecoration(
+              color: const Color.fromARGB(255, 58, 172, 255),
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Column(children: [
+              Expanded(
+                  child: GridView.builder(
+                      itemCount: opciones.length,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2),
+                      itemBuilder: ((context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            // Cambiar el estado al opuesto cada vez que se toca el Container
+                            setState(() {
+                              toggleCategoria(index);
+                            });
+                          },
+                          child: Container(
                             margin: const EdgeInsets.all(10),
                             decoration: BoxDecoration(
-                                color: opciones[index].estaSeleccionado!?
-                                Colors.blue[700]: 
-                                const Color.fromARGB(180, 230, 230, 230),
+                                color: opciones[index].estaSeleccionado!
+                                    ? Colors.blue[700]
+                                    : const Color.fromARGB(180, 230, 230, 230),
                                 borderRadius: BorderRadius.circular(10)),
-                            child:Column( 
-                                  mainAxisAlignment: MainAxisAlignment.center, 
-                                  children: [
-                                    Image.asset('assets/${opciones[index].foto}', 
-                                      width: 100), 
-                                    Text( 
-                                      opciones[index].nombre, 
-                                      style: 
-                                        TextStyle(
-                                          color: opciones[index].estaSeleccionado!?
-                                          Colors.white: 
-                                          Colors.black,
-                                        ), 
-                                      ),
-                                    
-                                  ], 
-                          ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset('assets/${opciones[index].foto}',
+                                    width: 100),
+                                Text(
+                                  opciones[index].nombre,
+                                  style: TextStyle(
+                                    color: opciones[index].estaSeleccionado!
+                                        ? Colors.white
+                                        : Colors.black,
+                                  ),
                                 ),
-                    );
-                  })
-                  )
+                              ],
+                            ),
+                          ),
+                        );
+                      }))),
+              Row(
+                children: [
+                  Expanded(
+                    flex: 5,
+                    child: Text(countSelected().toString() + '/3 seleccionados',
+                        style: TextStyle(
+                            color: Colors.black,
+                            fontSize: Theme.of(context)
+                                .textTheme
+                                .titleLarge!
+                                .fontSize)),
+
+                    //Expanded(child:
                   ),
-          Row(
-            children: [
-              Expanded(flex : 5, child:
-              
-              
-              Text(countSelected().toString()+'/3 seleccionados',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontSize:
-                            Theme.of(context).textTheme.titleLarge!.fontSize)),
-              
-              //Expanded(child: 
-              ),
-              Expanded(flex : 4, child:
-              ElevatedButton(
-                /*onPressed: () async {
+                  Expanded(
+                      flex: 4,
+                      child: ElevatedButton(
+                        /*onPressed: () async {
                   agregarPreferencias();
                   mostrarPreferencias();
                     await onFormSent(context);
                   },
                   */
-                onPressed: () {
-                  
-                  agregarPreferencias();
-                  mostrarPreferencias();
-                  AutoRouter.of(context).navigate(const HomeRoute());
-                },
-                style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
-                shape: MaterialStateProperty.all(RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(10),
-                ))),
-                child: Text('Siguiente',
-                    style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize:
-                            Theme.of(context).textTheme.titleLarge!.fontSize)),
-              )
-              ),
+                        onPressed: () {
+                          agregarPreferencias();
+                          mostrarPreferencias();
+                          AutoRouter.of(context).navigate(const HomeRoute());
+                        },
+                        style: ButtonStyle(
+                            backgroundColor:
+                                MaterialStateProperty.all(Colors.blue),
+                            shape: MaterialStateProperty.all(
+                                RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                            ))),
+                        child: Text('Siguiente',
+                            style: TextStyle(
+                                color: Colors.white,
+                                fontWeight: FontWeight.bold,
+                                fontSize: Theme.of(context)
+                                    .textTheme
+                                    .titleLarge!
+                                    .fontSize)),
+                      )),
 
-             //)
-            ],
-          ),
-          
-        ]
-        )
-        ),
-        ),
-        const ButtonOmitir(),
-        ]
-        );
+                  //)
+                ],
+              ),
+            ])),
+      ),
+      const ButtonOmitir(),
+    ]);
   }
 }

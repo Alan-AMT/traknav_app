@@ -10,6 +10,8 @@ import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
+//Libreria para usar variables globales:
+import '../global/globals.dart' as globalss;
 
 class SignUpForm extends StatelessWidget {
   SignUpForm({Key? key}) : super(key: key);
@@ -27,6 +29,8 @@ class SignUpForm extends StatelessWidget {
         final phone = signUpKey.currentState!.fields["phone"]!.value;
         final userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
+        //globalss.globalUserCredential = userCredential;
+         //globalss.globalUserCredential;
         final usersCollection = FirebaseFirestore.instance.collection('users');
         usersCollection.doc(userCredential.user?.uid).set({
           "name": name,

@@ -14,7 +14,7 @@ import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
 
-import '../../global/globals.dart' as globalss;
+import 'package:firebase_auth/firebase_auth.dart';
 
 class Preferencias {
   List<int> preferenciasSeleccionadas = [];
@@ -38,26 +38,7 @@ class BotonOpcion extends StatefulWidget {
 class _BotonOpcionState extends State<BotonOpcion> {
   
   @override
-  /*
-  final signUpKey = GlobalKey<FormBuilderState>();
-  Future<void> onFormSent(BuildContext context) async {
-    if (signUpKey.currentState?.saveAndValidate() ?? false) {
-      try {
-        await EasyLoading.show();
-        final userCredential = FirebaseAuth.instance.currentUser; 
-        final usersCollection = FirebaseFirestore.instance.collection('users');
-        usersCollection.doc(userCredential.user?.uid).set({
-          "recommendations": prefs.preferenciasSeleccionadas
-        });
-        await EasyLoading.dismiss();
-        AutoRouter.of(context).navigate(const HomeRoute());
-      } catch (_) {
-        await EasyLoading.dismiss();
-        //await ToastApp.error(AppLocalizations.of(context)!.failedSignIn);
-      }
-    }
-  }
-  */
+  FirebaseAuth auth = FirebaseAuth.instance;
   final opciones = [
       //**Volver a coloca AppLocalizations...
       Categoria(
@@ -193,10 +174,19 @@ class _BotonOpcionState extends State<BotonOpcion> {
                     await onFormSent(context);
                   },
                   */
-                onPressed: () {
+                onPressed: () async {
                   
                   agregarPreferencias();
                   mostrarPreferencias();
+
+                  User? user = auth.currentUser;
+                  if(user != null){
+                    String uid = user.uid;
+                    await FirebaseFirestore.instance.collection('users').doc(uid).update(
+                      {'recommendations': prefs.preferenciasSeleccionadas}
+                    );
+                  }
+
                   AutoRouter.of(context).navigate(const HomeRoute());
                 },
                 style: ButtonStyle(

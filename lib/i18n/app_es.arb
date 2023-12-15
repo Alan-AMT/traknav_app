@@ -269,11 +269,27 @@
     "@recGuided": {
         "description": "Opción de visitas guiadas en recomendaciones"
     },
-    "buttonSave": "Guardar",
-    "@buttonSave": {
-        "description": "Texto del botón guardar recomendaciones"
+    "recHello": "¡Hola!",
+    "@recHello": {
+        "description": "Título de la pantalla de recomendaciones"
     },
-    "tRIPPLANTEXTS": "tRIPPLANTEXTS",
+    "recDescription": "Para personalizar tus recomendaciones de manera óptima, ¡cuéntanos un poco sobre tus gustos e intereses en viajes!",
+    "@recDescription": {
+        "description": "Indicaciones para el usuario"
+    },
+    "recSelected": "seleccionados",
+    "@recSelected": {
+        "description": "contador de preferencias seleccionadas"
+    },
+    "recNextButton": "Siguiente",
+    "@recNextButton": {
+        "description": "boton siguiente"
+    },
+    "recSkipButton": "Omitir",
+    "@recNextButton": {
+        "description": "boton Omitir"
+    },
+"tRIPPLANTEXTS": "tRIPPLANTEXTS",
         "tripplanappbar": "Plan de viaje",
         "@tripplanappbar": {
             "description": "Appbar para Plan de Viaje"

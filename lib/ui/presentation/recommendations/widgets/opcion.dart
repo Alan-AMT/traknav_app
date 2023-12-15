@@ -36,7 +36,6 @@ class BotonOpcion extends StatefulWidget {
 }
 
 class _BotonOpcionState extends State<BotonOpcion> {
-  
   @override
   FirebaseAuth auth = FirebaseAuth.instance;
   final opciones = [
@@ -56,38 +55,36 @@ class _BotonOpcionState extends State<BotonOpcion> {
       Categoria(
           8, "recGuided", "Visitas_guiadas.png",false),
     ];
-  
   Preferencias prefs = Preferencias();
 
   void agregarPreferencias() {
     if (prefs.preferenciasSeleccionadas.isEmpty == false) {
       prefs.preferenciasSeleccionadas.clear();
     }
-      for (var opcion in opciones) {
-        if (opcion.estaSeleccionado == true) {
-          prefs.preferenciasSeleccionadas.add(opcion.id);
-        }
+    for (var opcion in opciones) {
+      if (opcion.estaSeleccionado == true) {
+        prefs.preferenciasSeleccionadas.add(opcion.id);
       }
+    }
   }
-
 
   void mostrarPreferencias() {
     debugPrint(prefs.preferenciasSeleccionadas.toString());
   }
 
-  int countSelected(){
+  int countSelected() {
     int count = 0;
-    for(var opcion in opciones){
-      if(opcion.estaSeleccionado == true){
-          count++;
+    for (var opcion in opciones) {
+      if (opcion.estaSeleccionado == true) {
+        count++;
       }
     }
     return count;
   }
 
-  void toggleCategoria(int index){
+  void toggleCategoria(int index) {
     setState(() {
-      if(opciones[index].estaSeleccionado!){
+      if (opciones[index].estaSeleccionado!) {
         opciones[index].estaSeleccionado = false;
       } else {
         if (countSelected() < 3) {
@@ -97,6 +94,7 @@ class _BotonOpcionState extends State<BotonOpcion> {
     });
   }
 
+  @override
   Widget build(BuildContext context) {
     final nombres = [
       //**Volver a coloca AppLocalizations...

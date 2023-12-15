@@ -1,16 +1,20 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class ToolsWidget extends StatelessWidget {
+class ToolsWidget extends StatefulWidget {
   const ToolsWidget({Key? key}) : super(key: key);
 
   @override
+  _ToolsWidgetState createState() => _ToolsWidgetState();
+}
+
+class _ToolsWidgetState extends State<ToolsWidget> {
+  @override
   Widget build(BuildContext context) {
     List<String> categories = [
-      AppLocalizations.of(context)!.homeCategoriesTiempo,
+      AppLocalizations.of(context)!.homeSidemenuWeather,
       AppLocalizations.of(context)!.homeCategoriesPlanViaje,
       AppLocalizations.of(context)!.homeCategoriesFavoritos,
     ];
@@ -24,11 +28,9 @@ class ToolsWidget extends StatelessWidget {
             right: 0,
             child: Container(
               padding: EdgeInsets.symmetric(horizontal: 16.0),
-              //color: const Color.fromARGB(255, 255, 255, 255),
               child: Text(
                 AppLocalizations.of(context)!.homeCategoriesHerramientas,
                 style: TextStyle(
-                  //color: const Color.fromARGB(255, 0, 0, 0),
                   fontSize: 20.0,
                 ),
               ),
@@ -48,7 +50,6 @@ class ToolsWidget extends StatelessWidget {
               itemBuilder: (BuildContext context, int index) {
                 return GestureDetector(
                   onTap: () {
-                    // Ejemplo: Navegar a diferentes rutas según el texto del ítem
                     switch (categories[index]) {
                       case 'Plan Viaje':
                         context.router.push(TripPlanRoute());
@@ -56,10 +57,10 @@ class ToolsWidget extends StatelessWidget {
                       case 'Trip plan':
                         context.router.push(TripPlanRoute());
                         break;
-                      case 'Tiempo':
+                      case 'Clima':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
-                      case 'Climate':
+                      case 'Weather':
                         AutoRouter.of(context).navigate(const ClimaRoute());
                         break;
                       case 'Favoritos':
@@ -68,42 +69,40 @@ class ToolsWidget extends StatelessWidget {
                       case 'Favorites':
                         // context.router.push(FavoritesRoute());
                         break;
-                      // Agrega más casos según sea necesario
                       default:
-                        // Manejar el caso por defecto o no hacer nada
                         break;
                     }
                   },
                   child: Padding(
-                      padding: const EdgeInsets.only(
-                          left: 10.0, right: 10.0, top: 13.0),
-                      child: Column(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Container(
-                            padding: EdgeInsets.all(10.0),
-                            height: 65.0,
-                            width: 65.0,
-                            child: Image.asset(
-                                'assets/home/Tool_${index + 1}.png'),
-                            decoration: BoxDecoration(
-                              color: listTools[index].color,
-                              borderRadius: BorderRadius.circular(18.0),
-                              boxShadow: listTools[index].boxShadow,
-                            ),
+                    padding: const EdgeInsets.only(
+                        left: 10.0, right: 10.0, top: 13.0),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Container(
+                          padding: EdgeInsets.all(10.0),
+                          height: 65.0,
+                          width: 65.0,
+                          child:
+                              Image.asset('assets/home/Tool_${index + 1}.png'),
+                          decoration: BoxDecoration(
+                            color: listTools[index].color,
+                            borderRadius: BorderRadius.circular(18.0),
+                            boxShadow: listTools[index].boxShadow,
                           ),
-                          SizedBox(
-                            height: 15.0,
+                        ),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        Text(
+                          categories[index],
+                          style: TextStyle(
+                            fontSize: 15.0,
                           ),
-                          Text(
-                            categories[index],
-                            style: TextStyle(
-                              //  color: Colors.black,
-                              fontSize: 15.0,
-                            ),
-                          ),
-                        ],
-                      )),
+                        ),
+                      ],
+                    ),
+                  ),
                 );
               },
             ),

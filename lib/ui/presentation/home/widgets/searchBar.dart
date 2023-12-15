@@ -3,12 +3,19 @@ import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:traknav_app/ui/presentation/map_search/widgets/search_form.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
-class SearchBarWidget extends StatelessWidget {
-  const SearchBarWidget({super.key});
+class SearchBarWidget extends StatefulWidget {
+  const SearchBarWidget({Key? key}) : super(key: key);
+
+  @override
+  _SearchBarWidgetState createState() => _SearchBarWidgetState();
+}
+
+class _SearchBarWidgetState extends State<SearchBarWidget> {
+  String? homeSearchBarText;
 
   @override
   Widget build(BuildContext context) {
-    String? homeSearchBarText = AppLocalizations.of(context)!.homeSearchBar;
+    homeSearchBarText = AppLocalizations.of(context)!.homeSearchBar;
 
     return Container(
       alignment: Alignment.center,
@@ -29,7 +36,9 @@ class SearchBarWidget extends StatelessWidget {
       child: TextField(
         onTap: () async {
           final String? placeId = await showMaterialModalBottomSheet(
-              context: context, builder: (context) => const SearchForm());
+            context: context,
+            builder: (context) => const SearchForm(),
+          );
           print("******************");
           print(placeId);
           if (placeId == null) return;

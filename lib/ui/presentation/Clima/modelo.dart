@@ -15,7 +15,7 @@ class Clima {
     return "${date.day}/${date.month}/${date.year}";
   }
 
-  String lugarStr() {
+  String? lugarStr() {
     return "$lugar";
   }
 }

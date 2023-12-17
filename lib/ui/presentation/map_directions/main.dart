@@ -27,12 +27,14 @@ class MapDirectionsPage extends StatefulWidget {
 }
 
 class _MapDirectionsPage extends State<MapDirectionsPage> {
-  TransportMode _selectedMode = TransportMode.driving;
+  TransportMode _selectedMode = TransportMode.driving; // Modo de transporte inicial
   String distanceLeft = "0";
   String timeLeft = "0";
   String arrivalTime = "0";
   List<Polyline> myPolylines = [];
   final mapsWidgetController = GlobalKey<GoogleMapsWidgetState>();
+  ValueKey<int> mapKey = ValueKey(DateTime.now().millisecondsSinceEpoch);
+
 
 
   Future<void> _getRoute(TransportMode mode) async {
@@ -46,62 +48,41 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
         var routes = jsonData['routes'];
 
         if (routes.isNotEmpty) {
+          var encodedPolyline = routes[0]['overview_polyline']['points'];
+          var polylinePoints = _decodePolyline(encodedPolyline);
+          var leg = routes[0]['legs'][0];
+          var distance = leg['distance']['text'];
+          var duration = leg['duration']['text'];
+          var durationValue = leg['duration']['value'];
+          var arrivalDateTime = DateTime.now().add(Duration(seconds: durationValue));
+          var formattedArrivalTime = DateFormat.Hm().format(arrivalDateTime);
+
           setState(() {
-            myPolylines.clear();
 
-            // Extrayendo la polilínea
-            var encodedPolyline = routes[0]['overview_polyline']['points'];
-            var polylinePoints = _decodePolyline(encodedPolyline);
+            // Agrega la nueva polilínea
+            myPolylines.add(Polyline(
+              polylineId: PolylineId('new_route'),
+              color: Colors.blue,
+              points: polylinePoints,
+              width: 5,
+            ));
 
-            // Extrayendo información de distancia y duración
-            var leg = routes[0]['legs'][0];
-            var distance = leg['distance']['text'];
-            var duration = leg['duration']['text'];
-
-            // Calculando la hora de llegada
-            var durationValue = leg['duration']['value']; // Duración en segundos
-            var arrivalDateTime = DateTime.now().add(Duration(seconds: durationValue));
-            var formattedArrivalTime = DateFormat.Hm().format(arrivalDateTime);
-
-            myPolylines = [
-              Polyline(
-                polylineId: PolylineId('new_route'),
-                color: Colors.blue,
-                points: polylinePoints,
-                width: 5,
-              ),
-            ];
+            // Actualiza la información de distancia, tiempo y hora de llegada
             distanceLeft = distance;
             timeLeft = duration;
             arrivalTime = formattedArrivalTime;
           });
         } else {
-          // No se encontraron rutas
           print("No se encontraron rutas");
         }
       } else {
-        // Manejar errores de respuesta
         print("Error al obtener la ruta: ${response.statusCode}");
       }
     } catch (e) {
-      // Manejar excepciones
       print("Error al conectar con la API: $e");
     }
   }
 
-  void _updateMap(List<LatLng> polylinePoints) {
-    mapKey = ValueKey(DateTime.now().millisecondsSinceEpoch);
-    setState(() {
-      myPolylines = [
-        Polyline(
-          polylineId: PolylineId('new_route'),
-          color: Colors.blue,
-          points: polylinePoints,
-          width: 5,
-        ),
-      ];
-    });
-  }
 
   String _getModeValue(TransportMode mode) {
     switch (mode) {
@@ -158,13 +139,20 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
     );
   }
 
-  void _updateRoute(TransportMode mode) {
-    mapKey = ValueKey(DateTime.now().millisecondsSinceEpoch);
+  @override
+  void initState() {
+    super.initState();
+    // Inicializa la ruta del auto cuando el widget se construye por primera vez
+    _updateRoute(TransportMode.driving);
+  }
 
+  void _updateRoute(TransportMode mode) {
     setState(() {
-      _selectedMode = mode;
+      _selectedMode = mode; // Actualiza el modo de transporte seleccionado
+      myPolylines.clear(); // Limpia las polilíneas para asegurar que se eliminen las rutas antiguas
+      mapKey = ValueKey(DateTime.now().millisecondsSinceEpoch); // Actualiza la Key para forzar la reconstrucción del widget
     });
-    _getRoute(mode);
+    _getRoute(mode); // Obtiene y establece la nueva ruta
   }
 
   List<LatLng> _decodePolyline(String encoded) {
@@ -198,8 +186,6 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
 
     return points;
   }
-
-  ValueKey<int> mapKey = ValueKey(DateTime.now().millisecondsSinceEpoch);
 
   @override
   Widget build(BuildContext context) {
@@ -296,7 +282,7 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
           floatingActionButton: FloatingActionButton(
             onPressed: _selectTransportMode,
             child: Icon(Icons.directions),
-            tooltip: 'Seleccionar Modo de Transporte',
+            tooltip: 'Seleccionar Medio de Transporte',
           ),
         );
       },

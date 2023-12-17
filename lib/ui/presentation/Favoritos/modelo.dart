@@ -4,7 +4,7 @@ class SitioFavorito {
   int? id;
   String? imagen;
   String? nombreSitio;
-  String contenido;
+  String? contenido;
   
 }
 

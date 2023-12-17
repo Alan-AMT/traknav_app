@@ -3,54 +3,45 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'modelo.dart';
+import 'widgets/botonCompartir.dart';
 
 // Se define la clase Favoritos que hereda de StatelessWidget
 @RoutePage()
-class FavoritosPage extends StatelessWidget {
-  //const FavoritosPage({super.key});
+class FavoritosPage extends StatefulWidget {
   const FavoritosPage({Key? key}) : super(key: key);
-  // Se sobreescribe el método build que retorna un widget
+
+  @override
+  State<FavoritosPage> createState() => _FavoritosPageState();
+}
+
+class _FavoritosPageState extends State<FavoritosPage> {
   @override
   Widget build(BuildContext context) {
-    // Se retorna un widget Scaffold que tiene un color de fondo blanco
     return Scaffold(
       backgroundColor: Colors.white,
       appBar: AppBar(
         backgroundColor: Colors.white,
         leading: IconButton(
-          // Se usa el icono Icons.arrow_back para mostrar una flecha apuntando a la izquierda
           icon: const Icon(Icons.arrow_back),
-          // Se usa el color negro para el icono
           color: Colors.black,
-          // Se define la acción que se ejecuta al presionar el botón
           onPressed: () {
             AutoRouter.of(context).navigate(const HomeRoute());
-            // Aquí se puede usar el método Navigator.pop para volver a la pantalla anterior
           },
         ),
-        // Se usa el widget Text para mostrar el título "Mis favoritos"
         title: const Text(
           'Mis favoritos',
-          // Se usa el estilo TextStyle para darle formato al texto
           style: TextStyle(
-            // Se usa el color negro para el texto
             color: Colors.black,
-            // Se usa la propiedad fontStyle para poner el texto en cursiva
             fontStyle: FontStyle.italic,
           ),
         ),
-        // Se usa el widget Center para centrar el título
         centerTitle: true,
       ),
-      // Se usa el widget ListView para crear una lista de widgets
       body: ListView(
-        // Se usa el widget Padding para darle un espacio de 30 alrededor de la lista
         padding: const EdgeInsets.all(30),
-        // Se usa el widget Column para organizar los widgets verticalmente
         children: [
-          // Se usa el widget Container para crear un rectángulo con bordes redondeados
           Container(
-            // Se usa el widget BoxDecoration para darle estilo al rectángulo
             decoration: BoxDecoration(
               // Se usa el widget BorderRadius.circular para darle un radio de 15 a los bordes
               borderRadius: BorderRadius.circular(20),
@@ -194,11 +185,8 @@ class FavoritosPage extends StatelessWidget {
               },
               child: const Text(
                 'Editar sitios',
-                // Se usa el estilo TextStyle para darle formato al texto
                 style: TextStyle(
-                  // Se usa el color negro para el texto
                   color: Colors.black,
-                  // Se usa la propiedad fontWeight para poner el texto en negritas
                   fontWeight: FontWeight.bold,
                   fontSize: 17,
                 ),
@@ -211,63 +199,4 @@ class FavoritosPage extends StatelessWidget {
   }
 }
 
-class MyButton extends StatefulWidget {
-  @override
-  _MyButtonState createState() => _MyButtonState();
-  
-}
 
-class _MyButtonState extends State<MyButton> {
-  
-  bool _showMenu = false;
-
-  void _toggleMenu() {
-    setState(() {
-      _showMenu = !_showMenu;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [
-        ElevatedButton.icon(
-          onPressed: _toggleMenu,
-          label: const Text('Compartir'), 
-          icon: const Icon(
-                              Icons.share, // Icono de compartir
-                              size: 24.0,
-                            ),
-          style: ElevatedButton.styleFrom(
-                              backgroundColor: Colors.blue, // Color de fondo del botón
-                              foregroundColor: Colors.white, // Color de texto del botón
-                              shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(20.0), // Forma redondeada del botón
-                              ),
-                            ),
-          //child: const Text('Compartir'),
-        ),
-        
-        AnimatedContainer(
-          duration: const Duration(milliseconds: 300),
-          height: _showMenu ? MediaQuery.of(context).size.height / 6 : 0,
-          child: _showMenu
-              ? Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    const Icon(Icons.link),
-                    Image.asset('assets/favoritos/facebook.jpg', 
-                      width: MediaQuery.of(context).size.width * 0.1,),
-                    Image.asset('assets/favoritos/whatsapp.png', 
-                      width: MediaQuery.of(context).size.width * 0.1,),
-                    Image.asset('assets/favoritos/instagram.png', 
-                      width: MediaQuery.of(context).size.width * 0.1,),
-                  ],
-                )
-              : null,
-        ),
-      ],
-    );
-  }
-}

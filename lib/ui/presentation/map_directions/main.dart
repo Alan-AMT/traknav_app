@@ -27,7 +27,7 @@ class MapDirectionsPage extends StatefulWidget {
 }
 
 class _MapDirectionsPage extends State<MapDirectionsPage> {
-  TransportMode _selectedMode = TransportMode.driving; // Modo de transporte inicial
+  late TransportMode _selectedMode; // Definición de la variable
   String distanceLeft = "0";
   String timeLeft = "0";
   String arrivalTime = "0";
@@ -58,27 +58,37 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
           var formattedArrivalTime = DateFormat.Hm().format(arrivalDateTime);
 
           setState(() {
-
-            // Agrega la nueva polilínea
-            myPolylines.add(Polyline(
-              polylineId: PolylineId('new_route'),
-              color: Colors.blue,
-              points: polylinePoints,
-              width: 5,
-            ));
-
+            myPolylines = [
+              Polyline(
+                polylineId: PolylineId('new_route'),
+                color: Colors.blue,
+                points: polylinePoints,
+                width: 5,
+              )
+            ];
             // Actualiza la información de distancia, tiempo y hora de llegada
             distanceLeft = distance;
             timeLeft = duration;
             arrivalTime = formattedArrivalTime;
           });
-        } else {
-          print("No se encontraron rutas");
         }
       } else {
+        setState(() {
+          distanceLeft = "Error";
+          timeLeft = "Error";
+          arrivalTime = "Error";
+          myPolylines = [];
+        });
         print("Error al obtener la ruta: ${response.statusCode}");
       }
     } catch (e) {
+      // Manejo de errores en la solicitud HTTP.
+      setState(() {
+        distanceLeft = "Error";
+        timeLeft = "Error";
+        arrivalTime = "Error";
+        myPolylines = [];
+      });
       print("Error al conectar con la API: $e");
     }
   }
@@ -107,7 +117,7 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text("Selecciona un Modo de Transporte"),
+          title: Text("Selecciona un Medio de Transporte"),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
@@ -142,18 +152,30 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
   @override
   void initState() {
     super.initState();
-    // Inicializa la ruta del auto cuando el widget se construye por primera vez
-    _updateRoute(TransportMode.driving);
+    _selectedMode = TransportMode.driving; // Solo se establece aquí inicialmente
+    _getRoute(_selectedMode); // Solicita la ruta inicial
+  }
+
+  // Este método se llama cuando el usuario selecciona un nuevo modo de transporte
+  void onTransportModeSelected(TransportMode mode) {
+    if (_selectedMode != mode) {
+      setState(() {
+        _selectedMode = mode;
+      });
+      _getRoute(_selectedMode); // Solicita la nueva ruta
+    }
   }
 
   void _updateRoute(TransportMode mode) {
     setState(() {
-      _selectedMode = mode; // Actualiza el modo de transporte seleccionado
-      myPolylines.clear(); // Limpia las polilíneas para asegurar que se eliminen las rutas antiguas
-      mapKey = ValueKey(DateTime.now().millisecondsSinceEpoch); // Actualiza la Key para forzar la reconstrucción del widget
+      _selectedMode = mode;
+      distanceLeft = "0";
+      timeLeft = "0";
+      arrivalTime = "0";
     });
-    _getRoute(mode); // Obtiene y establece la nueva ruta
+    _getRoute(mode);
   }
+
 
   List<LatLng> _decodePolyline(String encoded) {
     List<LatLng> points = [];
@@ -209,12 +231,12 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
                   routeColor: Colors.blue,
                   defaultCameraLocation: widget.sourceCoords,
                   sourceMarkerIconInfo: const MarkerIconInfo(isVisible: false),
-                  driverMarkerIconInfo: const MarkerIconInfo(
-                    icon: Icon(
-                      Icons.toys,
-                      color: Colors.green,
-                    ),
-                  ),
+                  //driverMarkerIconInfo: const MarkerIconInfo(
+                    //icon: Icon(
+                      //Icons.toys,
+                     // color: Colors.green,
+                    //),
+                 // ),
                   destinationMarkerIconInfo: MarkerIconInfo(
                     infoWindowTitle: widget.destinationName,
                     icon: const Icon(

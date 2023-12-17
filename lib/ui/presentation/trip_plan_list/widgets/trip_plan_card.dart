@@ -1,7 +1,9 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:traknav_app/ui/core/data/plan_de_viaje.dart';
 import 'package:traknav_app/ui/presentation/trip_plan_list/widgets/trip_day_places.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 class TripPlanCard extends StatefulWidget {
   final PlanDeViaje plan;
@@ -15,8 +17,8 @@ class _TripPlanCard extends State<TripPlanCard> {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 300,
-        // decoration: BoxDecoration(color: Colors.blueGrey[800]),
+        height: 500,
+        // height: 300,
         margin: const EdgeInsets.all(8.0),
         child: Card(
           child: Padding(
@@ -41,8 +43,8 @@ class _TripPlanCard extends State<TripPlanCard> {
                   children: [
                     TextButton(
                       onPressed: () {
-                        // Acción para editar el plan de viaje
-                        //context.router.push(EditTripPlanRoute(planData: planData[planIndex], tripDaysData: []));
+                        context.router
+                            .push(EditTripPlanRoute(plan: widget.plan));
                       },
                       child: Text(AppLocalizations.of(context)!.edittripplan),
                     ),

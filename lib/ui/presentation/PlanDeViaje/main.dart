@@ -62,10 +62,7 @@ class TripPlanPage extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 15),
-
-            //
             Container(
-              //color: Colors.white,
               decoration: BoxDecoration(
                   color: state.isLightTheme ? Colors.white : Colors.black),
               child: Center(

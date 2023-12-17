@@ -2,40 +2,35 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubit.dart';
-import '../../router/android.gr.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:traknav_app/ui/core/data/plan_de_viaje.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 @RoutePage()
-class TripPlanCreatedPage extends StatefulWidget {
-  final int days;
-  final DateTime startDate;
-  final String name;
+class EditTripPlanPage extends StatefulWidget {
+  final PlanDeViaje plan;
 
-  const TripPlanCreatedPage(
-      {Key? key,
-      required this.days,
-      required this.startDate,
-      required this.name})
-      : super(key: key);
+  const EditTripPlanPage({Key? key, required this.plan}) : super(key: key);
 
   @override
-  State<TripPlanCreatedPage> createState() => _TripPlanCreatedPageState();
+  State<EditTripPlanPage> createState() => _EditTripPlanPage();
 }
 
-class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
+class _EditTripPlanPage extends State<EditTripPlanPage> {
   Map<String, List<Map<String, dynamic>>> tripDaysData = {};
-  // Map<int, List<Map<String, dynamic>>> tripDaysData = {};
+  final planKey = GlobalKey<FormBuilderState>();
 
   @override
   void initState() {
     super.initState();
-    for (int i = 1; i <= widget.days; i++) {
-      tripDaysData[i.toString()] = [];
+    for (int i = 1; i <= widget.plan.days.length; i++) {
+      tripDaysData[i.toString()] = widget.plan.days[i]!;
     }
   }
 
@@ -222,7 +217,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
     );
   }
 
-  void _showCreatePlanDialog() {
+  void _showUpdatePlanDialog() {
     // Verifica si hay al menos un lugar en el plan de viaje
     bool hasPlaces = tripDaysData.isNotEmpty;
     tripDaysData.forEach(
@@ -233,7 +228,9 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
 
     if (!hasPlaces) {
       ToastApp.error("Todos los días de tu plan deben tener lugares asignados");
-    } else {
+      return;
+    }
+    if (planKey.currentState?.saveAndValidate() ?? false) {
       showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
@@ -254,9 +251,11 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   try {
                     await EasyLoading.show();
                     Navigator.of(dialogContext).pop();
-                    await context.read<PlanDeViajeCubit>().createPlanDeViaje(
-                        startDate: widget.startDate,
-                        name: widget.name,
+                    await context.read<PlanDeViajeCubit>().updatePlanDeViaje(
+                        startDate:
+                            planKey.currentState!.fields["startDate"]!.value,
+                        name: planKey.currentState!.fields["name"]!.value,
+                        id: widget.plan.id,
                         tripDaysData: tripDaysData);
                   } catch (e) {
                     print(e);
@@ -305,6 +304,58 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
         ),
         body: Column(
           children: [
+            SizedBox(height: 10),
+            FormBuilder(
+                key: planKey,
+                child: Column(children: [
+                  FormBuilderTextField(
+                    name: "name",
+                    initialValue: widget.plan.name,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      hintText: 'Nombre del plan',
+                      labelText: 'Nombre del plan',
+                      suffixIcon: Icon(Icons.title),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(
+                          errorText: "El campo es requerido"),
+                    ]),
+                  ),
+                  SizedBox(height: 10),
+                  FormBuilderDateTimePicker(
+                      name: "startDate",
+                      initialValue: DateTime.fromMillisecondsSinceEpoch(
+                          widget.plan.startDate),
+                      decoration: const InputDecoration(
+                        hintText: 'Fecha de inicio',
+                        labelText: 'Fecha de inicio',
+                        suffixIcon: Icon(Icons.schedule),
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                            errorText: "El campo es requerido"),
+                        (val) {
+                          if (val == null) return null;
+                          if (widget.plan.startDate <
+                              DateTime.now().millisecondsSinceEpoch) {
+                            if (val.millisecondsSinceEpoch <
+                                widget.plan.startDate) {
+                              return 'No puedes usar una fecha anterior a la original';
+                            }
+                          } else {
+                            if (val.millisecondsSinceEpoch <
+                                DateTime.now().millisecondsSinceEpoch) {
+                              return 'No puedes usar una fecha anterior a la actual';
+                            }
+                          }
+                          return null;
+                        },
+                      ])),
+                ])),
             Expanded(
               child: ListView.builder(
                 itemCount: tripDaysData.length,
@@ -424,8 +475,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: ElevatedButton(
-                onPressed: _showCreatePlanDialog,
-                child: Text(AppLocalizations.of(context)!.createtripplan),
+                onPressed: _showUpdatePlanDialog,
+                child: Text("Actualizar plan de viaje"),
               ),
             ),
           ],

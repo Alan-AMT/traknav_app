@@ -72,6 +72,14 @@ class _TripPlanListPage extends State<TripPlanListPage> {
                       child: SkeletonItem(
                           child: Column(
                         children: [
+                          const SizedBox(height: 12),
+                          SkeletonAvatar(
+                            style: SkeletonAvatarStyle(
+                              width: double.infinity,
+                              minHeight: MediaQuery.of(context).size.height / 8,
+                              maxHeight: MediaQuery.of(context).size.height / 3,
+                            ),
+                          ),
                           SkeletonParagraph(
                               style: SkeletonParagraphStyle(
                                   lines: 1,
@@ -83,14 +91,6 @@ class _TripPlanListPage extends State<TripPlanListPage> {
                                     minLength:
                                         MediaQuery.of(context).size.width / 2,
                                   ))),
-                          const SizedBox(height: 12),
-                          SkeletonAvatar(
-                            style: SkeletonAvatarStyle(
-                              width: double.infinity,
-                              minHeight: MediaQuery.of(context).size.height / 8,
-                              maxHeight: MediaQuery.of(context).size.height / 3,
-                            ),
-                          ),
                         ],
                       )),
                     ),

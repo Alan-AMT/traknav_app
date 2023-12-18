@@ -53,7 +53,7 @@ class acercaDe extends StatelessWidget {
             ),
           ),
           Positioned(
-            left: 60,
+            left: 10,
             bottom: 70.0,
             child: Text(
               AppLocalizations.of(context)!.acercaDerechos,

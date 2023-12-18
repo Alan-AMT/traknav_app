@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/catalogComercio.dart';
+import 'package:traknav_app/ui/presentation/home/widgets/catalogRecomendados.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/catalogComercio.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/catalogMuseos.dart';
@@ -46,7 +47,7 @@ class _CategoryWidgetState extends State<CategoryWidget> {
             ),
           ),
           Positioned.fill(
-            top: 30.0,
+            top: 25.0,
             left: 0,
             child: ListView.builder(
               shrinkWrap: true,
@@ -155,9 +156,21 @@ class _CategoryWidgetState extends State<CategoryWidget> {
                         break;
                       case 'Personalizadas':
                         // context.router.push(FavoritesRoute());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WidgetCatalogRecomendados(),
+                          ),
+                        );
                         break;
                       case 'Personalized':
                         // context.router.push(FavoritesRoute());
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => WidgetCatalogRecomendados(),
+                          ),
+                        );
                         break;
                       default:
                         break;

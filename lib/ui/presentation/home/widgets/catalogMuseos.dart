@@ -93,7 +93,7 @@ class _WidgetCatalogMuseosState extends State<WidgetCatalogMuseos> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.homeRecomendedTitle,
+          AppLocalizations.of(context)!.homeCategoriesMuseos,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,

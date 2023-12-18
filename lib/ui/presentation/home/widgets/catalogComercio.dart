@@ -95,7 +95,7 @@ class _WidgetCatalogComercioState extends State<WidgetCatalogComercio> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.homeRecomendedTitle,
+          AppLocalizations.of(context)!.homeCategoriesComercioLocal,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,

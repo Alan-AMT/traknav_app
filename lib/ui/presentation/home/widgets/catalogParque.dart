@@ -94,7 +94,7 @@ class _WidgetCatalogParqueState extends State<WidgetCatalogParque> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.homeRecomendedTitle,
+          AppLocalizations.of(context)!.homeCategoriesParques,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,

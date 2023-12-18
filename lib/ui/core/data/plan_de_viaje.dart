@@ -15,6 +15,7 @@ class PlanDeViaje {
     required this.startDate,
     required this.name,
     required this.days,
+    required this.id,
   });
 
   factory PlanDeViaje.fromJson(Map<String, dynamic> json) =>
@@ -25,7 +26,8 @@ class PlanDeViaje {
   final int endDate;
   final int startDate;
   final String name;
-  final Map<int, List<Map<String, bool>>> days;
+  final String id;
+  final Map<int, List<Map<String, dynamic>>> days;
 }
 
 class PlanDeViajeDataSource {
@@ -37,6 +39,18 @@ class PlanDeViajeDataSource {
         .doc(uid)
         .collection("PlanDeViaje")
         .where("completed", isEqualTo: false)
+        .get();
+    return tripPlans;
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>>
+      fetchExpiredPlanes() async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    final tripPlans = await usersCollection
+        .doc(uid)
+        .collection("PlanDeViaje")
+        .where("completed", isEqualTo: true)
         .get();
     return tripPlans;
   }
@@ -72,5 +86,47 @@ class PlanDeViajeDataSource {
       name = data['result']['name'];
     }
     return {"name": name};
+  }
+
+  static Future<void> createPlanDeViaje(Map<String, dynamic> data) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection.doc(uid).collection("PlanDeViaje").add(data);
+  }
+
+  static Future<void> updatePlanDeViaje(
+      {required Map<String, dynamic> data, required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection.doc(uid).collection("PlanDeViaje").doc(id).set(data);
+  }
+
+  static Future<void> finishPlanDeViaje({required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection
+        .doc(uid)
+        .collection("PlanDeViaje")
+        .doc(id)
+        .update({"completed": true});
+  }
+
+  static Future<void> deletePlanDeViaje({required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection.doc(uid).collection("PlanDeViaje").doc(id).delete();
+  }
+
+  static Future<void> updatePlaceVisitedStatus(
+      {required List<Map<String, dynamic>> arrayInfo,
+      required int dayNumber,
+      required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection
+        .doc(uid)
+        .collection("PlanDeViaje")
+        .doc(id)
+        .update({"days.$dayNumber": arrayInfo});
   }
 }

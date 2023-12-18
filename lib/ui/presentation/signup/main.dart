@@ -30,16 +30,16 @@ class SignUpForm extends StatelessWidget {
         final userCredential = await FirebaseAuth.instance
             .createUserWithEmailAndPassword(email: email, password: password);
         //globalss.globalUserCredential = userCredential;
-         //globalss.globalUserCredential;
+        //globalss.globalUserCredential;
         final usersCollection = FirebaseFirestore.instance.collection('users');
-        usersCollection.doc(userCredential.user?.uid).set({
+        await usersCollection.doc(userCredential.user?.uid).set({
           "name": name,
           "city": city,
           "phone": phone,
           "favourites": [],
-          "tripPlanHistory": [],
           "recommendations": []
         });
+        // await FirebaseAuth.instance.sendSignInLinkToEmail(email: email, actionCodeSettings: actionCodeSettings)
         await EasyLoading.dismiss();
         AutoRouter.of(context).navigate(const RecommendationsRoute());
       } catch (_) {
@@ -139,11 +139,23 @@ class SignUpForm extends StatelessWidget {
                 validator: FormBuilderValidators.compose([
                   FormBuilderValidators.required(
                       errorText: AppLocalizations.of(context)!.errorRequired),
-                  // FormBuilderValidators.match(
-                  //     r'^(?=.*[a-z])(?=.*[A-Z])(?=.*[\d.*])[\w.*]{8,}$',
-                  FormBuilderValidators.match(
-                      r'^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+{}\[\]:;<>,.?~\\-])(.{8,})$,',
-                      errorText: AppLocalizations.of(context)!.errorPassword)
+                  (String? val) {
+                    final missed = ["la contraseña debe tener al menos: "];
+                    final validations = {
+                      r'[a-z]': "Una letra minúscula",
+                      r'[A-Z]': "Una letra mayúscula",
+                      r'\d': "Un número",
+                      r'[!@#\$%^&*(),.?":{}|<>]': "Un carácter especial",
+                      r'.{8,}': "Al menos 8 caracteres"
+                    };
+                    validations.forEach((key, value) {
+                      RegExp(key).hasMatch(val!) ? null : missed.add(value);
+                    });
+                    if (missed.length > 1) {
+                      return missed.join("\n- ");
+                    }
+                    return null;
+                  },
                 ]),
               ),
               const SizedBox(
@@ -166,36 +178,6 @@ class SignUpForm extends StatelessWidget {
                       errorText: AppLocalizations.of(context)!.errorRequired),
                 ]),
               ),
-              // const SizedBox(
-              //   height: 30.0,
-              // ),
-              // TextField(
-              //   enableInteractiveSelection: false,
-              //   decoration: InputDecoration(
-              //     hintText: '¿A qué primaria fuiste?',
-              //     labelText: '¿A qué primaria fuiste?',
-              //     suffixIcon: Icon(Icons.help),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(20.0),
-              //     ),
-              //   ),
-              //   onSubmitted: onPrimariaSubmitted,
-              // ),
-              // SizedBox(
-              //   height: 30.0,
-              // ),
-              // TextField(
-              //   enableInteractiveSelection: false,
-              //   decoration: InputDecoration(
-              //     hintText: '¿En qué ciudad vives?',
-              //     labelText: '¿En qué ciudad vives?',
-              //     suffixIcon: Icon(Icons.help),
-              //     border: OutlineInputBorder(
-              //       borderRadius: BorderRadius.circular(20.0),
-              //     ),
-              //   ),
-              //   onSubmitted: onCiudadSubmitted,
-              // ),
               const Divider(
                 height: 30.0,
               ),

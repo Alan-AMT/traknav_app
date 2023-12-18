@@ -27,19 +27,6 @@ class _TripPlanListPage extends State<TripPlanListPage> {
     await context.read<PlanDeViajeCubit>().fetchCurrentPlanes();
   }
 
-  void _togglePlaceCompletion(int planIndex, int dayIndex, int placeIndex) {
-    // setState(() {
-    //   var day = planData[planIndex]['days'][dayIndex];
-    //   var place = day['places'][placeIndex];
-
-    //   // Cambiar el estado de 'completed' del lugar
-    //   place['completed'] = !place['completed'];
-
-    //   // Verificar si todos los lugares del día están completados
-    //   day['completed'] = day['places'].every((p) => p['completed'] as bool);
-    // });
-  }
-
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<PlanDeViajeCubit, PlanDeViajeState>(
@@ -72,6 +59,14 @@ class _TripPlanListPage extends State<TripPlanListPage> {
                       child: SkeletonItem(
                           child: Column(
                         children: [
+                          const SizedBox(height: 12),
+                          SkeletonAvatar(
+                            style: SkeletonAvatarStyle(
+                              width: double.infinity,
+                              minHeight: MediaQuery.of(context).size.height / 8,
+                              maxHeight: MediaQuery.of(context).size.height / 3,
+                            ),
+                          ),
                           SkeletonParagraph(
                               style: SkeletonParagraphStyle(
                                   lines: 1,
@@ -83,26 +78,30 @@ class _TripPlanListPage extends State<TripPlanListPage> {
                                     minLength:
                                         MediaQuery.of(context).size.width / 2,
                                   ))),
-                          const SizedBox(height: 12),
-                          SkeletonAvatar(
-                            style: SkeletonAvatarStyle(
-                              width: double.infinity,
-                              minHeight: MediaQuery.of(context).size.height / 8,
-                              maxHeight: MediaQuery.of(context).size.height / 3,
-                            ),
-                          ),
                         ],
                       )),
                     ),
                   ),
                 )
-              : ListView.builder(
-                  itemCount: state.planes.length,
-                  itemBuilder: (context, planIndex) {
-                    final plan = state.planes[planIndex];
-                    return TripPlanCard(plan: plan);
-                  },
-                ));
+              : state.planes.isEmpty
+                  ? const Padding(
+                      padding: EdgeInsets.only(top: 10),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Center(child: Text("Aún no tienes planes de viaje")),
+                          Center(
+                              child: Text(
+                                  "Puedes crear uno en la página 'Crear plan de viaje'"))
+                        ],
+                      ))
+                  : ListView.builder(
+                      itemCount: state.planes.length,
+                      itemBuilder: (context, planIndex) {
+                        final plan = state.planes[planIndex];
+                        return TripPlanCard(plan: plan);
+                      },
+                    ));
     });
   }
 }

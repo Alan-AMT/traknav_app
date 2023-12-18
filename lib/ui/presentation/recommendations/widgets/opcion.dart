@@ -42,7 +42,7 @@ class _BotonOpcionState extends State<BotonOpcion> {
       //**Volver a coloca AppLocalizations...
       Categoria(
         //AppLocalizations.of(context)!.recPopular
-          1, "recMuseum", "Sitios_populares.png",false),
+          1, "recPopular", "Sitios_populares.png",false),
       Categoria(2, "recMuseum", "Museos.png",false),
       Categoria(
           3, "recRestaurants", "Restaurantes.png",false),

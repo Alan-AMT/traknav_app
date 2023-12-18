@@ -5,6 +5,38 @@ import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'modelo.dart';
 import 'widgets/botonCompartir.dart';
+import 'widgets/diseñoSitio.dart';
+import 'package:flutter/material.dart';
+
+import 'package:google_maps_webservice/places.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
+
+FirebaseAuth auth = FirebaseAuth.instance;
+User? user = auth.currentUser;
+String uid = user!.uid;
+
+FirebaseFirestore firestore = FirebaseFirestore.instance;
+DocumentReference docRef = firestore.collection('users').doc(uid);
+
+Future<List<String>> obtenerFavourites() async {
+  // Obtiene el documento y comprueba si existe
+  DocumentSnapshot docSnap = await docRef.get();
+  if (docSnap.exists) {
+    // Obtiene el campo favourites como una lista de enteros
+    List<String> favourites = List<String>.from(docSnap.get('favourites'));
+    // Devuelve la lista de favourites
+    return favourites;
+  } else {
+    // Muestra un mensaje de error al usuario
+    print('El documento del usuario no existe');
+    // Devuelve una lista vacía
+    return [];
+  }
+}
 
 // Se define la clase Favoritos que hereda de StatelessWidget
 @RoutePage()
@@ -16,187 +48,93 @@ class FavoritosPage extends StatefulWidget {
 }
 
 class _FavoritosPageState extends State<FavoritosPage> {
+
+  List<String> listaFea = [];
+
+  // Define una función que se ejecuta cuando se inicializa el estado del widget
+  @override
+  void initState() {
+    super.initState();
+    // Llama a la función obtenerFavourites y actualiza el estado con los datos obtenidos
+    obtenerFavourites().then((value) {
+      setState(() {
+        listaFea = value;
+      });
+    });
+  }
+/*
+  List<String> listaFea = [
+      'Chapultepec',
+      'Bellas Artes',
+      'ESCOM',
+    ];*/
+  
+  
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Colors.white,
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black,
-          onPressed: () {
-            AutoRouter.of(context).navigate(const HomeRoute());
-          },
+    void eliminarSitio(String sitio) {
+    setState(() async{
+      setState(() {
+     listaFea.remove(sitio);
+    });
+      //listaFea.remove(sitio);
+      await FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(uid)
+                        .update({
+                      'favourites': FieldValue.arrayRemove([sitio])});
+    });
+  }
+    return BlocBuilder<HomeCubit, HomeState>(builder: (context, state) {
+      return Scaffold(
+        //backgroundColor: Colors.white,
+        appBar: AppBar(
+          //backgroundColor: Colors.white,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            //color: Colors.black,
+            onPressed: () {
+              AutoRouter.of(context).navigate(const HomeRoute());
+            },
+          ),
+          title: Text(
+            AppLocalizations.of(context)!.myFavorites,
+            style: TextStyle(
+              //color: Colors.black,
+              fontStyle: FontStyle.italic,
+            ),
+          ),
+          centerTitle: true,
         ),
-        title: const Text(
-          'Mis favoritos',
-          style: TextStyle(
-            color: Colors.black,
-            fontStyle: FontStyle.italic,
-          ),
-        ),
-        centerTitle: true,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.all(30),
-        children: [
-          Container(
-            decoration: BoxDecoration(
-              // Se usa el widget BorderRadius.circular para darle un radio de 15 a los bordes
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 58, 172, 255),
-            ),
-            // Se usa el widget Padding para darle un espacio de 20 por la izquierda y derecha al contenido del rectángulo
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-
-            child: 
-                    Expanded(
-                      child:
-                        Column( 
-                          mainAxisAlignment: MainAxisAlignment.center, 
-                          children: [ 
-                            InkWell( onTap: () { 
-                              // Aquí se define la acción que se ejecuta al presionar el botón 
-                            }, 
-                            child: 
-                              Image.asset('assets/signin/bg1.png', 
-                              width: MediaQuery.of(context).size.width * 1,), 
-                            ), 
-                        
-                          Container(
-                            //width: MediaQuery.of(context).size.width * 1,
-                            //height: MediaQuery.of(context).size.height * 0.83,
-                            decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 58, 172, 255),
-            
-                            borderRadius: BorderRadius.circular(20),
-                            ),
-                          
-                            child: 
-                              const Center( 
-                                child: 
-                                Column( 
-                                  children: [
-                                    Text("Hotel la Ruta", style: 
-                                      TextStyle(color: Colors.white,
-                                      fontSize:17,
-                                      fontWeight: FontWeight.bold,
-                                      ), 
-                                    ),
-                                  ]
-                                ),
-                              ),
-                          ),
-                          MyButton(),
-                        
-                          ], 
-                        ),
-                    
+        body: 
+          ListView.builder(
+            padding: const EdgeInsets.all(30),
+            itemCount: listaFea.length, // El número de elementos de la listaFea
+            itemBuilder: (context, index) {
+              String sitio = listaFea[index];
+                return Column(
+                  children:[
+                    SitioFavorito(
+                      //id: 1,
+                      //foto: 'assets/favoritos/whatsapp.png',
+                      nombre: sitio
                     ),
-        
-          ),
-
-          const SizedBox(
-            height: 20,
-            //width: 100,
-          ),
-
-          Container(
-            // Se usa el widget BoxDecoration para darle estilo al rectángulo
-            decoration: BoxDecoration(
-              // Se usa el widget BorderRadius.circular para darle un radio de 15 a los bordes
-              borderRadius: BorderRadius.circular(20),
-              color: const Color.fromARGB(255, 58, 172, 255),
-            ),
-            // Se usa el widget Padding para darle un espacio de 20 por la izquierda y derecha al contenido del rectángulo
-            padding: const EdgeInsets.symmetric(horizontal: 20),
-
-            child: 
-                    Expanded(
-                      child:
-                        Column( 
-                          mainAxisAlignment: MainAxisAlignment.center, 
-                          children: [ 
-                            InkWell( onTap: () { 
-                              // Aquí se define la acción que se ejecuta al presionar el botón 
-                            }, 
-                            child: 
-                              Image.asset('assets/signin/bg1.png', 
-                              width: MediaQuery.of(context).size.width * 1,), 
-                            ), 
-                        
-                          Container(
-                            //width: MediaQuery.of(context).size.width * 1,
-                            //height: MediaQuery.of(context).size.height * 0.83,
-                            decoration: BoxDecoration(
-                            color: const Color.fromARGB(255, 58, 172, 255),
-            
-                            borderRadius: BorderRadius.circular(20),
-                            ),
-                          
-                            child: 
-                              const Center( 
-                                child: 
-                                Column( 
-                                  children: [
-                                    Text("Hotel la Ruta", style: 
-                                      TextStyle(color: Colors.white,
-                                      fontSize:17,
-                                      fontWeight: FontWeight.bold,
-                                      ), 
-                                    ),
-                                  ]
-                                ),
-                              ),
-                          ),
-                          
-                          MyButton(),
-                          ], 
-                        ),
-                    
+                    ElevatedButton(
+                      onPressed: () {// Llamar a la función eliminarSitio con el valor del elemento de la listaFea
+                        eliminarSitio(sitio);
+                      },
+                      child: Text(AppLocalizations.of(context)!.deleteSite), // El texto del botón
                     ),
-        
+                  ]
+                );
+            },
           ),
-          // Se usa el widget SizedBox para darle un espacio de 20 entre el rectángulo y el botón
-          const SizedBox(
-            height: 20,
-            //width: 100,
-          ),
-          // Se usa el widget Center para centrar el botón
-          Center(
-            // Se usa el widget ElevatedButton para crear el botón llamado "Editar sitios"
-            child: ElevatedButton(
-              style: ButtonStyle(
-                // Se usa el color azul claro para el fondo del botón
-                backgroundColor: MaterialStateProperty.all(Colors.blue[100]),
-                // Se usa el widget RoundedRectangleBorder para darle bordes redondeados al botón
-                shape: MaterialStateProperty.all(
-                  RoundedRectangleBorder(
-                    // Se usa el widget BorderRadius.circular para darle un radio de 15 a los bordes
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-              ),
-              // Se define la acción que se ejecuta al presionar el botón
-              onPressed: () {
-                AutoRouter.of(context).navigate(const EditarFavoritosRoute());
-                // Aquí se puede usar el método Navigator.push para ir a otra pantalla
-              },
-              child: const Text(
-                'Editar sitios',
-                style: TextStyle(
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 17,
-                ),
-              ),
-            ),
-          ),
-        ],
-      ),
+      );
+    }
     );
   }
 }
-
-
+          /*Center(
+            // Se usa el widget ElevatedButton para crear el botón llamado "Editar sitios"
+            child: EditButton()
+          ),*/

@@ -147,5 +147,13 @@
     "rainChance": "% chance of rain",
     "weekTitle": "Week",
     "temperaturaDia": "Temperature",
-    "chanceRainDia": "ch. of rain:"
+    "chanceRainDia": "ch. of rain:",
+"FAVOURITESTEXTS": "FAVOURITESTEXTS",
+    "myFavorites": "My favourites",
+    "deleteSite": "Delete site",
+    "unknown": "Unkown",
+    "opened": "Opened",
+    "closed": "Closed",
+    "shareButton": "Share",
+    "copiedToClipboard": "Link copied to clipboard."
 }

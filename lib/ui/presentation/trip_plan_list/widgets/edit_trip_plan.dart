@@ -257,6 +257,7 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
                         name: planKey.currentState!.fields["name"]!.value,
                         id: widget.plan.id,
                         tripDaysData: tripDaysData);
+                    ToastApp.success("Tu plan de viaje ha sido actualizado");
                   } catch (e) {
                     print(e);
                     ToastApp.error(

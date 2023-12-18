@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -68,7 +70,6 @@ class _TripDayPlaces extends State<TripDayPlaces> {
               itemCount: widget.day.length,
               itemBuilder: (context, index) {
                 final place = widget.day[index];
-                bool visited = place["visited"] ?? false;
                 return SizedBox(
                     width: (MediaQuery.of(context).size.width * 0.94),
                     child: Column(children: [
@@ -87,7 +88,7 @@ class _TripDayPlaces extends State<TripDayPlaces> {
                                     docId: widget.planId,
                                     status: newValue ?? false);
                             setState(() {
-                              visited = newValue ?? false;
+                              place["visited"] = newValue ?? false;
                             });
                           } catch (e) {
                             print(e);

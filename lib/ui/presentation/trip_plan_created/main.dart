@@ -258,6 +258,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                         startDate: widget.startDate,
                         name: widget.name,
                         tripDaysData: tripDaysData);
+                    ToastApp.success("Tu plan de viaje ha sido creado");
                   } catch (e) {
                     print(e);
                     ToastApp.error(

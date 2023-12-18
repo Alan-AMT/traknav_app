@@ -86,7 +86,7 @@
     "tripplantext2" : "Enter the length of your stay and start your adventure.",
     "tripplannumberdays" : "Number of days",
     "tripplanlistu" : "Unfinished",
-    "tripplanlists" : "Start trip plan",
+    "endTripPlan" : "Finish trip plan",
     "tripplancreatebutton" : "Plan Trip",
     "createPlanDialogTitle": "Trip plan created",
     "myTripPlans" : "Plan name",

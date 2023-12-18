@@ -84,15 +84,17 @@ class _TripPlanListPage extends State<TripPlanListPage> {
                   ),
                 )
               : state.planes.isEmpty
-                  ? const Padding(
+                  ? Padding(
                       padding: EdgeInsets.only(top: 10),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Center(child: Text("Aún no tienes planes de viaje")),
                           Center(
                               child: Text(
-                                  "Puedes crear uno en la página 'Crear plan de viaje'"))
+                                  AppLocalizations.of(context)!.mensajelist1)),
+                          Center(
+                              child: Text(
+                                  AppLocalizations.of(context)!.mensajelist2))
                         ],
                       ))
                   : ListView.builder(

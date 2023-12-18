@@ -65,14 +65,13 @@ class _TripPlanHistoryPage extends State<TripPlanHistoryPage> {
                 },
               )
             : state.expiredPlanes.isEmpty
-                ? const Padding(
+                ? Padding(
                     padding: EdgeInsets.only(top: 10),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
-                        Text("Aún tienes planes de viaje completados"),
-                        Text(
-                            "Asegurate de marcarlos como 'completado' en la página 'Mis planes de viaje'",
+                        Text(AppLocalizations.of(context)!.mensajehist1),
+                        Text(AppLocalizations.of(context)!.mensajehist2,
                             textAlign: TextAlign.center)
                       ],
                     ))

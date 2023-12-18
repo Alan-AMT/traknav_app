@@ -82,7 +82,7 @@
     "tripplanlist" : "My trip plans",
     "tripplanlistf" : "Finished",
     "tripplanlistu" : "Unfinished",
-    "tripplanlists" : "Start trip plan",
+    "endTripPlan" : "Finish trip plan",
     "createPlanDialogTitle": "Trip plan created",
     "createPlanDialogMessage": "You can see on ''My trip plans''",
     "cancel": "Canel",

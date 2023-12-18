@@ -3,8 +3,11 @@ import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:intl/intl.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:skeletons/skeletons.dart';
+import 'package:traknav_app/ui/core/data/plan_de_viaje.dart';
 import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubit.dart';
+import 'package:traknav_app/ui/presentation/trip_plan_history/show_plan.dart';
 
 @RoutePage()
 class TripPlanHistoryPage extends StatefulWidget {
@@ -87,6 +90,7 @@ class _TripPlanHistoryPage extends State<TripPlanHistoryPage> {
                         image: item.days[1]![0]["imageUrl"],
                         startDate: format.format(start),
                         endDate: format.format(end),
+                        plan: item,
                         route:
                             "Desde: ${item.days[1]![0]['name']}\nHasta: ${item.days[item.days.length]!.last['name']}",
                       );
@@ -100,6 +104,7 @@ class _TripPlanHistoryPage extends State<TripPlanHistoryPage> {
 class HistoryListItem extends StatelessWidget {
   final String title;
   final String image;
+  final PlanDeViaje plan;
   final String startDate;
   final String endDate;
   final String route;
@@ -109,44 +114,55 @@ class HistoryListItem extends StatelessWidget {
     required this.title,
     required this.startDate,
     required this.image,
+    required this.plan,
     required this.endDate,
     required this.route,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      margin: const EdgeInsets.all(8.0),
-      elevation: 4.0,
-      child: Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.network(
-              image,
-              width: double.infinity,
-              height: 150,
-              fit: BoxFit.cover,
+    return GestureDetector(
+        onTap: () async {
+          await showMaterialModalBottomSheet(
+              context: context, builder: (context) => ShowPlan(plan: plan));
+        },
+        child: Card(
+          margin: const EdgeInsets.all(8.0),
+          elevation: 4.0,
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Image.network(
+                  image,
+                  width: double.infinity,
+                  height: 150,
+                  fit: BoxFit.cover,
+                ),
+                const SizedBox(height: 8),
+                Text(title,
+                    style: const TextStyle(
+                        fontSize: 20, fontWeight: FontWeight.bold)),
+                const SizedBox(height: 8),
+                Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Text("Inicio: $startDate",
+                          style: const TextStyle(
+                              fontSize: 16, color: Colors.grey)),
+                      Text("Fin: $endDate",
+                          style:
+                              const TextStyle(fontSize: 16, color: Colors.grey))
+                    ]),
+                const SizedBox(height: 8),
+                Text(route, style: const TextStyle(fontSize: 16)),
+                const SizedBox(height: 8),
+                const Center(
+                    child: Icon(Icons.check_circle, color: Colors.green)),
+              ],
             ),
-            const SizedBox(height: 8),
-            Text(title,
-                style:
-                    const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
-            const SizedBox(height: 8),
-            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
-              Text("Inicio: $startDate",
-                  style: const TextStyle(fontSize: 16, color: Colors.grey)),
-              Text("Fin: $endDate",
-                  style: const TextStyle(fontSize: 16, color: Colors.grey))
-            ]),
-            const SizedBox(height: 8),
-            Text(route, style: const TextStyle(fontSize: 16)),
-            const SizedBox(height: 8),
-            const Center(child: Icon(Icons.check_circle, color: Colors.green)),
-          ],
-        ),
-      ),
-    );
+          ),
+        ));
   }
 }

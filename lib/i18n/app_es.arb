@@ -318,9 +318,9 @@
         "@tripplanlistu": {
         "description": "Lista de los planes de viaje-pendiente"
         },
-        "tripplanlists" : "Iniciar plan de viaje",
-        "@tripplanlists": {
-        "description": "Lista de los planes de viaje-pendiente"
+        "endTripPlan" : "Finalizar plan de viaje",
+        "@endTripPlan": {
+        "description": "Finaliza el plan de viaje"
         },
         "tripplanhistory" : "Historial",
         "@tripplanhistory": {

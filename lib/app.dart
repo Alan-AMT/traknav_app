@@ -76,6 +76,7 @@ class _TrakNavApp extends State<TrakNavApp> {
             Locale("en", "US"),
             Locale("es", "ES"),
           ],
+          debugShowCheckedModeBanner: false,
           locale: state.locale,
           localizationsDelegates: const [
             AppLocalizations.delegate,

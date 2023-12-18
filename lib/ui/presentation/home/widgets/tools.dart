@@ -65,9 +65,11 @@ class _ToolsWidgetState extends State<ToolsWidget> {
                         break;
                       case 'Favoritos':
                         // context.router.push(FavoritesRoute());
+                        AutoRouter.of(context).navigate(const FavoritosRoute());
                         break;
                       case 'Favorites':
                         // context.router.push(FavoritesRoute());
+                        AutoRouter.of(context).navigate(const FavoritosRoute());
                         break;
                       default:
                         break;

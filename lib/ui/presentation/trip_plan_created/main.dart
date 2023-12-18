@@ -41,7 +41,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
 
   void removeDayFromPlan(int dayNumber) {
     if (tripDaysData.length == 1) {
-      ToastApp.error("Tu plan de viaje debe tener al menos 1 día");
+      ToastApp.error(AppLocalizations.of(context)!.error6tripplan);
       return;
     }
     for (int i = dayNumber; i < tripDaysData.length; i++) {
@@ -52,7 +52,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
 
   void addDayToPlan() {
     if (tripDaysData.length > 21) {
-      ToastApp.error("Tu plande viaje puede tener un máximo de 21 días");
+      ToastApp.error(AppLocalizations.of(context)!.error7tripplan);
       return;
     }
     tripDaysData["${tripDaysData.length + 1}"] = [];
@@ -71,8 +71,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                const Text(
-                  'Buscar Lugar',
+                Text(
+                  AppLocalizations.of(context)!.search2,
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20.0),
@@ -80,8 +80,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   textEditingController: TextEditingController(),
                   googleAPIKey: "AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s",
                   countries: const ["mx"],
-                  inputDecoration: const InputDecoration(
-                    hintText: 'Escribe el nombre del lugar...',
+                  inputDecoration: InputDecoration(
+                    hintText: AppLocalizations.of(context)!.search3,
                     prefixIcon: Icon(Icons.search),
                   ),
                   debounceTime: 600,
@@ -99,7 +99,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  child: const Text('Cancelar'),
+                  child: Text(AppLocalizations.of(context)!.cancel),
                 ),
               ],
             ),
@@ -114,7 +114,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: const Text('Agregar Lugar'),
+          title: Text(AppLocalizations.of(context)!.agregar1),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -129,7 +129,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return const Text('Error al cargar la imagen');
+                      return Text(AppLocalizations.of(context)!.imageerror1);
                     } else {
                       return Column(
                         children: [
@@ -139,21 +139,21 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                               fit: BoxFit.cover,
                               errorBuilder: (BuildContext context,
                                   Object exception, StackTrace? stackTrace) {
-                                return const Text(
-                                    'No se pudo cargar la imagen'); // Texto o widget a mostrar en caso de error.
+                                return Text(AppLocalizations.of(context)!
+                                    .imageerror2); // Texto o widget a mostrar en caso de error.
                               },
                             )
                           else
                             const SizedBox.shrink(),
                           // const Text('No hay imagen disponible'),
                           ElevatedButton(
-                            child: const Text('Agregar'),
+                            child: Text(AppLocalizations.of(context)!.agregar2),
                             onPressed: () {
                               if (snapshot.hasData && snapshot.data != null) {
                                 if (tripDaysData[dayIndex.toString()]!.length >
                                     8) {
-                                  ToastApp.error(
-                                      "Solo puede haber máximo 8 lugares por día. Agrega este lugar a otro día");
+                                  ToastApp.error(AppLocalizations.of(context)!
+                                      .error8tripplan);
                                   return;
                                 }
                                 setState(() {
@@ -180,7 +180,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: const Text('Cancelar'),
+              child: Text(AppLocalizations.of(context)!.cancel),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
@@ -196,7 +196,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text("Eliminar día"),
+          title: Text(AppLocalizations.of(context)!.borrardia),
           content: Text(
               "¿Estas seguro de que quieres eliminar el día $dayNumber de tu plan de viaje? Si lo eliminas todos los lugares del día se perderán"),
           actions: <Widget>[
@@ -232,7 +232,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
     );
 
     if (!hasPlaces) {
-      ToastApp.error("Todos los días de tu plan deben tener lugares asignados");
+      ToastApp.error(AppLocalizations.of(context)!.error9tripplan);
     } else {
       showDialog(
         context: context,
@@ -261,7 +261,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   } catch (e) {
                     print(e);
                     ToastApp.error(
-                        "No pudimos crear tu plan de viaje. Intenta de nuevo");
+                        AppLocalizations.of(context)!.error10tripplan);
                   } finally {
                     await EasyLoading.dismiss();
                     context.router.popUntil(
@@ -299,8 +299,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                     addDayToPlan();
                   });
                 },
-                child:
-                    Text("Agregar día", style: TextStyle(color: Colors.white)))
+                child: Text(AppLocalizations.of(context)!.agregar3,
+                    style: TextStyle(color: Colors.white)))
           ],
         ),
         body: Column(
@@ -332,7 +332,9 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                                         onPressed: () {
                                           showRemoveDayDialog(index + 1);
                                         },
-                                        child: const Text("Eliminar día",
+                                        child: Text(
+                                            AppLocalizations.of(context)!
+                                                .borrardia,
                                             style:
                                                 TextStyle(color: Colors.red)))
                                   ])),
@@ -411,7 +413,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                                 child: ElevatedButton(
                               onPressed: () =>
                                   _showPlaceSearchDialog(index + 1),
-                              child: const Text('Agregar Lugar'),
+                              child:
+                                  Text(AppLocalizations.of(context)!.agregar1),
                             )),
                           ),
                         ],

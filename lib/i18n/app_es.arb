@@ -294,6 +294,11 @@
         "@tripplanappbar": {
             "description": "Appbar para Plan de Viaje"
         },
+    
+        "tripPlanMaintext": "El plan de viaje te permite seleccionar todos los lugares de interes, posteriormente te permitira trazar una ruta para visitarlos.",
+        "@tripPlanMaintext": { 
+            "description": "Texto Plan de Viaje"
+        },
         "tripplanday" : "Día",
         "@tripplanday": {
         "description": "Día N"
@@ -318,6 +323,147 @@
         "@tripplanlistu": {
         "description": "Lista de los planes de viaje-pendiente"
         },
+
+        "tripplantext1" : "Planifica tu viaje de manera fácil y eficiente.",
+        "@tripplantext1": {
+        "description": "Primer texto de crear plan de viaje"
+        },
+        "tripplantext2" : "Ingresa la duración de tu estadía e inicia tu aventura.",
+        "@tripplantext2": {
+        "description": "Segundo texto de crear plan de viaje"
+        },
+        "tripplannumberdays" : "Número de Días",
+        "@tripplannumberdays": {
+        "description": "Número de Días plan de viaje"
+        },
+        "tripplancreatebutton" : "Planificar Viaje",
+        "@tripplancreatebutton": {
+        "description": "boton de confirmacion"
+        },
+
+        "myTripPlans1" : "Nombre del plan",
+        "@myTripPlans1": {
+        "description": "Input 1"
+        },
+        "myTripPlans15" : "Nombre del plan",
+        "@myTripPlans15": {
+        "description": "Input 1.5"
+        },
+        
+        "myTripPlans2" : "Número de Días",
+        "@myTripPlans2": {
+        "description": "Input 2"
+        },
+        "myTripPlans25" : "Número de Días",
+        "@myTripPlans25": {
+        "description": "Input 2.5"
+        },
+
+        "myTripPlans3" : "Fecha de inicio",
+        "@myTripPlans3": {
+        "description": "Input 3"
+        },
+        "myTripPlans35" : "Fecha de inicio",
+        "@myTripPlans35": {
+        "description": "Input 3.5"
+        },
+        "error1tripplan" : "El campo es requerido",
+        "@error1tripplan": {
+        "description": "completar campo"
+        },
+
+        "error2tripplan" : "Debe ser un número válido de días",
+        "@error2tripplan": {
+        "description": "error dias1"
+        },
+
+        "error3tripplan" : "Solo se pueden máximo 21 días",
+        "@error3tripplan": {
+        "description": "error dias2"
+        },
+        "error4tripplan" : "Mínimo 1 día",
+        "@error4tripplan": {
+        "description": "error dias3"
+        },
+        "error5tripplan" : "No puedes usar una fecha anterior a la actual",
+        "@error5tripplan": {
+        "description": "error dias4"
+        },
+
+        "error6tripplan" : "Tu plan de viaje debe tener al menos 1 día",
+        "@error6tripplan": {
+        "description": "error dias6"
+        },
+        "error7tripplan" : "Tu plan de viaje puede tener un máximo de 21 días",
+        "@error7tripplan": {
+        "description": "error dias7"
+        },
+         "error8tripplan" : "Solo puede haber máximo 8 lugares por día. Agrega este lugar a otro día",
+        "@error8tripplan": {
+        "description": "error dias8"
+        },
+        "error9tripplan" : "Todos los días de tu plan deben tener lugares asignados",
+        "@error9tripplan": {
+        "description": "error dias9"
+        },
+        "error10tripplan" : "No pudimos crear tu plan de viaje. Intenta de nuevo",
+        "@error10tripplan": {
+        "description": "error dias10"
+        },
+        "search2" : "Buscar Lugar",
+        "@search2": {
+        "description": "busqueda"
+        },
+        "search3" : "Escribe el nombre del lugar...",
+        "@search3": {
+        "description": "busqueda"
+        },
+
+        "agregar1" : "Agregar Lugar",
+        "@agregar1": {
+        "description": "agregar"
+        },
+        "agregar2" : "Agregar",
+        "@agregar2": {
+        "description": "agregar2"
+        },
+        "agregar3" : "Agregar día",
+        "@agregar3": {
+        "description": "agregar3"
+        },
+        "imageerror1" : "Error al cargar la imagen",
+        "@imageerror1": {
+        "description": "Error de imagen"
+        },
+        "imageerror2" : "No se pudo cargar la imagen",
+        "@imageerror2": {
+        "description": "Error de imagen2"
+        },
+
+        "borrardia" : "Eliminar día",
+        "@borrardia": {
+        "description": "Eliminar día"
+        },
+        "mensajehist1" : "Aún no tienes planes de viaje completados",
+        "@mensajehist1": {
+        "description": "mensaje historial"
+        },
+        "mensajehist2" : "Asegurate de marcarlos como 'completado' en la página 'Mis planes de viaje'",
+        "@mensajehist2": {
+        "description": "mensaje historial2"
+        },
+        "mensajelist1" : "Aún no tienes planes de viaje",
+        "@mensajelist1": {
+        "description": "mensaje lista"
+        },
+        "mensajelist2" : "Puedes crear uno en la página 'Crear plan de viaje'",
+        "@mensajelist2": {
+        "description": "mensaje lista2"
+        },
+        
+
+        
+
         "tripplanlists" : "Iniciar plan de viaje",
         "@tripplanlists": {
         "description": "Lista de los planes de viaje-pendiente"

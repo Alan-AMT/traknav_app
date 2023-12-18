@@ -58,6 +58,7 @@ class _PlaceDetail extends State<PlaceDetail> {
           isThreeLine: true,
         ),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Expanded(
                 child: TextButton(
@@ -70,11 +71,6 @@ class _PlaceDetail extends State<PlaceDetail> {
                     sourceCoords: widget.currentPosition));
               },
             )),
-            Expanded(
-                child: TextButton(
-              child: Text(AppLocalizations.of(context)!.placeDetailsButton),
-              onPressed: () {},
-            ))
           ],
         )
       ],

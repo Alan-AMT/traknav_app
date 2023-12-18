@@ -23,38 +23,41 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
     return Scaffold(
       resizeToAvoidBottomInset: true, // Añadir esta línea
       appBar: AppBar(
-      centerTitle: true,
-      title: Text(AppLocalizations.of(context)!.tripplanlist,
-        style: const TextStyle(
-          fontFamily: 'Nunito',
-          fontStyle: FontStyle.italic,
-          fontSize: 30,
-          color: Colors.white,
+        centerTitle: true,
+        title: Text(
+          AppLocalizations.of(context)!.tripplanlist,
+          style: const TextStyle(
+            fontFamily: 'Nunito',
+            fontStyle: FontStyle.italic,
+            fontSize: 30,
+            color: Colors.white,
+          ),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          onPressed: () => Navigator.of(context).pop(),
         ),
       ),
-      leading: IconButton(
-        icon: const Icon(Icons.arrow_back),
-        onPressed: () => Navigator.of(context).pop(),
-      ),
-    ),
-      body: SingleChildScrollView( // Envolver en un SingleChildScrollView
+      body: SingleChildScrollView(
+        // Envolver en un SingleChildScrollView
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: <Widget>[
               Text(
-                'Planifica tu viaje de manera fácil y eficiente.',
+                AppLocalizations.of(context)!.tripplantext1,
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
               ClipRRect(
-                borderRadius: BorderRadius.circular(10.0), // Bordes redondeados aquí
+                borderRadius:
+                    BorderRadius.circular(10.0), // Bordes redondeados aquí
                 child: Image.asset('assets/TravelPlan/im1.jpg'),
               ), // Imagen agregada
               SizedBox(height: 20),
               Text(
-                'Ingresa la duración de tu estadía e inicia tu aventura.',
+                AppLocalizations.of(context)!.tripplantext2,
                 style: TextStyle(fontSize: 16),
               ),
               SizedBox(height: 20),
@@ -73,7 +76,7 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
       controller: _daysController,
       keyboardType: TextInputType.number,
       decoration: InputDecoration(
-        labelText: 'Número de Días',
+        labelText: AppLocalizations.of(context)!.tripplannumberdays,
         border: OutlineInputBorder(),
       ),
       onChanged: (value) {
@@ -85,7 +88,7 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
   Widget _submitButton() {
     return ElevatedButton(
       onPressed: () => _onSubmit(),
-      child: Text('Planificar Viaje'),
+      child: Text(AppLocalizations.of(context)!.tripplancreatebutton),
     );
   }
 
@@ -93,11 +96,12 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
     int numberOfDays = int.tryParse(_daysController.text) ?? 0;
     if (numberOfDays > 0) {
       //Lógica de planificación
-       AutoRouter.of(context).navigate(TripPlanCreatedRoute(days: numberOfDays));
+      AutoRouter.of(context).navigate(TripPlanCreatedRoute(days: numberOfDays));
     } else {
       // Mostrar mensaje de error
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text('Por favor, introduce un número válido de días.')),
+        SnackBar(
+            content: Text('Por favor, introduce un número válido de días.')),
       );
     }
   }
@@ -108,5 +112,3 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
     super.dispose();
   }
 }
-
-

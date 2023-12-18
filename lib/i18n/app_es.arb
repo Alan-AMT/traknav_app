@@ -294,6 +294,11 @@
         "@tripplanappbar": {
             "description": "Appbar para Plan de Viaje"
         },
+    
+        "tripPlanMaintext": "El plan de viaje te permite seleccionar todos los lugares de interes, posteriormente te permitira trazar una ruta para visitarlos.",
+        "@tripPlanMaintext": { 
+            "description": "Texto Plan de Viaje"
+        },
         "tripplanday" : "Día",
         "@tripplanday": {
         "description": "Día N"
@@ -318,6 +323,25 @@
         "@tripplanlistu": {
         "description": "Lista de los planes de viaje-pendiente"
         },
+
+        "tripplantext1" : "Planifica tu viaje de manera fácil y eficiente.",
+        "@tripplantext1": {
+        "description": "Primer texto de crear plan de viaje"
+        },
+        "tripplantext2" : "Ingresa la duración de tu estadía e inicia tu aventura.",
+        "@tripplantext2": {
+        "description": "Segundo texto de crear plan de viaje"
+        },
+        "tripplannumberdays" : "Número de Días",
+        "@tripplannumberdays": {
+        "description": "Número de Días plan de viaje"
+        },
+        "tripplancreatebutton" : "Planificar Viaje",
+        "@tripplancreatebutton": {
+        "description": "boton de confirmacion"
+        },
+    
+
         "tripplanlists" : "Iniciar plan de viaje",
         "@tripplanlists": {
         "description": "Lista de los planes de viaje-pendiente"

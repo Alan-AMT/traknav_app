@@ -37,9 +37,9 @@ class TripPlanPage extends StatelessWidget {
                 Container(
                   margin:
                       const EdgeInsets.symmetric(horizontal: 15, vertical: 20),
-                  child: const Text(
-                    'El plan de viaje te permitira seleccionar todos los lugares de interes, posteriormente te permitira trazar una ruta para visitarlos.',
-                    style: TextStyle(
+                  child: Text(
+                    AppLocalizations.of(context)!.tripPlanMaintext,
+                    style: const TextStyle(
                       fontFamily: 'Nunito',
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
@@ -76,10 +76,10 @@ class TripPlanPage extends StatelessWidget {
                   style: TextButton.styleFrom(
                       backgroundColor: const Color(0xff0098FA),
                       shape: const StadiumBorder()),
-                  child: const Padding(
+                  child: Padding(
                     padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    child: Text('Crear plan de viaje',
-                        style: TextStyle(
+                    child: Text(AppLocalizations.of(context)!.createtripplan,
+                        style: const TextStyle(
                           fontSize: 20,
                           color: Colors.white,
                           fontFamily: 'Nunito',
@@ -98,10 +98,11 @@ class TripPlanPage extends StatelessWidget {
                 style: TextButton.styleFrom(
                     backgroundColor: const Color(0xff0098FA),
                     shape: const StadiumBorder()),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  child: Text('Mis planes de viaje',
-                      style: TextStyle(
+                child: Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                  child: Text(AppLocalizations.of(context)!.tripplanlist,
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontFamily: 'Nunito',
@@ -118,10 +119,10 @@ class TripPlanPage extends StatelessWidget {
                 style: TextButton.styleFrom(
                     backgroundColor: const Color(0xff0098FA),
                     shape: const StadiumBorder()),
-                child: const Padding(
+                child: Padding(
                   padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
-                  child: Text('Historial',
-                      style: TextStyle(
+                  child: Text(AppLocalizations.of(context)!.tripplanhistory,
+                      style: const TextStyle(
                         fontSize: 20,
                         color: Colors.white,
                         fontFamily: 'Nunito',

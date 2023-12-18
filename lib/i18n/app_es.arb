@@ -722,5 +722,34 @@
     "chanceRainDia": "Prob. lluvia:",
     "@chanceRainDiaDia": {
         "description": "Texto"
+    },
+"fAVOURITESTEXTS": "FAVOURITESTEXTS",
+    "myFavorites": "Mis favoritos",
+    "@myFavorites": {
+        "description": " "
+    },
+    "deleteSite": "Eliminar sitio",
+    "@deleteSite": {
+        "description": " "
+    },
+    "unknown": "Desconocido",
+    "@unknown": {
+        "description": " "
+    },
+    "opened": "Abierto",
+    "@opened": {
+        "description": " "
+    },
+    "closed": "Cerrado",
+    "@closed": {
+        "description": " "
+    },
+    "shareButton": "Compartir",
+    "@shareButton": {
+        "description": " "
+    },
+    "copiedToClipboard": "Enlace copiado al portapapeles.",
+    "@copiedToClipboard": {
+        "description": " "
     }
 }

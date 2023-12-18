@@ -148,14 +148,18 @@ class HistoryListItem extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
                       Text("Inicio: $startDate",
+                          overflow: TextOverflow.clip,
                           style: const TextStyle(
                               fontSize: 16, color: Colors.grey)),
                       Text("Fin: $endDate",
+                          overflow: TextOverflow.clip,
                           style:
                               const TextStyle(fontSize: 16, color: Colors.grey))
                     ]),
                 const SizedBox(height: 8),
-                Text(route, style: const TextStyle(fontSize: 16)),
+                Text(route,
+                    style: const TextStyle(fontSize: 16),
+                    overflow: TextOverflow.clip),
                 const SizedBox(height: 8),
                 const Center(
                     child: Icon(Icons.check_circle, color: Colors.green)),

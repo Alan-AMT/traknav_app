@@ -109,6 +109,10 @@
     "@homeRecomendedTitle": {
         "description": "Texto Recomendados"
     },
+    "homeNearlyTitle": "Cercanos a mi",
+    "@homeNearlyTitle": {
+        "description": "Texto Cercanos"
+    },
     "homeCategoriesTitle": "Categorias",
     "@homeCategoriesTitle": {
         "description": "Texto Categorias"

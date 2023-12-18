@@ -4,6 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart';
+import 'package:traknav_app/ui/presentation/home/widgets/aboutPlaces.dart';
+import 'package:traknav_app/ui/presentation/home/widgets/recomended.dart';
 
 class WidgetCatalogParque extends StatefulWidget {
   const WidgetCatalogParque({Key? key}) : super(key: key);
@@ -13,15 +16,48 @@ class WidgetCatalogParque extends StatefulWidget {
 }
 
 class _WidgetCatalogParqueState extends State<WidgetCatalogParque> {
-  List<CatalogItem> catalogItems = [];
+  List<StyleModel> catalogItems = [];
+
+  //-----------PARA PODER OBTENER LA POSICIÓN--------------
+  Future<LocationData?> _getLocation() async {
+    final bool hasPermission = await checkPermissions();
+    if (!hasPermission) return null;
+    Location location = Location();
+    return await location.getLocation();
+  }
+
+  //------PARA VERIFICAR SI SE TIENEN PERMISOS PARA ACCEDER A LA LOCALIZACIÓN-------
+  Future<bool> checkPermissions() async {
+    bool serviceEnabled;
+    Location location = Location();
+    PermissionStatus permissionGranted;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return false;
+      }
+    }
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        false;
+      }
+    }
+    return true;
+  }
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    _getLocation().then((position) {
+      // climaDataF = getClimaForecast(position);
+      fetchData(position);
+    });
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchData(LocationData? location) async {
     // Tu lógica para obtener datos desde la API
     String url = 'https://places.googleapis.com/v1/places:searchNearby';
     // Los datos que enviarás en el cuerpo de la solicitud POST
@@ -34,11 +70,14 @@ class _WidgetCatalogParqueState extends State<WidgetCatalogParque> {
         "national_park",
         "park",
         "zoo",
-      ],
+      ], //
       "maxResultCount": 20,
       "locationRestriction": {
         "circle": {
-          "center": {"latitude": 19.50478, "longitude": -99.14631},
+          "center": {
+            "latitude": location?.latitude,
+            "longitude": location?.longitude
+          },
           "radius": 3000.0
         }
       }
@@ -48,7 +87,8 @@ class _WidgetCatalogParqueState extends State<WidgetCatalogParque> {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': 'AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s',
       // Reemplaza 'API_KEY' con tu clave real
-      'X-Goog-FieldMask': 'places.id,places.displayName,places.photos',
+      'X-Goog-FieldMask':
+          'places.id,places.displayName,places.photos,places.regularOpeningHours,places.shortFormattedAddress,places.editorialSummary',
     };
 
     try {
@@ -60,22 +100,72 @@ class _WidgetCatalogParqueState extends State<WidgetCatalogParque> {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = json.decode(response.body);
 
-        List<CatalogItem> newCatalogItems = [];
+        // Iterar sobre los lugares en jsonData
+        for (int i = 0; i < jsonData["places"].length; i++) {
+          // Asegurarse de que haya fotos disponibles
+          if (jsonData["places"][i]["photos"] != null &&
+              jsonData["places"][i]["photos"].isNotEmpty) {
+            // Obtener la referencia de la primera foto (puedes ajustar esto según tus necesidades)
+            String photoReference = jsonData["places"][i]["photos"][0]["name"];
+            String imageUrl = buildImageUrl(photoReference);
+            String name = jsonData["places"][i]["displayName"]["text"];
+            String openingHours;
 
-        for (var place in jsonData["places"]) {
-          if (place["photos"] != null && place["photos"].isNotEmpty) {
-            String photoReference = place["photos"][0]["name"];
-            CatalogItem catalogItem = CatalogItem(
-              place["displayName"]["text"],
-              buildImageUrl(photoReference),
-            );
-            newCatalogItems.add(catalogItem);
+            if (jsonData["places"][i]["regularOpeningHours"] != null &&
+                jsonData["places"][i]["regularOpeningHours"]["periods"] !=
+                    null &&
+                jsonData["places"][i]["regularOpeningHours"]["periods"]
+                    .isNotEmpty &&
+                jsonData["places"][i]["regularOpeningHours"]["periods"][0]
+                        ["open"] !=
+                    null &&
+                jsonData["places"][i]["regularOpeningHours"]["periods"][0]
+                        ["close"] !=
+                    null) {
+              openingHours =
+                  "Abierto de ${jsonData["places"][i]["regularOpeningHours"]["periods"][0]["open"]["hour"]} a ${jsonData["places"][i]["regularOpeningHours"]["periods"][0]["close"]["hour"]}";
+            } else {
+              openingHours = "No hay horario disponible";
+            }
+            String address = jsonData["places"][i]["shortFormattedAddress"];
+            String editorialSummary;
+            if (jsonData["places"][i]["editorialSummary"] != null &&
+                jsonData["places"][i]["editorialSummary"]["text"] != null) {
+              // Acceder a "text" solo si está presente
+              editorialSummary =
+                  jsonData["places"][i]["editorialSummary"]["text"];
+            } else {
+              // Si "editorialSummary" no está presente, imprime un mensaje de advertencia
+              editorialSummary = "No hay descripción disponible";
+            }
+            //Abierto de ${ place['regularOpeningHours']['periods'][0]['open']['time']} a ${ place['regularOpeningHours']['periods'][0]['close']['time']}"; // Nueva línea
+            //print("Nombre: $name");
+            //print("Hora de apertura: $openingHours");
+            setState(() {
+              catalogItems.add(
+                StyleModel(
+                  id: (catalogItems.length + 1)
+                      .toString(), // Generar un nuevo ID único
+                  url: imageUrl,
+                  name: name,
+                  description: editorialSummary,
+                  direction: address,
+                  schedule: openingHours,
+                  boxShadow: [
+                    BoxShadow(
+                      color: Color.fromARGB(168, 131, 131, 131),
+                      blurRadius: 8.0,
+                      spreadRadius: 1.0,
+                      offset: Offset(0, 0),
+                    ),
+                  ],
+                ),
+              );
+              //imprimimos el tamaño de la lista
+              print("tamanio: ${catalogItems.length}");
+            });
           }
         }
-
-        setState(() {
-          catalogItems = newCatalogItems;
-        });
       } else {
         print('Error en la solicitud: ${response.statusCode}');
       }
@@ -120,15 +210,8 @@ class _WidgetCatalogParqueState extends State<WidgetCatalogParque> {
   }
 }
 
-class CatalogItem {
-  final String name;
-  final String imagePath;
-
-  CatalogItem(this.name, this.imagePath);
-}
-
 class CatalogItemWidget extends StatelessWidget {
-  final CatalogItem catalogItem;
+  final StyleModel catalogItem;
 
   const CatalogItemWidget({required this.catalogItem});
 
@@ -136,12 +219,7 @@ class CatalogItemWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => DetailScreen(catalogItem: catalogItem),
-          ),
-        );
+        _navigateToDetailPage(context, catalogItem);
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(28.0),
@@ -149,7 +227,7 @@ class CatalogItemWidget extends StatelessWidget {
           child: Stack(
             children: [
               Image.network(
-                catalogItem.imagePath,
+                catalogItem.url,
                 width: double.infinity,
                 height: 200.0, // Ajusta la altura según tus necesidades
                 fit: BoxFit.cover,
@@ -189,22 +267,15 @@ class CatalogItemWidget extends StatelessWidget {
       ),
     );
   }
-}
 
-class DetailScreen extends StatelessWidget {
-  final CatalogItem catalogItem;
-
-  const DetailScreen({required this.catalogItem});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(catalogItem.name),
-      ),
-      body: Center(
-        child: Image.network(
-          catalogItem.imagePath,
+  void _navigateToDetailPage(BuildContext context, StyleModel catalogItem) {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AboutPlaces(
+          item: catalogItem,
+          imageUrl: catalogItem.url,
+          // Agrega valores adicionales según sea necesario
         ),
       ),
     );

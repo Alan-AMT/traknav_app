@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:traknav_app/ui/presentation/home/widgets/catalog.dart';
 
 class AdviceWidget extends StatefulWidget {
   const AdviceWidget({Key? key}) : super(key: key);
@@ -20,7 +21,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
       child: Stack(
         children: <Widget>[
           Positioned(
-            left: 25,
+            left: 20,
             top: 0,
             child: Card(
               elevation: 10,
@@ -32,7 +33,7 @@ class _AdviceWidgetState extends State<AdviceWidget> {
                   color: Color.fromRGBO(58, 172, 255, 1),
                   borderRadius: BorderRadius.circular(10.0),
                 ),
-                constraints: BoxConstraints(maxWidth: 350.0, maxHeight: 135.0),
+                constraints: BoxConstraints(maxWidth: 340.0, maxHeight: 135.0),
               ),
             ),
           ),
@@ -82,8 +83,8 @@ class _AdviceWidgetState extends State<AdviceWidget> {
             ),
           ),
           Positioned(
-            right: 90,
-            top: 15,
+            right: 70,
+            top: 38,
             child: Image(
               image: AssetImage('assets/home/Cwhite.png'),
               width: 20.0,
@@ -117,12 +118,19 @@ class _AdviceWidgetState extends State<AdviceWidget> {
           Positioned(
             top: 95,
             left: 55,
-            child: Text(
-              AppLocalizations.of(context)!.homeAdviceDiscover,
-              style: TextStyle(
-                color: Colors.white,
-                fontSize: 15.0,
-                fontWeight: FontWeight.bold,
+            child: GestureDetector(
+              onTap: () {
+                // Replace 'YourDestinationWidget()' with the widget you want to navigate to.
+                Navigator.of(context).push(
+                    MaterialPageRoute(builder: (context) => WidgetCatalog()));
+              },
+              child: Text(
+                AppLocalizations.of(context)!.homeAdviceDiscover,
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 15.0,
+                  fontWeight: FontWeight.bold,
+                ),
               ),
             ),
           ),

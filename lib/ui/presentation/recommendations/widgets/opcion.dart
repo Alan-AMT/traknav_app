@@ -42,18 +42,20 @@ class _BotonOpcionState extends State<BotonOpcion> {
     //**Volver a coloca AppLocalizations...
     Categoria(
         //AppLocalizations.of(context)!.recPopular
-        1,
-        "recMuseum",
-        "Sitios_populares.png",
-        false),
-    Categoria(2, "recMuseum", "Museos.png", false),
-    Categoria(3, "recRestaurants", "Restaurantes.png", false),
-    Categoria(4, "recLocalCommerce", "Comercio_local.png", false),
-    Categoria(5, "recHistorical", "Patrimonio_historico.png", false),
-    Categoria(6, "recLodgment", "Hospedaje.png", false),
-    Categoria(7, "recParks", "Parques.png", false),
-    Categoria(8, "recGuided", "Visitas_guiadas.png", false),
-  ];
+          1, "recPopular", "Sitios_populares.png",false),
+      Categoria(2, "recMuseum", "Museos.png",false),
+      Categoria(
+          3, "recRestaurants", "Restaurantes.png",false),
+      Categoria(4, "recLocalCommerce",
+          "Comercio_local.png",false),
+      Categoria(5, "recHistorical",
+          "Patrimonio_historico.png",false),
+      Categoria(6, "recLodgment", "Hospedaje.png",false),
+      Categoria(7, "recParks", "Parques.png",false),
+      Categoria(
+          8, "recGuided", "Visitas_guiadas.png",false),
+    ];
+
   Preferencias prefs = Preferencias();
 
   void agregarPreferencias() {

@@ -260,7 +260,7 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
                   } catch (e) {
                     print(e);
                     ToastApp.error(
-                        "No pudimos crear tu plan de viaje. Intenta de nuevo");
+                        "No pudimos actualizar tu plan de viaje. Intenta de nuevo");
                   } finally {
                     await EasyLoading.dismiss();
                     context.router.popUntil(
@@ -273,6 +273,46 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
         },
       );
     }
+  }
+
+  void _showDeletePlanDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: Text("Eliminar plan de viaje"),
+            content: Text(
+                "¿Estas seguro de que deseas eliminar el plan de viaje '${widget.plan.name}'? Esta acción es irreversible"),
+            actions: <Widget>[
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                },
+              ),
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.confirm),
+                onPressed: () async {
+                  try {
+                    await EasyLoading.show();
+                    Navigator.of(dialogContext).pop();
+                    await context
+                        .read<PlanDeViajeCubit>()
+                        .deletePlanDeViaje(id: widget.plan.id);
+                  } catch (e) {
+                    print(e);
+                    ToastApp.error(
+                        "No pudimos crear tu plan de viaje. Intenta de nuevo");
+                  } finally {
+                    await EasyLoading.dismiss();
+                    context.router.popUntil(
+                        (route) => route.settings.name == TripPlanRoute.name);
+                  }
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -355,6 +395,7 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
                           return null;
                         },
                       ])),
+                  SizedBox(height: 10)
                 ])),
             Expanded(
               child: ListView.builder(
@@ -473,12 +514,22 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: _showUpdatePlanDialog,
-                child: Text("Actualizar plan de viaje"),
-              ),
-            ),
+                padding: const EdgeInsets.all(10.0),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Expanded(
+                      child: ElevatedButton(
+                    onPressed: _showUpdatePlanDialog,
+                    child: Text("Actualizar plan de viaje"),
+                  )),
+                  Expanded(
+                      child: ElevatedButton(
+                    onPressed: _showDeletePlanDialog,
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    child: Text("Eliminar plan de viaje"),
+                  ))
+                ])),
           ],
         ),
       );

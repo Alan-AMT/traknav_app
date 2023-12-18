@@ -100,4 +100,33 @@ class PlanDeViajeDataSource {
     final usersCollection = FirebaseFirestore.instance.collection('users');
     await usersCollection.doc(uid).collection("PlanDeViaje").doc(id).set(data);
   }
+
+  static Future<void> finishPlanDeViaje({required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection
+        .doc(uid)
+        .collection("PlanDeViaje")
+        .doc(id)
+        .update({"completed": true});
+  }
+
+  static Future<void> deletePlanDeViaje({required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection.doc(uid).collection("PlanDeViaje").doc(id).delete();
+  }
+
+  static Future<void> updatePlaceVisitedStatus(
+      {required List<Map<String, dynamic>> arrayInfo,
+      required int dayNumber,
+      required String id}) async {
+    final uid = FirebaseAuth.instance.currentUser!.uid;
+    final usersCollection = FirebaseFirestore.instance.collection('users');
+    await usersCollection
+        .doc(uid)
+        .collection("PlanDeViaje")
+        .doc(id)
+        .update({"days.$dayNumber": arrayInfo});
+  }
 }

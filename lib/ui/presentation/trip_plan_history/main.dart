@@ -1,75 +1,115 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:intl/intl.dart';
+import 'package:skeletons/skeletons.dart';
+import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubit.dart';
 
 @RoutePage()
-class TripPlanHistoryPage extends StatelessWidget {
+class TripPlanHistoryPage extends StatefulWidget {
   const TripPlanHistoryPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) {
-    // Datos de ejemplo para la lista de historial
-    final List<Map<String, dynamic>> historyData = [
-      {
-        'title': 'Plan 1',
-        'date': '2 nov 2023',
-        'route': 'Ruta: Pino Suarez - Nezahualcoyotl',
-        'completed': true,
-      },
-      {
-        'title': 'Plan 2',
-        'date': '3 nov 2023',
-        'route': 'Ruta: Algun lugar - Otro lugar',
-        'completed': false,
-      },
-      // Agrega más planes aquí
-    ];
+  State<TripPlanHistoryPage> createState() => _TripPlanHistoryPage();
+}
 
-    return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Text(
-          AppLocalizations.of(context)!.tripplanhistory,
-          style: const TextStyle(
-            fontFamily: 'Nunito',
-            fontStyle: FontStyle.italic,
-            fontSize: 30,
-            color: Colors.white,
+class _TripPlanHistoryPage extends State<TripPlanHistoryPage> {
+  @override
+  void initState() {
+    super.initState();
+    fetchExpiredPlanes();
+  }
+
+  void fetchExpiredPlanes() async {
+    await context.read<PlanDeViajeCubit>().fetchExpiredPlanes();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return BlocBuilder<PlanDeViajeCubit, PlanDeViajeState>(
+        builder: (context, state) {
+      return Scaffold(
+        appBar: AppBar(
+          centerTitle: true,
+          title: Text(
+            AppLocalizations.of(context)!.tripplanhistory,
+            style: const TextStyle(
+              fontFamily: 'Nunito',
+              fontStyle: FontStyle.italic,
+              fontSize: 30,
+              color: Colors.white,
+            ),
+          ),
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            onPressed: () => Navigator.of(context).pop(),
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () => Navigator.of(context).pop(),
-        ),
-      ),
-      body: ListView.builder(
-        itemCount: historyData.length,
-        itemBuilder: (context, index) {
-          final item = historyData[index];
-          return HistoryListItem(
-            title: item['title'],
-            date: item['date'],
-            route: item['route'],
-            completed: item['completed'],
-          );
-        },
-      ),
-    );
+        body: state.isLoadinggPlanesDeViaje
+            ? ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return Padding(
+                      padding: const EdgeInsets.all(10),
+                      child: SkeletonAvatar(
+                        style: SkeletonAvatarStyle(
+                          width: double.infinity,
+                          minHeight: MediaQuery.of(context).size.height / 8,
+                          maxHeight: MediaQuery.of(context).size.height / 3,
+                        ),
+                      ));
+                },
+              )
+            : state.expiredPlanes.isEmpty
+                ? Padding(
+                    padding: EdgeInsets.only(top: 10),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(AppLocalizations.of(context)!.mensajehist1),
+                        Text(AppLocalizations.of(context)!.mensajehist2,
+                            textAlign: TextAlign.center)
+                      ],
+                    ))
+                : ListView.builder(
+                    itemCount: state.expiredPlanes.length,
+                    itemBuilder: (context, index) {
+                      final item = state.expiredPlanes[index];
+                      final DateTime start =
+                          DateTime.fromMillisecondsSinceEpoch(item.startDate);
+                      final DateTime end =
+                          DateTime.fromMillisecondsSinceEpoch(item.endDate);
+                      var format = DateFormat("EEE, d/M/y");
+                      return HistoryListItem(
+                        title: item.name,
+                        image: item.days[1]![0]["imageUrl"],
+                        startDate: format.format(start),
+                        endDate: format.format(end),
+                        route:
+                            "Desde: ${item.days[1]![0]['name']}\nHasta: ${item.days[item.days.length]!.last['name']}",
+                      );
+                    },
+                  ),
+      );
+    });
   }
 }
 
 class HistoryListItem extends StatelessWidget {
   final String title;
-  final String date;
+  final String image;
+  final String startDate;
+  final String endDate;
   final String route;
-  final bool completed;
 
   const HistoryListItem({
     Key? key,
     required this.title,
-    required this.date,
+    required this.startDate,
+    required this.image,
+    required this.endDate,
     required this.route,
-    required this.completed,
   }) : super(key: key);
 
   @override
@@ -82,8 +122,8 @@ class HistoryListItem extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Image.asset(
-              'assets/TravelPlan/rutaejem.png',
+            Image.network(
+              image,
               width: double.infinity,
               height: 150,
               fit: BoxFit.cover,
@@ -93,14 +133,16 @@ class HistoryListItem extends StatelessWidget {
                 style:
                     const TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
             const SizedBox(height: 8),
-            Text(date,
-                style: const TextStyle(fontSize: 16, color: Colors.grey)),
+            Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
+              Text("Inicio: $startDate",
+                  style: const TextStyle(fontSize: 16, color: Colors.grey)),
+              Text("Fin: $endDate",
+                  style: const TextStyle(fontSize: 16, color: Colors.grey))
+            ]),
             const SizedBox(height: 8),
             Text(route, style: const TextStyle(fontSize: 16)),
-            if (completed) ...[
-              const SizedBox(height: 8),
-              const Icon(Icons.check_circle, color: Colors.green),
-            ],
+            const SizedBox(height: 8),
+            const Center(child: Icon(Icons.check_circle, color: Colors.green)),
           ],
         ),
       ),

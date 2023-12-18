@@ -2,46 +2,41 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:google_places_flutter/model/prediction.dart';
 import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/presentation/PlanDeViaje/cubit/plan_de_viaje_cubit.dart';
-import '../../router/android.gr.dart';
 import 'package:google_places_flutter/google_places_flutter.dart';
 import 'package:traknav_app/ui/core/data/plan_de_viaje.dart';
+import 'package:traknav_app/ui/router/android.gr.dart';
 
 @RoutePage()
-class TripPlanCreatedPage extends StatefulWidget {
-  final int days;
-  final DateTime startDate;
-  final String name;
+class EditTripPlanPage extends StatefulWidget {
+  final PlanDeViaje plan;
 
-  const TripPlanCreatedPage(
-      {Key? key,
-      required this.days,
-      required this.startDate,
-      required this.name})
-      : super(key: key);
+  const EditTripPlanPage({Key? key, required this.plan}) : super(key: key);
 
   @override
-  State<TripPlanCreatedPage> createState() => _TripPlanCreatedPageState();
+  State<EditTripPlanPage> createState() => _EditTripPlanPage();
 }
 
-class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
+class _EditTripPlanPage extends State<EditTripPlanPage> {
   Map<String, List<Map<String, dynamic>>> tripDaysData = {};
-  // Map<int, List<Map<String, dynamic>>> tripDaysData = {};
+  final planKey = GlobalKey<FormBuilderState>();
 
   @override
   void initState() {
     super.initState();
-    for (int i = 1; i <= widget.days; i++) {
-      tripDaysData[i.toString()] = [];
+    for (int i = 1; i <= widget.plan.days.length; i++) {
+      tripDaysData[i.toString()] = widget.plan.days[i]!;
     }
   }
 
   void removeDayFromPlan(int dayNumber) {
     if (tripDaysData.length == 1) {
-      ToastApp.error(AppLocalizations.of(context)!.error6tripplan);
+      ToastApp.error("Tu plan de viaje debe tener al menos 1 día");
       return;
     }
     for (int i = dayNumber; i < tripDaysData.length; i++) {
@@ -52,7 +47,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
 
   void addDayToPlan() {
     if (tripDaysData.length > 21) {
-      ToastApp.error(AppLocalizations.of(context)!.error7tripplan);
+      ToastApp.error("Tu plande viaje puede tener un máximo de 21 días");
       return;
     }
     tripDaysData["${tripDaysData.length + 1}"] = [];
@@ -71,8 +66,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
-                Text(
-                  AppLocalizations.of(context)!.search2,
+                const Text(
+                  'Buscar Lugar',
                   style: TextStyle(fontSize: 24.0, fontWeight: FontWeight.bold),
                 ),
                 const SizedBox(height: 20.0),
@@ -80,8 +75,8 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   textEditingController: TextEditingController(),
                   googleAPIKey: "AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s",
                   countries: const ["mx"],
-                  inputDecoration: InputDecoration(
-                    hintText: AppLocalizations.of(context)!.search3,
+                  inputDecoration: const InputDecoration(
+                    hintText: 'Escribe el nombre del lugar...',
                     prefixIcon: Icon(Icons.search),
                   ),
                   debounceTime: 600,
@@ -99,7 +94,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: Colors.blue,
                   ),
-                  child: Text(AppLocalizations.of(context)!.cancel),
+                  child: const Text('Cancelar'),
                 ),
               ],
             ),
@@ -114,7 +109,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(AppLocalizations.of(context)!.agregar1),
+          title: const Text('Agregar Lugar'),
           content: SingleChildScrollView(
             child: ListBody(
               children: <Widget>[
@@ -129,7 +124,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                     if (snapshot.connectionState == ConnectionState.waiting) {
                       return const Center(child: CircularProgressIndicator());
                     } else if (snapshot.hasError) {
-                      return Text(AppLocalizations.of(context)!.imageerror1);
+                      return const Text('Error al cargar la imagen');
                     } else {
                       return Column(
                         children: [
@@ -139,21 +134,21 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                               fit: BoxFit.cover,
                               errorBuilder: (BuildContext context,
                                   Object exception, StackTrace? stackTrace) {
-                                return Text(AppLocalizations.of(context)!
-                                    .imageerror2); // Texto o widget a mostrar en caso de error.
+                                return const Text(
+                                    'No se pudo cargar la imagen'); // Texto o widget a mostrar en caso de error.
                               },
                             )
                           else
                             const SizedBox.shrink(),
                           // const Text('No hay imagen disponible'),
                           ElevatedButton(
-                            child: Text(AppLocalizations.of(context)!.agregar2),
+                            child: const Text('Agregar'),
                             onPressed: () {
                               if (snapshot.hasData && snapshot.data != null) {
                                 if (tripDaysData[dayIndex.toString()]!.length >
                                     8) {
-                                  ToastApp.error(AppLocalizations.of(context)!
-                                      .error8tripplan);
+                                  ToastApp.error(
+                                      "Solo puede haber máximo 8 lugares por día. Agrega este lugar a otro día");
                                   return;
                                 }
                                 setState(() {
@@ -180,7 +175,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
           ),
           actions: <Widget>[
             TextButton(
-              child: Text(AppLocalizations.of(context)!.cancel),
+              child: const Text('Cancelar'),
               onPressed: () {
                 Navigator.of(dialogContext).pop();
               },
@@ -196,7 +191,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
       context: context,
       builder: (BuildContext dialogContext) {
         return AlertDialog(
-          title: Text(AppLocalizations.of(context)!.borrardia),
+          title: Text("Eliminar día"),
           content: Text(
               "¿Estas seguro de que quieres eliminar el día $dayNumber de tu plan de viaje? Si lo eliminas todos los lugares del día se perderán"),
           actions: <Widget>[
@@ -222,7 +217,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
     );
   }
 
-  void _showCreatePlanDialog() {
+  void _showUpdatePlanDialog() {
     // Verifica si hay al menos un lugar en el plan de viaje
     bool hasPlaces = tripDaysData.isNotEmpty;
     tripDaysData.forEach(
@@ -232,8 +227,10 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
     );
 
     if (!hasPlaces) {
-      ToastApp.error(AppLocalizations.of(context)!.error9tripplan);
-    } else {
+      ToastApp.error("Todos los días de tu plan deben tener lugares asignados");
+      return;
+    }
+    if (planKey.currentState?.saveAndValidate() ?? false) {
       showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
@@ -254,14 +251,16 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                   try {
                     await EasyLoading.show();
                     Navigator.of(dialogContext).pop();
-                    await context.read<PlanDeViajeCubit>().createPlanDeViaje(
-                        startDate: widget.startDate,
-                        name: widget.name,
+                    await context.read<PlanDeViajeCubit>().updatePlanDeViaje(
+                        startDate:
+                            planKey.currentState!.fields["startDate"]!.value,
+                        name: planKey.currentState!.fields["name"]!.value,
+                        id: widget.plan.id,
                         tripDaysData: tripDaysData);
                   } catch (e) {
                     print(e);
                     ToastApp.error(
-                        AppLocalizations.of(context)!.error10tripplan);
+                        "No pudimos actualizar tu plan de viaje. Intenta de nuevo");
                   } finally {
                     await EasyLoading.dismiss();
                     context.router.popUntil(
@@ -274,6 +273,46 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
         },
       );
     }
+  }
+
+  void _showDeletePlanDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext dialogContext) {
+          return AlertDialog(
+            title: Text("Eliminar plan de viaje"),
+            content: Text(
+                "¿Estas seguro de que deseas eliminar el plan de viaje '${widget.plan.name}'? Esta acción es irreversible"),
+            actions: <Widget>[
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.cancel),
+                onPressed: () {
+                  Navigator.of(dialogContext).pop();
+                },
+              ),
+              TextButton(
+                child: Text(AppLocalizations.of(context)!.confirm),
+                onPressed: () async {
+                  try {
+                    await EasyLoading.show();
+                    Navigator.of(dialogContext).pop();
+                    await context
+                        .read<PlanDeViajeCubit>()
+                        .deletePlanDeViaje(id: widget.plan.id);
+                  } catch (e) {
+                    print(e);
+                    ToastApp.error(
+                        "No pudimos crear tu plan de viaje. Intenta de nuevo");
+                  } finally {
+                    await EasyLoading.dismiss();
+                    context.router.popUntil(
+                        (route) => route.settings.name == TripPlanRoute.name);
+                  }
+                },
+              ),
+            ],
+          );
+        });
   }
 
   @override
@@ -299,12 +338,65 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                     addDayToPlan();
                   });
                 },
-                child: Text(AppLocalizations.of(context)!.agregar3,
-                    style: TextStyle(color: Colors.white)))
+                child:
+                    Text("Agregar día", style: TextStyle(color: Colors.white)))
           ],
         ),
         body: Column(
           children: [
+            SizedBox(height: 10),
+            FormBuilder(
+                key: planKey,
+                child: Column(children: [
+                  FormBuilderTextField(
+                    name: "name",
+                    initialValue: widget.plan.name,
+                    keyboardType: TextInputType.text,
+                    textInputAction: TextInputAction.next,
+                    decoration: const InputDecoration(
+                      hintText: 'Nombre del plan',
+                      labelText: 'Nombre del plan',
+                      suffixIcon: Icon(Icons.title),
+                      border: OutlineInputBorder(),
+                    ),
+                    validator: FormBuilderValidators.compose([
+                      FormBuilderValidators.required(
+                          errorText: "El campo es requerido"),
+                    ]),
+                  ),
+                  SizedBox(height: 10),
+                  FormBuilderDateTimePicker(
+                      name: "startDate",
+                      initialValue: DateTime.fromMillisecondsSinceEpoch(
+                          widget.plan.startDate),
+                      decoration: const InputDecoration(
+                        hintText: 'Fecha de inicio',
+                        labelText: 'Fecha de inicio',
+                        suffixIcon: Icon(Icons.schedule),
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                            errorText: "El campo es requerido"),
+                        (val) {
+                          if (val == null) return null;
+                          if (widget.plan.startDate <
+                              DateTime.now().millisecondsSinceEpoch) {
+                            if (val.millisecondsSinceEpoch <
+                                widget.plan.startDate) {
+                              return 'No puedes usar una fecha anterior a la original';
+                            }
+                          } else {
+                            if (val.millisecondsSinceEpoch <
+                                DateTime.now().millisecondsSinceEpoch) {
+                              return 'No puedes usar una fecha anterior a la actual';
+                            }
+                          }
+                          return null;
+                        },
+                      ])),
+                  SizedBox(height: 10)
+                ])),
             Expanded(
               child: ListView.builder(
                 itemCount: tripDaysData.length,
@@ -332,9 +424,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                                         onPressed: () {
                                           showRemoveDayDialog(index + 1);
                                         },
-                                        child: Text(
-                                            AppLocalizations.of(context)!
-                                                .borrardia,
+                                        child: const Text("Eliminar día",
                                             style:
                                                 TextStyle(color: Colors.red)))
                                   ])),
@@ -413,8 +503,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                                 child: ElevatedButton(
                               onPressed: () =>
                                   _showPlaceSearchDialog(index + 1),
-                              child:
-                                  Text(AppLocalizations.of(context)!.agregar1),
+                              child: const Text('Agregar Lugar'),
                             )),
                           ),
                         ],
@@ -425,12 +514,22 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
               ),
             ),
             Padding(
-              padding: const EdgeInsets.all(10.0),
-              child: ElevatedButton(
-                onPressed: _showCreatePlanDialog,
-                child: Text(AppLocalizations.of(context)!.createtripplan),
-              ),
-            ),
+                padding: const EdgeInsets.all(10.0),
+                child:
+                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                  Expanded(
+                      child: ElevatedButton(
+                    onPressed: _showUpdatePlanDialog,
+                    child: Text("Actualizar plan de viaje"),
+                  )),
+                  Expanded(
+                      child: ElevatedButton(
+                    onPressed: _showDeletePlanDialog,
+                    style:
+                        ElevatedButton.styleFrom(backgroundColor: Colors.red),
+                    child: Text("Eliminar plan de viaje"),
+                  ))
+                ])),
           ],
         ),
       );

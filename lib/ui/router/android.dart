@@ -14,6 +14,7 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: TripPlanHistoryRoute.page),
         AutoRoute(page: TripPlanListRoute.page),
         AutoRoute(page: TripPlanCreatedRoute.page),
+        AutoRoute(page: InitTripPlanRoute.page),
         AutoRoute(page: FavoritosRoute.page),
         AutoRoute(page: EditarFavoritosRoute.page),
         AutoRoute(page: MyProfileRoute.page),
@@ -32,8 +33,6 @@ class AndroidRouter extends $AndroidRouter {
         AutoRoute(page: MapDirectionsRoute.page),
         AutoRoute(page: EditProfileRoute.page),
         AutoRoute(page: ProfileRoute.page),
-
-        // AutoRoute(page: SignUpRoute.page),
         AutoRoute(page: MultiUserRoute.page),
         AutoRoute(page: MapDirectionsRoute.page),
       ];

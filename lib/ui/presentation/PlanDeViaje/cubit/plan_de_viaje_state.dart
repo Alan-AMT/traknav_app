@@ -8,8 +8,11 @@ class PlanDeViajeState with _$PlanDeViajeState {
     @Default(0) int startDate,
     @Default(0) int endDate,
     @Default("Plan de viaje") String name,
-    @Default({}) Map<int, List<String>> days,
+    @Default({}) Map<int, List<Map<String, bool>>> days,
     @Default(false) bool isLoadinggPlanesDeViaje,
     @Default(false) bool isCreatingPlanDeViaje,
+    @Default(0) int createAmountDays,
+    @Default("") String createName,
+    @Default({}) Map<int, List<Map<String, bool>>> createDaysPlaces,
   }) = _Initial;
 }

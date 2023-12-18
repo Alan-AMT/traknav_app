@@ -1,27 +1,27 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:traknav_app/ui/presentation/home/cubit/home_cubit.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 //import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 @RoutePage()
 class CreateTripPlanPage extends StatefulWidget {
-  CreateTripPlanPage({Key? key}) : super(key: key);
+  const CreateTripPlanPage({Key? key}) : super(key: key);
 
   @override
-  _CreateTripPlanPageState createState() => _CreateTripPlanPageState();
+  State<CreateTripPlanPage> createState() => _CreateTripPlanPage();
 }
 
-class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
-  final TextEditingController _daysController = TextEditingController();
-  DateTime? selectedDate;
+class _CreateTripPlanPage extends State<CreateTripPlanPage> {
+  final daysKey = GlobalKey<FormBuilderState>();
+  final DateTime minDate = DateTime.now();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomInset: true, // Añadir esta línea
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         centerTitle: true,
         title: Text(
@@ -49,7 +49,7 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
                 AppLocalizations.of(context)!.tripplantext1,
                 style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 20),
+              const SizedBox(height: 20),
               ClipRRect(
                 borderRadius:
                     BorderRadius.circular(10.0), // Bordes redondeados aquí
@@ -60,10 +60,85 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
                 AppLocalizations.of(context)!.tripplantext2,
                 style: TextStyle(fontSize: 16),
               ),
-              SizedBox(height: 20),
-              _numberOfDaysField(),
-              SizedBox(height: 20),
-              _submitButton(),
+              const SizedBox(height: 20),
+              FormBuilder(
+                  key: daysKey,
+                  child: Column(children: [
+                    FormBuilderTextField(
+                      name: "name",
+                      keyboardType: TextInputType.text,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.myTripPlans15,
+                        labelText: AppLocalizations.of(context)!.myTripPlans15,
+                        suffixIcon: Icon(Icons.title),
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                            errorText:
+                                AppLocalizations.of(context)!.error1tripplan),
+                      ]),
+                    ),
+                    const SizedBox(height: 10),
+                    FormBuilderTextField(
+                      name: "days",
+                      keyboardType: TextInputType.number,
+                      textInputAction: TextInputAction.next,
+                      decoration: InputDecoration(
+                        hintText: AppLocalizations.of(context)!.myTripPlans2,
+                        labelText: AppLocalizations.of(context)!.myTripPlans25,
+                        suffixIcon: Icon(Icons.calendar_month),
+                        border: OutlineInputBorder(),
+                      ),
+                      validator: FormBuilderValidators.compose([
+                        FormBuilderValidators.required(
+                            errorText:
+                                AppLocalizations.of(context)!.error1tripplan),
+                        FormBuilderValidators.integer(
+                            errorText:
+                                AppLocalizations.of(context)!.error2tripplan),
+                        FormBuilderValidators.max(21,
+                            errorText:
+                                AppLocalizations.of(context)!.error3tripplan),
+                        FormBuilderValidators.min(1,
+                            errorText:
+                                AppLocalizations.of(context)!.error4tripplan)
+                      ]),
+                    ),
+                    const SizedBox(height: 10),
+                    FormBuilderDateTimePicker(
+                        name: "date",
+                        textInputAction: TextInputAction.send,
+                        decoration: InputDecoration(
+                          hintText: AppLocalizations.of(context)!.myTripPlans3,
+                          labelText:
+                              AppLocalizations.of(context)!.myTripPlans35,
+                          suffixIcon: Icon(Icons.schedule),
+                          border: OutlineInputBorder(),
+                        ),
+                        validator: FormBuilderValidators.compose([
+                          FormBuilderValidators.required(
+                              errorText:
+                                  AppLocalizations.of(context)!.error1tripplan),
+                          (val) {
+                            if (val == null) return null;
+                            if (val.millisecondsSinceEpoch <
+                                minDate.millisecondsSinceEpoch) {
+                              return AppLocalizations.of(context)!
+                                  .error5tripplan;
+                            }
+                            return null;
+                          },
+                        ])),
+                  ])),
+              const SizedBox(height: 20),
+              ElevatedButton(
+                onPressed: () {
+                  _onSubmit();
+                },
+                child: Text(AppLocalizations.of(context)!.tripplancreatebutton),
+              )
             ],
           ),
         ),
@@ -71,44 +146,14 @@ class _CreateTripPlanPageState extends State<CreateTripPlanPage> {
     );
   }
 
-  Widget _numberOfDaysField() {
-    return TextField(
-      controller: _daysController,
-      keyboardType: TextInputType.number,
-      decoration: InputDecoration(
-        labelText: AppLocalizations.of(context)!.tripplannumberdays,
-        border: OutlineInputBorder(),
-      ),
-      onChanged: (value) {
-        // TODO: Implementar lógica de validación de entrada
-      },
-    );
-  }
-
-  Widget _submitButton() {
-    return ElevatedButton(
-      onPressed: () => _onSubmit(),
-      child: Text(AppLocalizations.of(context)!.tripplancreatebutton),
-    );
-  }
-
   void _onSubmit() {
-    int numberOfDays = int.tryParse(_daysController.text) ?? 0;
-    if (numberOfDays > 0) {
-      //Lógica de planificación
-      AutoRouter.of(context).navigate(TripPlanCreatedRoute(days: numberOfDays));
-    } else {
-      // Mostrar mensaje de error
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-            content: Text('Por favor, introduce un número válido de días.')),
-      );
+    if (daysKey.currentState?.saveAndValidate() ?? false) {
+      final numberOfDays =
+          int.parse(daysKey.currentState!.fields["days"]!.value);
+      final DateTime startDate = daysKey.currentState!.fields["date"]!.value;
+      final String name = daysKey.currentState!.fields["name"]!.value;
+      AutoRouter.of(context).navigate(TripPlanCreatedRoute(
+          days: numberOfDays, startDate: startDate, name: name));
     }
-  }
-
-  @override
-  void dispose() {
-    _daysController.dispose();
-    super.dispose();
   }
 }

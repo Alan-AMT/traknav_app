@@ -104,7 +104,7 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.homeRecomendedTitle,
+          AppLocalizations.of(context)!.homeCategoriesHospedaje,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,

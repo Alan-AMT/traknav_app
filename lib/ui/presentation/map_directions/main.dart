@@ -122,14 +122,14 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
             mainAxisSize: MainAxisSize.min,
             children: <Widget>[
               ListTile(
-                title: Text("Caminar"),
+                title: Text("Caminando"),
                 onTap: () {
                   Navigator.of(context).pop();
                   _updateRoute(TransportMode.walking);
                 },
               ),
               ListTile(
-                title: Text("Carro"),
+                title: Text("Auto"),
                 onTap: () {
                   Navigator.of(context).pop();
                   _updateRoute(TransportMode.driving);
@@ -228,15 +228,15 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
                   destinationLatLng: widget.destinyCoords,
                   polylines: Set<Polyline>.of(myPolylines),
                   routeWidth: 3,
-                  routeColor: Colors.blue,
+                  routeColor: Colors.transparent,
                   defaultCameraLocation: widget.sourceCoords,
                   sourceMarkerIconInfo: const MarkerIconInfo(isVisible: false),
-                  //driverMarkerIconInfo: const MarkerIconInfo(
-                    //icon: Icon(
-                      //Icons.toys,
-                     // color: Colors.green,
-                    //),
-                 // ),
+                  driverMarkerIconInfo: const MarkerIconInfo(
+                    icon: Icon(
+                      Icons.toys,
+                      color: Colors.green,
+                    ),
+                  ),
                   destinationMarkerIconInfo: MarkerIconInfo(
                     infoWindowTitle: widget.destinationName,
                     icon: const Icon(
@@ -275,8 +275,8 @@ class _MapDirectionsPage extends State<MapDirectionsPage> {
                         now.day,
                         now.hour + int.parse(hoursToAdd),
                         now.minute + int.parse(minutesToAdd));
-                    arrivalTime = DateFormat.Hm().format(newArrivalTime);
-                    timeLeft = newTime;
+                    //arrivalTime = DateFormat.Hm().format(newArrivalTime);
+                    //timeLeft = newTime;
                   }),
                   onPolylineUpdate: (Polyline polyline) {
                     print("Polyline updated");

@@ -178,13 +178,17 @@ class _ProfilePageState extends State<ProfilePage> {
                                                   color: Colors.black,
                                                   fontSize: 18,
                                                   fontWeight: FontWeight.bold),
+                                              overflow: TextOverflow.ellipsis,
                                             ),
                                             Container(width: 8),
-                                            Text(
-                                              snapshot.data!.correoStr(),
-                                              style: const TextStyle(
-                                                  color: Colors.black,
-                                                  fontSize: 18),
+                                            Flexible(
+                                              child: Text(
+                                                snapshot.data!.correoStr(),
+                                                style: const TextStyle(
+                                                    color: Colors.black,
+                                                    fontSize: 18),
+                                                overflow: TextOverflow.ellipsis,
+                                              ),
                                             ),
                                           ],
                                         ),

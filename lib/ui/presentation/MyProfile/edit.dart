@@ -199,11 +199,14 @@ class _EditProfilePageState extends State<EditProfilePage> {
                                                         FontWeight.bold),
                                               ),
                                               Container(width: 8),
-                                              Text(
-                                                snapshot.data!.correoStr(),
-                                                style: const TextStyle(
-                                                    color: Colors.black,
-                                                    fontSize: 18),
+                                              Flexible(
+                                                child: Text(
+                                                  snapshot.data!.correoStr(),
+                                                  style: const TextStyle(
+                                                      color: Colors.black,
+                                                      fontSize: 18),
+                                                  overflow: TextOverflow.fade,
+                                                ),
                                               ),
                                             ],
                                           ),

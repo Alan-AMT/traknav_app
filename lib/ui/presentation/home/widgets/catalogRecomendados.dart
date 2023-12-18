@@ -2,23 +2,64 @@ import 'dart:convert';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
-import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
 import 'package:location/location.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/aboutPlaces.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/recomended.dart';
 
-class WidgetCatalogHospedaje extends StatefulWidget {
-  const WidgetCatalogHospedaje({Key? key}) : super(key: key);
+class WidgetCatalogRecomendados extends StatefulWidget {
+  const WidgetCatalogRecomendados({Key? key}) : super(key: key);
 
   @override
-  _WidgetCatalogHospedajeState createState() => _WidgetCatalogHospedajeState();
+  _WidgetCatalogRecomendadosState createState() =>
+      _WidgetCatalogRecomendadosState();
 }
 
-class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
-  List<StyleModel> catalogItems = [];
+class Preferencias {
+  List<int> preferenciasJaladas;
+  Preferencias({required this.preferenciasJaladas});
+}
 
-  //-----------PARA PODER OBTENER LA POSICIÓN--------------
+class _WidgetCatalogRecomendadosState extends State<WidgetCatalogRecomendados> {
+  List<StyleModel> catalogItems = [];
+  List<int> preferenciasJaladas = [];
+  Map<int, List<String>> tablaHash = {
+    1: ['park', 'restaurant', 'hotel'],
+    2: ['performing_arts_theater', 'art_gallery'],
+    3: ['mexican_restaurant', 'fast_food_restaurant'],
+    4: ['mexican_restaurant', 'ice_cream_shop'],
+    5: ['church', 'museum'],
+    6: ['lodging', 'resort_hotel'],
+    7: ['dog_park', 'zoo'],
+    8: ['national_park', 'historical_landmark'],
+  };
+
+  Preferencias preferencias = Preferencias(preferenciasJaladas: []);
+  final FirebaseFirestore firestore = FirebaseFirestore.instance;
+
+  Future<void> getRecommendations(String uid) async {
+    DocumentSnapshot documentSnapshot =
+        await firestore.collection('users').doc(uid).get();
+    if (documentSnapshot.exists) {
+      Map<String, dynamic> data =
+          documentSnapshot.data() as Map<String, dynamic>;
+      List<int> recommendations = data['recommendations'].cast<int>();
+      setState(() {
+        preferenciasJaladas = [...recommendations];
+        // print(recommendations);
+        //print(data.toString());
+      });
+    } else {
+      print('El documento no existe');
+    }
+  }
+
+  void imprimirLista() {
+    print(preferenciasJaladas);
+  }
+
   Future<LocationData?> _getLocation() async {
     final bool hasPermission = await checkPermissions();
     if (!hasPermission) return null;
@@ -26,7 +67,6 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
     return await location.getLocation();
   }
 
-  //------PARA VERIFICAR SI SE TIENEN PERMISOS PARA ACCEDER A LA LOCALIZACIÓN-------
   Future<bool> checkPermissions() async {
     bool serviceEnabled;
     Location location = Location();
@@ -51,36 +91,32 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
   @override
   void initState() {
     super.initState();
-    _getLocation().then((position) {
-      // climaDataF = getClimaForecast(position);
-      fetchData(position);
+    _getLocation().then((position) async {
+      await fetchData(position);
+      getCurrentUID().then((uid) async {
+        await getRecommendations(uid);
+      });
     });
   }
 
+  Future<String> getCurrentUID() async {
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User? user = auth.currentUser;
+    final String uid = user!.uid;
+    return uid;
+  }
+
   Future<void> fetchData(LocationData? location) async {
-    // Tu lógica para obtener datos desde la API
+    // Obtener los tipos de lugares correspondientes a las preferenciasJaladas
+    List<String> tiposDeLugares = [];
+    preferenciasJaladas.forEach((id) {
+      if (tablaHash.containsKey(id)) {
+        tiposDeLugares.addAll(tablaHash[id]!);
+      }
+    });
     String url = 'https://places.googleapis.com/v1/places:searchNearby';
-    // Los datos que enviarás en el cuerpo de la solicitud POST
-    print("Hola");
-    print("tamanio: ${catalogItems.length}");
-    // Body de la solicitud
     Map<String, dynamic> lugares = {
-      "includedTypes": [
-        "bed_and_breakfast",
-        "campground",
-        "camping_cabin",
-        "cottage",
-        "extended_stay_hotel",
-        "farmstay",
-        "guest_house",
-        "hostel",
-        "hotel",
-        "lodging",
-        "motel",
-        "private_guest_room",
-        "resort_hotel",
-        "rv_park",
-      ],
+      "includedTypes": tiposDeLugares, // Usar la lista de tipos obtenida
       "maxResultCount": 20,
       "locationRestriction": {
         "circle": {
@@ -92,15 +128,13 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
         }
       }
     };
-    // Las cabeceras de la solicitud
     Map<String, String> headers = {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': 'AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s',
-      // Reemplaza 'API_KEY' con tu clave real
       'X-Goog-FieldMask':
           'places.id,places.displayName,places.photos,places.regularOpeningHours,places.shortFormattedAddress,places.editorialSummary',
     };
-
+    print("Hola estas en catalogRecomendados.dart");
     try {
       var response = await http.post(
         Uri.parse(url),
@@ -109,7 +143,7 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
       );
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = json.decode(response.body);
-
+        print('Datos obtenidos correctamente: $jsonData');
         // Iterar sobre los lugares en jsonData
         for (int i = 0; i < jsonData["places"].length; i++) {
           // Asegurarse de que haya fotos disponibles
@@ -118,7 +152,11 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
             // Obtener la referencia de la primera foto (puedes ajustar esto según tus necesidades)
             String photoReference = jsonData["places"][i]["photos"][0]["name"];
             String imageUrl = buildImageUrl(photoReference);
-            String name = jsonData["places"][i]["displayName"]["text"];
+
+            // Verifica si "displayName" es de tipo String antes de asignarlo a name
+            String name = jsonData["places"][i]["displayName"]?["text"] ??
+                "Nombre no disponible";
+
             String openingHours;
 
             if (jsonData["places"][i]["regularOpeningHours"] != null &&
@@ -191,10 +229,11 @@ class _WidgetCatalogHospedajeState extends State<WidgetCatalogHospedaje> {
 
   @override
   Widget build(BuildContext context) {
+    imprimirLista();
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          AppLocalizations.of(context)!.homeCategoriesHospedaje,
+          AppLocalizations.of(context)!.homeRecomendedTitle,
           style: TextStyle(
             fontWeight: FontWeight.bold,
             fontSize: 20.0,
@@ -239,12 +278,12 @@ class CatalogItemWidget extends StatelessWidget {
               Image.network(
                 catalogItem.url,
                 width: double.infinity,
-                height: 200.0, // Ajusta la altura según tus necesidades
+                height: 200.0,
                 fit: BoxFit.cover,
               ),
               Container(
                 width: double.infinity,
-                height: 200.0, // Ajusta la altura según tus necesidades
+                height: 200.0,
                 decoration: BoxDecoration(
                   color: Colors.black.withOpacity(0.2),
                   borderRadius: BorderRadius.circular(7.0),
@@ -277,17 +316,17 @@ class CatalogItemWidget extends StatelessWidget {
       ),
     );
   }
+}
 
-  void _navigateToDetailPage(BuildContext context, StyleModel catalogItem) {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => AboutPlaces(
-          item: catalogItem,
-          imageUrl: catalogItem.url,
-          // Agrega valores adicionales según sea necesario
-        ),
+void _navigateToDetailPage(BuildContext context, StyleModel catalogItem) {
+  Navigator.push(
+    context,
+    MaterialPageRoute(
+      builder: (context) => AboutPlaces(
+        item: catalogItem,
+        imageUrl: catalogItem.url,
+        // Agrega valores adicionales según sea necesario
       ),
-    );
-  }
+    ),
+  );
 }

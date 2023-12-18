@@ -6,6 +6,8 @@ import 'package:traknav_app/ui/presentation/home/widgets/acercaDe.dart';
 import 'package:traknav_app/ui/presentation/home/widgets/catalog.dart';
 import 'package:http/http.dart';
 import 'package:http/http.dart' as http;
+import 'package:location/location.dart';
+import '../widgets/aboutPlaces.dart';
 
 class RecomendedWidget extends StatefulWidget {
   const RecomendedWidget({Key? key}) : super(key: key);
@@ -17,14 +19,47 @@ class RecomendedWidget extends StatefulWidget {
 class _RecomendedWidgetState extends State<RecomendedWidget> {
   List<StyleModel> list = [];
   //creamos una lista para guardar la imagen de los lugares de la API de google
+//-----------PARA PODER OBTENER LA POSICIÓN--------------
+  Future<LocationData?> _getLocation() async {
+    final bool hasPermission = await checkPermissions();
+    if (!hasPermission) return null;
+    Location location = Location();
+    return await location.getLocation();
+  }
+
+  //------PARA VERIFICAR SI SE TIENEN PERMISOS PARA ACCEDER A LA LOCALIZACIÓN-------
+  Future<bool> checkPermissions() async {
+    bool serviceEnabled;
+    Location location = Location();
+    PermissionStatus permissionGranted;
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return false;
+      }
+    }
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        false;
+      }
+    }
+    return true;
+  }
 
   @override
   void initState() {
     super.initState();
-    fetchData();
+    _getLocation().then((position) {
+      // climaDataF = getClimaForecast(position);
+      fetchData(position);
+      setState(() {});
+    });
   }
 
-  Future<void> fetchData() async {
+  Future<void> fetchData(LocationData? location) async {
     // Tu lógica para obtener datos desde la API
     String url = 'https://places.googleapis.com/v1/places:searchNearby';
     // Los datos que enviarás en el cuerpo de la solicitud POST
@@ -41,7 +76,10 @@ class _RecomendedWidgetState extends State<RecomendedWidget> {
       "maxResultCount": 20,
       "locationRestriction": {
         "circle": {
-          "center": {"latitude": 19.50478, "longitude": -99.14631},
+          "center": {
+            "latitude": location?.latitude,
+            "longitude": location?.longitude
+          },
           "radius": 2000.0
         }
       }
@@ -52,7 +90,8 @@ class _RecomendedWidgetState extends State<RecomendedWidget> {
       'Content-Type': 'application/json',
       'X-Goog-Api-Key': 'AIzaSyBhlra2MNyBxGTRPayBfv5BomoclZseE8s',
       // Reemplaza 'API_KEY' con tu clave real
-      'X-Goog-FieldMask': 'places.id,places.displayName,places.photos',
+      'X-Goog-FieldMask':
+          'places.id,places.displayName,places.photos,places.regularOpeningHours,places.shortFormattedAddress,places.editorialSummary',
     };
 
     // Realiza la solicitud POST
@@ -67,8 +106,18 @@ class _RecomendedWidgetState extends State<RecomendedWidget> {
       if (response.statusCode == 200) {
         Map<String, dynamic> jsonData = json.decode(response.body);
         //imprimimos el json
-        //print('Respuesta exitosa: ${response.body}');
+        // print('Respuesta exitosa: ${response.body}');
+        //imprimimos la hora de apertura y cerrar del primer lugar
+        //imprimimos el editorialSummary del primer lugar en español
+        // print('${jsonData["places"][0]["editorialSummary"]["text"]}');
+        //imprimimos todos los editorialSummary de los lugares
+        //print('${jsonData["places"][2]["editorialSummary"]["text"]}');
+
+        //imprimos por adrFormatAddress
+        //imprimimos el address del primer lugar
+        // print('Address: ${jsonData["places"][0]["adrAddress"]}');
         // Iterar sobre los lugares en jsonData
+
         for (int i = 0; i < jsonData["places"].length; i++) {
           // Asegurarse de que haya fotos disponibles
           if (jsonData["places"][i]["photos"] != null &&
@@ -77,16 +126,31 @@ class _RecomendedWidgetState extends State<RecomendedWidget> {
             String photoReference = jsonData["places"][i]["photos"][0]["name"];
             String imageUrl = buildImageUrl(photoReference);
             String name = jsonData["places"][i]["displayName"]["text"];
-            print("Nombre: $name");
+            String openingHours =
+                "Abierto de ${jsonData["places"][i]["regularOpeningHours"]["periods"][0]["open"]["hour"]} a ${jsonData["places"][i]["regularOpeningHours"]["periods"][0]["close"]["hour"]}";
+            String address = jsonData["places"][i]["shortFormattedAddress"];
+            String editorialSummary;
+            if (jsonData["places"][i]["editorialSummary"] != null &&
+                jsonData["places"][i]["editorialSummary"]["text"] != null) {
+              // Acceder a "text" solo si está presente
+              editorialSummary =
+                  jsonData["places"][i]["editorialSummary"]["text"];
+            } else {
+              // Si "editorialSummary" no está presente, imprime un mensaje de advertencia
+              editorialSummary = "No hay descripción disponible";
+            }
+            //Abierto de ${ place['regularOpeningHours']['periods'][0]['open']['time']} a ${ place['regularOpeningHours']['periods'][0]['close']['time']}"; // Nueva línea
+            //print("Nombre: $name");
+            //print("Hora de apertura: $openingHours");
             setState(() {
               list.add(
                 StyleModel(
                   id: (list.length + 1).toString(), // Generar un nuevo ID único
                   url: imageUrl,
                   name: name,
-                  description: '',
-                  direction: '',
-                  schedule: '',
+                  description: editorialSummary,
+                  direction: address,
+                  schedule: openingHours,
                   boxShadow: [
                     BoxShadow(
                       color: Color.fromARGB(168, 131, 131, 131),
@@ -220,321 +284,11 @@ class _RecomendedWidgetState extends State<RecomendedWidget> {
     Navigator.push(
       context,
       MaterialPageRoute(
-        builder: (context) =>
-            AboutPlaces(item: list[index], imageUrl: list[index].url),
-      ),
-    );
-  }
-}
-
-class AboutPlaces extends StatelessWidget {
-  final StyleModel item;
-  final String imageUrl;
-
-  AboutPlaces({required this.item, required this.imageUrl});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(
-          'Nombre del museo',
-          style: TextStyle(
-            color: const Color.fromARGB(255, 0, 0, 0),
-            fontSize: 20.0,
-          ),
+        builder: (context) => AboutPlaces(
+          item: list[index],
+          imageUrl: list[index].url,
+          // Agrega valores adicionales según sea necesario
         ),
-        centerTitle: true,
-      ),
-      body: Stack(
-        children: [
-          //Direccion
-          Positioned(
-            top: 10,
-            left: 15,
-            right: 15,
-            child: Container(
-              height: 140,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(58, 172, 255, 1),
-                borderRadius: BorderRadius.circular(30.0),
-                //agregamos una sombra en la parte inferior
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(
-                        168, 131, 131, 131), // Color de la sombra
-                    blurRadius: 8.0, // Radio de difuminado
-                    spreadRadius: 1.0, // Radio de expansión
-                    offset: Offset(0, 0), // Desplazamiento en x y y
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Dirección',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  //agregamos un stack
-                  Stack(
-                    children: [
-                      //agregamos un texto en la parte central
-                      Positioned(
-                        child: Container(
-                          height: 98,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(153, 219, 255, 1),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'loremp ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies ultricies, nisl nisl ultr',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          //Descripcion
-          Positioned(
-            top: 190,
-            left: 15,
-            right: 15,
-            child: Container(
-              height: 167,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(58, 172, 255, 1),
-                borderRadius: BorderRadius.circular(30.0),
-                //agregamos una sombra en la parte inferior
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(
-                        168, 131, 131, 131), // Color de la sombra
-                    blurRadius: 8.0, // Radio de difuminado
-                    spreadRadius: 1.0, // Radio de expansión
-                    offset: Offset(0, 0), // Desplazamiento en x y y
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Descripción',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  //agregamos un stack
-                  Stack(
-                    children: [
-                      //agregamos un texto en la parte central
-                      Positioned(
-                        child: Container(
-                          height: 125,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(153, 219, 255, 1),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'loremp ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies ultricies, nisl nisl ultr',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          //Horario
-          Positioned(
-            bottom: 255,
-            left: 15,
-            right: 15,
-            child: Container(
-              height: 121,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(58, 172, 255, 1),
-                borderRadius: BorderRadius.circular(30.0),
-                //agregamos una sombra en la parte inferior
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(
-                        168, 131, 131, 131), // Color de la sombra
-                    blurRadius: 8.0, // Radio de difuminado
-                    spreadRadius: 1.0, // Radio de expansión
-                    offset: Offset(0, 0), // Desplazamiento en x y y
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Horario',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  //agregamos un stack
-                  Stack(
-                    children: [
-                      //agregamos un texto en la parte central
-                      Positioned(
-                        child: Container(
-                          height: 79,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(153, 219, 255, 1),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: Column(
-                            children: [
-                              Align(
-                                alignment: Alignment.topLeft,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Text(
-                                    'loremp ipsum dolor sit amet, consectetur adipiscing elit. Donec auctor, nisl eget ultricies ultricies, nisl nisl ultr',
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 15.0,
-                                    ),
-                                  ),
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-          //Galeria
-          Positioned(
-            bottom: 45,
-            left: 15,
-            right: 15,
-            child: Container(
-              height: 181,
-              decoration: BoxDecoration(
-                color: Color.fromRGBO(58, 172, 255, 1),
-                borderRadius: BorderRadius.circular(30.0),
-                //agregamos una sombra en la parte inferior
-                boxShadow: [
-                  BoxShadow(
-                    color: Color.fromARGB(
-                        168, 131, 131, 131), // Color de la sombra
-                    blurRadius: 8.0, // Radio de difuminado
-                    spreadRadius: 1.0, // Radio de expansión
-                    offset: Offset(0, 0), // Desplazamiento en x y y
-                  ),
-                ],
-              ),
-              child: Column(
-                children: [
-                  Align(
-                    alignment: Alignment.topCenter,
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        'Galeria',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                  ),
-                  //agregamos un stack
-                  Stack(
-                    children: [
-                      //agregamos un texto en la parte central
-                      Positioned(
-                        child: Container(
-                          height: 144,
-                          width: 390.0,
-                          decoration: BoxDecoration(
-                            color: Color.fromRGBO(153, 219, 255, 1),
-                            borderRadius: BorderRadius.circular(30.0),
-                          ),
-                          child: Column(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Image.network(
-                                  imageUrl,
-                                  height:
-                                      130.0, // Usar Image.network para cargar la imagen desde la URL
-                                ),
-                                // Puedes agregar más detalles según sea necesario
-                              ]),
-                        ),
-                      ),
-                    ],
-                  ),
-                ],
-              ),
-            ),
-          ),
-        ],
       ),
     );
   }

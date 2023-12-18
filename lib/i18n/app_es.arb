@@ -323,7 +323,10 @@
         "@tripplanlistu": {
         "description": "Lista de los planes de viaje-pendiente"
         },
-
+        "endTripPlan" : "Terminar plan de viaje",
+        "@endTripPlan": {
+        "description": "Terminar plan de viaje"
+        },
         "tripplantext1" : "Planifica tu viaje de manera fácil y eficiente.",
         "@tripplantext1": {
         "description": "Primer texto de crear plan de viaje"

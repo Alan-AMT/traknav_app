@@ -71,15 +71,12 @@ class _ExplorePlansPage extends State<ExplorePlansPage> {
                     borderRadius: BorderRadius.all(Radius.circular(10)),
                     border: Border.all(width: 1)),
 
-                ///placeholders for dropdown search field
-                countrySearchPlaceholder: "Country",
-                stateSearchPlaceholder: "City",
-                citySearchPlaceholder: "City",
-
-                ///labels for dropdown
-                countryDropdownLabel: "Country",
-                stateDropdownLabel: "City",
-                cityDropdownLabel: "City",
+                countrySearchPlaceholder: "País",
+                stateSearchPlaceholder: "Ciudad",
+                citySearchPlaceholder: "Ciudad",
+                countryDropdownLabel: "País",
+                stateDropdownLabel: "Ciudad",
+                cityDropdownLabel: "Ciudad",
 
                 ///selected item style [OPTIONAL PARAMETER]
                 selectedItemStyle: TextStyle(

@@ -34,7 +34,7 @@ class acercaDe extends StatelessWidget {
             top: 185.0, // Ajusta la posición del título
             left: 155.0,
             child: Text(
-              'TRACKNAV',
+              'TRAKNAV',
               style: TextStyle(
                 // color: Color.fromARGB(255, 0, 0, 0),
                 fontSize: 22.0,

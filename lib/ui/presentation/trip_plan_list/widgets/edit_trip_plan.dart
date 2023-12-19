@@ -417,12 +417,12 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
               disabledDropdownDecoration: BoxDecoration(
                   borderRadius: BorderRadius.all(Radius.circular(10)),
                   border: Border.all(width: 1)),
-              countrySearchPlaceholder: "Country",
-              stateSearchPlaceholder: "City",
-              citySearchPlaceholder: "City",
-              countryDropdownLabel: "Country",
-              stateDropdownLabel: "City",
-              cityDropdownLabel: "City",
+              countrySearchPlaceholder: "País",
+              stateSearchPlaceholder: "Ciudad",
+              citySearchPlaceholder: "Ciudad",
+              countryDropdownLabel: "País",
+              stateDropdownLabel: "Ciudad",
+              cityDropdownLabel: "Ciudad",
               selectedItemStyle: TextStyle(
                 fontSize: 14,
               ),

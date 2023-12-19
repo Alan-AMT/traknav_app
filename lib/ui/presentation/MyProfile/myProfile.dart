@@ -105,8 +105,9 @@ class _ProfilePageState extends State<ProfilePage> {
                       height: 140,
                       width: 140,
                       child: const CircleAvatar(
-                        backgroundImage:
-                            AssetImage('assets/MyProfile/yoyo.JPG'),
+                        child: Icon(Icons.person, size: 140),
+                        // backgroundImage:
+                        // AssetImage('assets/MyProfile/yoyo.JPG'),
                       ),
                     )),
                 //Botón de editar

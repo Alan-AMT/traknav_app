@@ -1,8 +1,7 @@
-import 'dart:ui';
-
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:intl/intl.dart';
 import 'package:location/location.dart';
@@ -100,6 +99,7 @@ class _TripDayPlaces extends State<TripDayPlaces> {
                       ),
                       GestureDetector(
                         onTap: () async {
+                          await EasyLoading.show();
                           final details = await dataSource.getPlaceDetails(
                               placeId: place["id"]);
                           final targetPosition = LatLng(
@@ -108,6 +108,7 @@ class _TripDayPlaces extends State<TripDayPlaces> {
                           final LocationData? currentLocation =
                               await _getLocation();
                           // ignore: use_build_context_synchronously
+                          await EasyLoading.dismiss();
                           context.router.push(MapDirectionsRoute(
                               destinyCoords: targetPosition,
                               sourceCoords: LatLng(

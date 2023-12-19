@@ -1,7 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/router/android.gr.dart';
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
@@ -16,6 +18,9 @@ class CreateTripPlanPage extends StatefulWidget {
 class _CreateTripPlanPage extends State<CreateTripPlanPage> {
   final daysKey = GlobalKey<FormBuilderState>();
   final DateTime minDate = DateTime.now();
+  String countryValue = "";
+  String cityValue = "";
+  String stateCityValue = "";
 
   @override
   Widget build(BuildContext context) {
@@ -131,6 +136,49 @@ class _CreateTripPlanPage extends State<CreateTripPlanPage> {
                           },
                         ])),
                   ])),
+              const SizedBox(height: 10),
+              CSCPicker(
+                showStates: true,
+                showCities: false,
+                flagState: CountryFlag.ENABLE,
+                dropdownDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(width: 1)),
+                disabledDropdownDecoration: BoxDecoration(
+                    borderRadius: BorderRadius.all(Radius.circular(10)),
+                    border: Border.all(width: 1)),
+                countrySearchPlaceholder: "Country",
+                stateSearchPlaceholder: "City",
+                citySearchPlaceholder: "City",
+                countryDropdownLabel: "Country",
+                stateDropdownLabel: "City",
+                cityDropdownLabel: "City",
+                selectedItemStyle: TextStyle(
+                  fontSize: 14,
+                ),
+                dropdownHeadingStyle:
+                    TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+                dropdownItemStyle: TextStyle(
+                  fontSize: 14,
+                ),
+                dropdownDialogRadius: 10.0,
+                searchBarRadius: 10.0,
+                onCountryChanged: (value) {
+                  setState(() {
+                    countryValue = value;
+                  });
+                },
+                onStateChanged: (value) {
+                  setState(() {
+                    stateCityValue = value ?? "";
+                  });
+                },
+                onCityChanged: (value) {
+                  setState(() {
+                    cityValue = value ?? "";
+                  });
+                },
+              ),
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
@@ -146,13 +194,20 @@ class _CreateTripPlanPage extends State<CreateTripPlanPage> {
   }
 
   void _onSubmit() {
+    if (stateCityValue == "") {
+      ToastApp.error(AppLocalizations.of(context)!.warningSelectCity);
+      return;
+    }
     if (daysKey.currentState?.saveAndValidate() ?? false) {
       final numberOfDays =
           int.parse(daysKey.currentState!.fields["days"]!.value);
       final DateTime startDate = daysKey.currentState!.fields["date"]!.value;
       final String name = daysKey.currentState!.fields["name"]!.value;
       AutoRouter.of(context).navigate(TripPlanCreatedRoute(
-          days: numberOfDays, startDate: startDate, name: name));
+          days: numberOfDays,
+          startDate: startDate,
+          name: name,
+          city: stateCityValue));
     }
   }
 }

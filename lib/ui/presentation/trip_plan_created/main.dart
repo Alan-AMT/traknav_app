@@ -15,11 +15,13 @@ class TripPlanCreatedPage extends StatefulWidget {
   final int days;
   final DateTime startDate;
   final String name;
+  final String city;
 
   const TripPlanCreatedPage(
       {Key? key,
       required this.days,
       required this.startDate,
+      required this.city,
       required this.name})
       : super(key: key);
 
@@ -257,6 +259,7 @@ class _TripPlanCreatedPageState extends State<TripPlanCreatedPage> {
                     await context.read<PlanDeViajeCubit>().createPlanDeViaje(
                         startDate: widget.startDate,
                         name: widget.name,
+                        city: widget.city,
                         tripDaysData: tripDaysData);
                     ToastApp.success("Tu plan de viaje ha sido creado");
                   } catch (e) {

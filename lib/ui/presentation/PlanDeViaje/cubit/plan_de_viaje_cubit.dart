@@ -1,26 +1,33 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:traknav_app/ui/config/toasts/main.dart';
 import 'package:traknav_app/ui/core/data/plan_de_viaje.dart';
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 
 part 'plan_de_viaje_state.dart';
 part 'plan_de_viaje_cubit.freezed.dart';
 
 abstract class IPlanDeViajeCubit {
-  Future<void> fetchCurrentPlanes();
+  Future<void> fetchCurrentPlanes({required BuildContext context});
   Future<void> createPlanDeViaje(
       {required DateTime startDate,
       required String name,
+      required String city,
       required Map<String, List<Map<String, dynamic>>> tripDaysData});
   Future<void> updatePlanDeViaje(
       {required DateTime startDate,
       required String name,
+      required String city,
       required String id,
       required Map<String, List<Map<String, dynamic>>> tripDaysData});
-  Future<void> fetchExpiredPlanes();
+  Future<void> fetchExpiredPlanes({required BuildContext context});
   Future<void> finishPlanDeViaje({required String id});
   Future<void> deletePlanDeViaje({required String id});
+  Future<void> fetchPopularPlans({required String city});
+  Future<void> copyPlanDeViaje({required PlanDeViaje plan});
+  void refreshPopularPlanes();
   Future<void> updatePlaceVisitedStatus(
       {required bool status,
       required int dayNumber,
@@ -34,7 +41,7 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
   PlanDeViajeCubit() : super(const PlanDeViajeState.initial());
 
   @override
-  Future<void> fetchCurrentPlanes() async {
+  Future<void> fetchCurrentPlanes({required BuildContext context}) async {
     emit(state.copyWith(isLoadinggPlanesDeViaje: true));
     try {
       final QuerySnapshot<Map<String, dynamic>> response =
@@ -46,14 +53,13 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
       final filtered = plans.where((plan) => !plan.completed).toList();
       emit(state.copyWith(isLoadinggPlanesDeViaje: false, planes: filtered));
     } catch (e) {
-      ToastApp.error(
-          "No pudimos obtener tus planes de viaje. Intenta de nuevo");
+      ToastApp.error(AppLocalizations.of(context)!.failedFetchPlans);
       emit(state.copyWith(isLoadinggPlanesDeViaje: false, planes: []));
     }
   }
 
   @override
-  Future<void> fetchExpiredPlanes() async {
+  Future<void> fetchExpiredPlanes({required BuildContext context}) async {
     emit(state.copyWith(isLoadinggPlanesDeViaje: true));
     try {
       final QuerySnapshot<Map<String, dynamic>> response =
@@ -65,8 +71,7 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
       emit(
           state.copyWith(isLoadinggPlanesDeViaje: false, expiredPlanes: plans));
     } catch (e) {
-      ToastApp.error(
-          "No pudimos obtener tus planes de viaje. Intenta de nuevo");
+      ToastApp.error(AppLocalizations.of(context)!.failedFetchPlans);
       emit(state.copyWith(isLoadinggPlanesDeViaje: false, expiredPlanes: []));
     }
   }
@@ -75,6 +80,7 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
   Future<void> createPlanDeViaje(
       {required DateTime startDate,
       required String name,
+      required String city,
       required Map<String, List<Map<String, dynamic>>> tripDaysData}) async {
     emit(state.copyWith(isCreatingPlanDeViaje: true));
     final endDate = startDate.add(Duration(days: tripDaysData.length - 1));
@@ -84,6 +90,7 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
         "endDate": endDate.millisecondsSinceEpoch,
         "startDate": startDate.millisecondsSinceEpoch,
         "name": name,
+        "city": city,
         "days": tripDaysData
       });
     } catch (e) {
@@ -96,6 +103,7 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
   Future<void> updatePlanDeViaje(
       {required DateTime startDate,
       required String name,
+      required String city,
       required String id,
       required Map<String, List<Map<String, dynamic>>> tripDaysData}) async {
     final endDate = startDate.add(Duration(days: tripDaysData.length - 1));
@@ -105,6 +113,7 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
         "endDate": endDate.millisecondsSinceEpoch,
         "startDate": startDate.millisecondsSinceEpoch,
         "name": name,
+        "city": city,
         "days": tripDaysData
       }, id: id);
     } catch (e) {
@@ -142,5 +151,52 @@ class PlanDeViajeCubit extends Cubit<PlanDeViajeState>
     newInfo[placeIndex]["visited"] = status;
     await PlanDeViajeDataSource.updatePlaceVisitedStatus(
         id: docId, arrayInfo: newInfo, dayNumber: dayNumber);
+  }
+
+  @override
+  Future<void> fetchPopularPlans({required String city}) async {
+    try {
+      final QuerySnapshot<Map<String, dynamic>> response =
+          await PlanDeViajeDataSource.fetchPopularPlans(city: city);
+      final plans = <PlanDeViaje>[];
+      for (final plan in response.docs) {
+        plans.add(PlanDeViaje.fromJson({...plan.data(), "id": plan.id}));
+      }
+      emit(state.copyWith(popularPlans: plans));
+    } catch (e) {
+      ToastApp.error(
+          "No pudimos obtener los planes de viaje. Intenta de nuevo");
+      emit(state.copyWith(popularPlans: []));
+    }
+  }
+
+  @override
+  Future<void> copyPlanDeViaje({required PlanDeViaje plan}) async {
+    final endDate = DateTime.now().add(Duration(days: plan.days.length - 1));
+    //Reset visited days to false
+    Map<String, List<Map<String, dynamic>>> resetedDays = {};
+    plan.days.keys.forEach((dayNumber) => resetedDays[dayNumber.toString()] =
+        plan.days[dayNumber]!
+            .map((place) => {...place, "visited": false})
+            .toList());
+    try {
+      await PlanDeViajeDataSource.createPlanDeViaje({
+        "completed": false,
+        "endDate": endDate.millisecondsSinceEpoch,
+        "startDate": DateTime.now().millisecondsSinceEpoch,
+        "name": "Copia de ${plan.name}",
+        "city": plan.city,
+        "days": resetedDays,
+      });
+      ToastApp.success("Plan de viaje copiado con éxito");
+    } catch (e) {
+      ToastApp.error("No pudimos crear tu plan de viaje. Intenta de nuevo");
+    }
+    emit(state.copyWith(isCreatingPlanDeViaje: false));
+  }
+
+  @override
+  void refreshPopularPlanes() {
+    emit(state.copyWith(popularPlans: []));
   }
 }

@@ -24,7 +24,7 @@ class _TripPlanListPage extends State<TripPlanListPage> {
   }
 
   void fetchCurrentPlanes() async {
-    await context.read<PlanDeViajeCubit>().fetchCurrentPlanes();
+    await context.read<PlanDeViajeCubit>().fetchCurrentPlanes(context: context);
   }
 
   @override

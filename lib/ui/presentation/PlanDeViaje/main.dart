@@ -25,7 +25,6 @@ class TripPlanPage extends StatelessWidget {
             ),
           ),
         ),
-        // backgroundColor: const Color.fromARGB(255, 255, 255, 255),
         body: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.center,
@@ -63,69 +62,132 @@ class TripPlanPage extends StatelessWidget {
             ),
             const SizedBox(height: 15),
             Container(
+              margin: EdgeInsets.symmetric(horizontal: 40),
               decoration: BoxDecoration(
                   color: state.isLightTheme ? Colors.white : Colors.black),
-              child: Center(
-                child: TextButton(
-                  onPressed: () {
-                    AutoRouter.of(context).navigate(CreateTripPlanRoute());
-                  },
-                  style: TextButton.styleFrom(
-                      backgroundColor: const Color(0xff0098FA),
-                      shape: const StadiumBorder()),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                    child: Text(AppLocalizations.of(context)!.createtripplan,
-                        style: const TextStyle(
-                          fontSize: 20,
-                          color: Colors.white,
-                          fontFamily: 'Nunito',
-                        )),
+              child: Row(children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      AutoRouter.of(context).navigate(CreateTripPlanRoute());
+                    },
+                    style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xff0098FA),
+                        shape: const StadiumBorder()),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Text(AppLocalizations.of(context)!.createtripplan,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Nunito',
+                          )),
+                    ),
                   ),
-                ),
-              ),
+                )
+              ]),
             ),
             const SizedBox(height: 15),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  AutoRouter.of(context)
-                      .navigate(TripPlanListRoute(tripDaysData: []));
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xff0098FA),
-                    shape: const StadiumBorder()),
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  child: Text(AppLocalizations.of(context)!.tripplanlist,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontFamily: 'Nunito',
-                      )),
-                ),
-              ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              decoration: BoxDecoration(
+                  color: state.isLightTheme ? Colors.white : Colors.black),
+              child: Row(children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      AutoRouter.of(context)
+                          .navigate(TripPlanListRoute(tripDaysData: []));
+                    },
+                    style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xff0098FA),
+                        shape: const StadiumBorder()),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Text(AppLocalizations.of(context)!.tripplanlist,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Nunito',
+                          )),
+                    ),
+                  ),
+                )
+              ]),
             ),
             const SizedBox(height: 15),
-            Center(
-              child: TextButton(
-                onPressed: () {
-                  AutoRouter.of(context).navigate(const TripPlanHistoryRoute());
-                },
-                style: TextButton.styleFrom(
-                    backgroundColor: const Color(0xff0098FA),
-                    shape: const StadiumBorder()),
-                child: Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 85, vertical: 15),
-                  child: Text(AppLocalizations.of(context)!.tripplanhistory,
-                      style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontFamily: 'Nunito',
-                      )),
-                ),
-              ),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              decoration: BoxDecoration(
+                  color: state.isLightTheme ? Colors.white : Colors.black),
+              child: Row(children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () {
+                      AutoRouter.of(context)
+                          .navigate(const TripPlanHistoryRoute());
+                    },
+                    style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xff0098FA),
+                        shape: const StadiumBorder()),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child: Text(AppLocalizations.of(context)!.tripplanhistory,
+                          maxLines: 2,
+                          overflow: TextOverflow.ellipsis,
+                          style: const TextStyle(
+                            fontSize: 20,
+                            color: Colors.white,
+                            fontFamily: 'Nunito',
+                          )),
+                    ),
+                  ),
+                )
+              ]),
+            ),
+            const SizedBox(height: 15),
+            Container(
+              margin: EdgeInsets.symmetric(horizontal: 40),
+              decoration: BoxDecoration(
+                  color: state.isLightTheme ? Colors.white : Colors.black),
+              child: Row(children: [
+                Expanded(
+                  child: TextButton(
+                    onPressed: () async {
+                      // final <Object?>[placeId, mainText, secText, ..._] =
+                      //     await showMaterialModalBottomSheet(
+                      //   context: context,
+                      //   expand: false,
+                      //   elevation: 10,
+                      //   isDismissible: true,
+                      //   builder: (context) => const MenuSelectCity(),
+                      // );
+                      AutoRouter.of(context)
+                          .navigate(const ExplorePlansRoute());
+                      // print(await PlanDeViajeDataSource.fetchPopularPlanes());
+                    },
+                    style: TextButton.styleFrom(
+                        backgroundColor: const Color(0xff0098FA),
+                        shape: const StadiumBorder()),
+                    child: Padding(
+                      padding: EdgeInsets.symmetric(vertical: 15),
+                      child:
+                          Text(AppLocalizations.of(context)!.explorePlansButton,
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                              style: const TextStyle(
+                                fontSize: 20,
+                                color: Colors.white,
+                                fontFamily: 'Nunito',
+                              )),
+                    ),
+                  ),
+                )
+              ]),
             ),
           ],
         ),

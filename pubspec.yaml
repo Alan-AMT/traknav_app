@@ -63,6 +63,7 @@ dependencies:
   cached_network_image: ^3.3.0
   skeletons: ^0.0.3
   google_maps_webservice: 0.0.20-nullsafety.5
+  csc_picker: ^0.2.7
 
 dev_dependencies:
   flutter_test:

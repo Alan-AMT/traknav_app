@@ -25,7 +25,7 @@ class _TripPlanHistoryPage extends State<TripPlanHistoryPage> {
   }
 
   void fetchExpiredPlanes() async {
-    await context.read<PlanDeViajeCubit>().fetchExpiredPlanes();
+    await context.read<PlanDeViajeCubit>().fetchExpiredPlanes(context: context);
   }
 
   @override

@@ -467,10 +467,6 @@
         "@mensajelist2": {
         "description": "mensaje lista2"
         },
-        
-
-        
-
         "tripplanlists" : "Iniciar plan de viaje",
         "@tripplanlists": {
         "description": "Lista de los planes de viaje-pendiente"
@@ -479,11 +475,31 @@
         "@tripplanhistory": {
         "description": "Historial"
         },
-        "createPlanDialogTitle": "Plan generado exitosamente",
+        "createPlanDialogTitle": "Crear plan de viaje",
         "@createPlanDialogTitle": {
         "description": "cuadro de diálogo al crear el plan de viaje"
         },
-        "createPlanDialogMessage": "Podrás consultarlo en ''Mis planes de viaje''",
+        "warningSelectCity": "Por favor selecciona una ciudad",
+        "@warningSelectCity": {
+        "description": "Toastapp de seleccionar ciudad o no continuar"
+        },
+        "explorePlansButton": "Explorar planes",
+        "@explorePlansButton": {
+        "description": "Toastapp de seleccionar ciudad o no continuar"
+        },
+        "failedFetchPlans": "No pudimos obtener tus planes de viaje. Intenta de nuevo",
+        "@failedFetchPlans": {
+        "description": "fallo al obtener planes de viaje"
+        },
+        "searchPlans": "Buscar",
+        "@searchPlans": {
+        "description": "botón buscar planes populares"
+        },
+        "copyPlan": "Copiar plan",
+        "@copyPlan": {
+        "description": "botón copiar plan"
+        },
+        "createPlanDialogMessage": "Podrás editarlo en la sección ''Mis planes de viaje''",
         "@createPlanDialogMessage": {
         "description": "contenido del cuadro"
         },

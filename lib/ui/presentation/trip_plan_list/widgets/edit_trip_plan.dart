@@ -1,3 +1,4 @@
+import 'package:csc_picker/csc_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -25,6 +26,9 @@ class EditTripPlanPage extends StatefulWidget {
 class _EditTripPlanPage extends State<EditTripPlanPage> {
   Map<String, List<Map<String, dynamic>>> tripDaysData = {};
   final planKey = GlobalKey<FormBuilderState>();
+  String countryValue = "";
+  String cityValue = "";
+  String stateCityValue = "";
 
   @override
   void initState() {
@@ -230,14 +234,17 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
       ToastApp.error("Todos los días de tu plan deben tener lugares asignados");
       return;
     }
+    if (stateCityValue == "") {
+      ToastApp.error("Por favor selecciona una ciudad");
+      return;
+    }
     if (planKey.currentState?.saveAndValidate() ?? false) {
       showDialog(
         context: context,
         builder: (BuildContext dialogContext) {
           return AlertDialog(
-            title: Text(AppLocalizations.of(context)!.createPlanDialogTitle),
-            content:
-                Text(AppLocalizations.of(context)!.createPlanDialogMessage),
+            title: Text(AppLocalizations.of(context)!.edittripplan),
+            content: Text("Los datos de tu plan serán actualizados"),
             actions: <Widget>[
               TextButton(
                 child: Text(AppLocalizations.of(context)!.cancel),
@@ -255,6 +262,7 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
                         startDate:
                             planKey.currentState!.fields["startDate"]!.value,
                         name: planKey.currentState!.fields["name"]!.value,
+                        city: stateCityValue,
                         id: widget.plan.id,
                         tripDaysData: tripDaysData);
                     ToastApp.success("Tu plan de viaje ha sido actualizado");
@@ -398,6 +406,49 @@ class _EditTripPlanPage extends State<EditTripPlanPage> {
                       ])),
                   SizedBox(height: 10)
                 ])),
+            const SizedBox(height: 10),
+            CSCPicker(
+              showStates: true,
+              showCities: false,
+              flagState: CountryFlag.ENABLE,
+              dropdownDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 1)),
+              disabledDropdownDecoration: BoxDecoration(
+                  borderRadius: BorderRadius.all(Radius.circular(10)),
+                  border: Border.all(width: 1)),
+              countrySearchPlaceholder: "Country",
+              stateSearchPlaceholder: "City",
+              citySearchPlaceholder: "City",
+              countryDropdownLabel: "Country",
+              stateDropdownLabel: "City",
+              cityDropdownLabel: "City",
+              selectedItemStyle: TextStyle(
+                fontSize: 14,
+              ),
+              dropdownHeadingStyle:
+                  TextStyle(fontSize: 17, fontWeight: FontWeight.bold),
+              dropdownItemStyle: TextStyle(
+                fontSize: 14,
+              ),
+              dropdownDialogRadius: 10.0,
+              searchBarRadius: 10.0,
+              onCountryChanged: (value) {
+                setState(() {
+                  countryValue = value;
+                });
+              },
+              onStateChanged: (value) {
+                setState(() {
+                  stateCityValue = value ?? "";
+                });
+              },
+              onCityChanged: (value) {
+                setState(() {
+                  cityValue = value ?? "";
+                });
+              },
+            ),
             Expanded(
               child: ListView.builder(
                 itemCount: tripDaysData.length,

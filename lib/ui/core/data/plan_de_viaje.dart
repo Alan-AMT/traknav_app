@@ -11,6 +11,7 @@ part 'plan_de_viaje.g.dart';
 class PlanDeViaje {
   PlanDeViaje({
     required this.completed,
+    required this.city,
     required this.endDate,
     required this.startDate,
     required this.name,
@@ -26,6 +27,7 @@ class PlanDeViaje {
   final int endDate;
   final int startDate;
   final String name;
+  final String city;
   final String id;
   final Map<int, List<Map<String, dynamic>>> days;
 }
@@ -128,5 +130,18 @@ class PlanDeViajeDataSource {
         .collection("PlanDeViaje")
         .doc(id)
         .update({"days.$dayNumber": arrayInfo});
+  }
+
+  static Future<QuerySnapshot<Map<String, dynamic>>> fetchPopularPlans(
+      {required String city}) async {
+    final tripPlans = await FirebaseFirestore.instance
+        .collectionGroup('PlanDeViaje')
+        .where("city", isEqualTo: city)
+        .get();
+
+    // tripPlans.docs.map((e) => print(e.data()));
+    // print(tripPlans.docs.length);
+    // return {};
+    return tripPlans;
   }
 }
